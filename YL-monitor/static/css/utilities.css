@@ -1,0 +1,316 @@
+/* YL-Monitor 工具类样式模块 */
+/* 版本: 1.0.0 */
+
+/* ========== 显示/隐藏 ========== */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-grid { display: grid !important; }
+
+/* ========== 定位 ========== */
+.position-static { position: static !important; }
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+.position-sticky { position: sticky !important; }
+
+/* ========== Flexbox工具类 ========== */
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-row-reverse { flex-direction: row-reverse !important; }
+.flex-column-reverse { flex-direction: column-reverse !important; }
+
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse !important; }
+
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-center { justify-content: center !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-around { justify-content: space-around !important; }
+.justify-content-evenly { justify-content: space-evenly !important; }
+
+.align-items-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+.align-items-center { align-items: center !important; }
+.align-items-baseline { align-items: baseline !important; }
+.align-items-stretch { align-items: stretch !important; }
+
+.align-content-start { align-content: flex-start !important; }
+.align-content-end { align-content: flex-end !important; }
+.align-content-center { align-content: center !important; }
+.align-content-between { align-content: space-between !important; }
+.align-content-around { align-content: space-around !important; }
+.align-content-stretch { align-content: stretch !important; }
+
+.align-self-auto { align-self: auto !important; }
+.align-self-start { align-self: flex-start !important; }
+.align-self-end { align-self: flex-end !important; }
+.align-self-center { align-self: center !important; }
+.align-self-baseline { align-self: baseline !important; }
+.align-self-stretch { align-self: stretch !important; }
+
+.flex-grow-0 { flex-grow: 0 !important; }
+.flex-grow-1 { flex-grow: 1 !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+.flex-shrink-1 { flex-shrink: 1 !important; }
+
+/* ========== 间距工具类 ========== */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: var(--spacing-xs) !important; }
+.m-2 { margin: var(--spacing-sm) !important; }
+.m-3 { margin: var(--spacing-md) !important; }
+.m-4 { margin: var(--spacing-lg) !important; }
+.m-5 { margin: var(--spacing-xl) !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: var(--spacing-xs) !important; }
+.mt-2 { margin-top: var(--spacing-sm) !important; }
+.mt-3 { margin-top: var(--spacing-md) !important; }
+.mt-4 { margin-top: var(--spacing-lg) !important; }
+.mt-5 { margin-top: var(--spacing-xl) !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--spacing-xs) !important; }
+.mb-2 { margin-bottom: var(--spacing-sm) !important; }
+.mb-3 { margin-bottom: var(--spacing-md) !important; }
+.mb-4 { margin-bottom: var(--spacing-lg) !important; }
+.mb-5 { margin-bottom: var(--spacing-xl) !important; }
+
+.ml-0 { margin-left: 0 !important; }
+.ml-1 { margin-left: var(--spacing-xs) !important; }
+.ml-2 { margin-left: var(--spacing-sm) !important; }
+.ml-3 { margin-left: var(--spacing-md) !important; }
+.ml-4 { margin-left: var(--spacing-lg) !important; }
+.ml-5 { margin-left: var(--spacing-xl) !important; }
+
+.mr-0 { margin-right: 0 !important; }
+.mr-1 { margin-right: var(--spacing-xs) !important; }
+.mr-2 { margin-right: var(--spacing-sm) !important; }
+.mr-3 { margin-right: var(--spacing-md) !important; }
+.mr-4 { margin-right: var(--spacing-lg) !important; }
+.mr-5 { margin-right: var(--spacing-xl) !important; }
+
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: var(--spacing-xs) !important; margin-right: var(--spacing-xs) !important; }
+.mx-2 { margin-left: var(--spacing-sm) !important; margin-right: var(--spacing-sm) !important; }
+.mx-3 { margin-left: var(--spacing-md) !important; margin-right: var(--spacing-md) !important; }
+.mx-4 { margin-left: var(--spacing-lg) !important; margin-right: var(--spacing-lg) !important; }
+.mx-5 { margin-left: var(--spacing-xl) !important; margin-right: var(--spacing-xl) !important; }
+
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: var(--spacing-xs) !important; margin-bottom: var(--spacing-xs) !important; }
+.my-2 { margin-top: var(--spacing-sm) !important; margin-bottom: var(--spacing-sm) !important; }
+.my-3 { margin-top: var(--spacing-md) !important; margin-bottom: var(--spacing-md) !important; }
+.my-4 { margin-top: var(--spacing-lg) !important; margin-bottom: var(--spacing-lg) !important; }
+.my-5 { margin-top: var(--spacing-xl) !important; margin-bottom: var(--spacing-xl) !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: var(--spacing-xs) !important; }
+.p-2 { padding: var(--spacing-sm) !important; }
+.p-3 { padding: var(--spacing-md) !important; }
+.p-4 { padding: var(--spacing-lg) !important; }
+.p-5 { padding: var(--spacing-xl) !important; }
+
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: var(--spacing-xs) !important; }
+.pt-2 { padding-top: var(--spacing-sm) !important; }
+.pt-3 { padding-top: var(--spacing-md) !important; }
+.pt-4 { padding-top: var(--spacing-lg) !important; }
+.pt-5 { padding-top: var(--spacing-xl) !important; }
+
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: var(--spacing-xs) !important; }
+.pb-2 { padding-bottom: var(--spacing-sm) !important; }
+.pb-3 { padding-bottom: var(--spacing-md) !important; }
+.pb-4 { padding-bottom: var(--spacing-lg) !important; }
+.pb-5 { padding-bottom: var(--spacing-xl) !important; }
+
+.pl-0 { padding-left: 0 !important; }
+.pl-1 { padding-left: var(--spacing-xs) !important; }
+.pl-2 { padding-left: var(--spacing-sm) !important; }
+.pl-3 { padding-left: var(--spacing-md) !important; }
+.pl-4 { padding-left: var(--spacing-lg) !important; }
+.pl-5 { padding-left: var(--spacing-xl) !important; }
+
+.pr-0 { padding-right: 0 !important; }
+.pr-1 { padding-right: var(--spacing-xs) !important; }
+.pr-2 { padding-right: var(--spacing-sm) !important; }
+.pr-3 { padding-right: var(--spacing-md) !important; }
+.pr-4 { padding-right: var(--spacing-lg) !important; }
+.pr-5 { padding-right: var(--spacing-xl) !important; }
+
+.px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.px-1 { padding-left: var(--spacing-xs) !important; padding-right: var(--spacing-xs) !important; }
+.px-2 { padding-left: var(--spacing-sm) !important; padding-right: var(--spacing-sm) !important; }
+.px-3 { padding-left: var(--spacing-md) !important; padding-right: var(--spacing-md) !important; }
+.px-4 { padding-left: var(--spacing-lg) !important; padding-right: var(--spacing-lg) !important; }
+.px-5 { padding-left: var(--spacing-xl) !important; padding-right: var(--spacing-xl) !important; }
+
+.py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+.py-1 { padding-top: var(--spacing-xs) !important; padding-bottom: var(--spacing-xs) !important; }
+.py-2 { padding-top: var(--spacing-sm) !important; padding-bottom: var(--spacing-sm) !important; }
+.py-3 { padding-top: var(--spacing-md) !important; padding-bottom: var(--spacing-md) !important; }
+.py-4 { padding-top: var(--spacing-lg) !important; padding-bottom: var(--spacing-lg) !important; }
+.py-5 { padding-top: var(--spacing-xl) !important; padding-bottom: var(--spacing-xl) !important; }
+
+/* ========== 文本工具类 ========== */
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-justify { text-align: justify !important; }
+
+.text-lowercase { text-transform: lowercase !important; }
+.text-uppercase { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+.font-weight-light { font-weight: 300 !important; }
+.font-weight-normal { font-weight: 400 !important; }
+.font-weight-bold { font-weight: 700 !important; }
+
+.font-italic { font-style: italic !important; }
+
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+.text-info { color: var(--info-color) !important; }
+.text-light { color: var(--light-color) !important; }
+.text-dark { color: var(--dark-color) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-white { color: #fff !important; }
+
+/* ========== 背景工具类 ========== */
+.bg-primary { background-color: var(--primary-color) !important; }
+.bg-secondary { background-color: var(--secondary-color) !important; }
+.bg-success { background-color: var(--success-color) !important; }
+.bg-danger { background-color: var(--danger-color) !important; }
+.bg-warning { background-color: var(--warning-color) !important; }
+.bg-info { background-color: var(--info-color) !important; }
+.bg-light { background-color: var(--light-color) !important; }
+.bg-dark { background-color: var(--dark-color) !important; }
+.bg-white { background-color: #fff !important; }
+.bg-transparent { background-color: transparent !important; }
+
+/* ========== 边框工具类 ========== */
+.border { border: 1px solid var(--border-color) !important; }
+.border-0 { border: 0 !important; }
+.border-top { border-top: 1px solid var(--border-color) !important; }
+.border-bottom { border-bottom: 1px solid var(--border-color) !important; }
+.border-left { border-left: 1px solid var(--border-color) !important; }
+.border-right { border-right: 1px solid var(--border-color) !important; }
+
+.rounded { border-radius: var(--border-radius) !important; }
+.rounded-0 { border-radius: 0 !important; }
+.rounded-sm { border-radius: var(--radius-sm) !important; }
+.rounded-md { border-radius: var(--radius-md) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.rounded-full { border-radius: var(--radius-full) !important; }
+
+/* ========== 宽度/高度工具类 ========== */
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+.w-auto { width: auto !important; }
+
+.h-25 { height: 25% !important; }
+.h-50 { height: 50% !important; }
+.h-75 { height: 75% !important; }
+.h-100 { height: 100% !important; }
+.h-auto { height: auto !important; }
+
+.mw-100 { max-width: 100% !important; }
+.mh-100 { max-height: 100% !important; }
+
+/* ========== 溢出工具类 ========== */
+.overflow-auto { overflow: auto !important; }
+.overflow-hidden { overflow: hidden !important; }
+.overflow-visible { overflow: visible !important; }
+.overflow-scroll { overflow: scroll !important; }
+
+.overflow-x-auto { overflow-x: auto !important; }
+.overflow-x-hidden { overflow-x: hidden !important; }
+.overflow-y-auto { overflow-y: auto !important; }
+.overflow-y-hidden { overflow-y: hidden !important; }
+
+/* ========== 可见性工具类 ========== */
+.visible { visibility: visible !important; }
+.invisible { visibility: hidden !important; }
+
+/* ========== 阴影工具类 ========== */
+.shadow-none { box-shadow: none !important; }
+.shadow-sm { box-shadow: var(--box-shadow-sm) !important; }
+.shadow { box-shadow: var(--box-shadow) !important; }
+.shadow-md { box-shadow: var(--box-shadow-md) !important; }
+.shadow-lg { box-shadow: var(--box-shadow-lg) !important; }
+.shadow-xl { box-shadow: var(--box-shadow-xl) !important; }
+
+/* ========== 过渡工具类 ========== */
+.transition-none { transition: none !important; }
+.transition-fast { transition: var(--transition-fast) !important; }
+.transition-normal { transition: var(--transition-normal) !important; }
+.transition-slow { transition: var(--transition-slow) !important; }
+
+/* ========== 光标工具类 ========== */
+.cursor-auto { cursor: auto !important; }
+.cursor-pointer { cursor: pointer !important; }
+.cursor-default { cursor: default !important; }
+.cursor-not-allowed { cursor: not-allowed !important; }
+
+/* ========== 用户选择工具类 ========== */
+.user-select-none { user-select: none !important; }
+.user-select-all { user-select: all !important; }
+.user-select-auto { user-select: auto !important; }
+
+/* ========== 响应式工具类 ========== */
+@media (max-width: 768px) {
+    .d-sm-none { display: none !important; }
+    .d-sm-block { display: block !important; }
+    .d-sm-flex { display: flex !important; }
+    
+    .w-sm-100 { width: 100% !important; }
+    
+    .text-sm-left { text-align: left !important; }
+    .text-sm-center { text-align: center !important; }
+    .text-sm-right { text-align: right !important; }
+}
+
+@media (max-width: 480px) {
+    .d-xs-none { display: none !important; }
+    .d-xs-block { display: block !important; }
+    .d-xs-flex { display: flex !important; }
+}
+
+/* iPhone 12 特定工具类 (390px) */
+@media (max-width: 390px) {
+    .d-iphone-none { display: none !important; }
+    .d-iphone-block { display: block !important; }
+    .d-iphone-flex { display: flex !important; }
+    .d-iphone-grid { display: grid !important; }
+
+    .flex-iphone-column { flex-direction: column !important; }
+    .flex-iphone-wrap { flex-wrap: wrap !important; }
+
+    .text-iphone-center { text-align: center !important; }
+    .text-iphone-sm { font-size: 12px !important; }
+
+    .p-iphone-1 { padding: 4px !important; }
+    .p-iphone-2 { padding: 8px !important; }
+    .p-iphone-3 { padding: 12px !important; }
+
+    .m-iphone-1 { margin: 4px !important; }
+    .m-iphone-2 { margin: 8px !important; }
+    .m-iphone-3 { margin: 12px !important; }
+
+    .w-iphone-100 { width: 100% !important; }
+    .h-iphone-auto { height: auto !important; }
+
+    .rounded-iphone-sm { border-radius: 4px !important; }
+    .shadow-iphone-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important; }
+}

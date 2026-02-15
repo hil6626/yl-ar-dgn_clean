@@ -1,0 +1,20 @@
+
+YL-Monitor 监控告警
+
+{{ title }}
+
+级别: {{ level_display }}
+时间: {{ timestamp }}
+
+{{ message }}
+
+告警详情:
+- 规则名称: {{ rule_name }}
+- 监控指标: {{ metric_display }}
+- 当前值: {{ actual_value }}%
+- 阈值: {{ threshold }}%
+- 触发时间: {{ triggered_at }}
+
+请及时处理此告警。如有疑问，请联系系统管理员。
+
+此邮件由 YL-Monitor 系统自动发送，请勿回复。

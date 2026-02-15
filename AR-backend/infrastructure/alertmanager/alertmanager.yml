@@ -1,0 +1,134 @@
+# Alertmanager 配置
+# 
+# 功能:
+#   - 告警路由
+#   - 通知渠道配置
+#   - 告警抑制和分组
+
+global:
+  resolve_timeout: 5m
+  http_config:
+    basic_auth:
+      username: alertmanager
+      password_file: /etc/alertmanager/auth_password
+  smtp_smarthost: '${SMTP_HOST:-localhost:25}'
+  smtp_from: 'alertmanager@ar-backend.local'
+  smtp_auth_username: '${SMTP_USER:-}'
+  smtp_auth_password_file: '${SMTP_PASSWORD_FILE:-}'
+  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
+  opsgenie_api_url: 'https://api.opsgenie.com/v2'
+  wechat_api_url: 'https://qyapi.weixin.qq.com/cgi-bin/'
+  victorops_api_url: 'https://alert.victorops.com/integrations/generic/20131114/v1/'
+
+# 路由配置
+route:
+  group_by: ['alertname', 'severity', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'default-receiver'
+  
+  # 子路由 - 按严重程度路由
+  routes:
+    # 严重告警 - 立即通知
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      group_wait: 0s
+      repeat_interval: 1h
+    
+    # 警告告警
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+      group_wait: 1m
+      repeat_interval: 6h
+    
+    # 服务特定告警
+    - match:
+        service: face-service
+      receiver: 'face-service-receiver'
+    
+    - match:
+        service: video-service
+      receiver: 'video-service-receiver'
+    
+    - match:
+        service: audio-service
+      receiver: 'audio-service-receiver'
+
+# 接收者配置
+receivers:
+  # 默认接收者
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'admin@ar-backend.local'
+        send_resolved: true
+    webhook_configs:
+      - url: 'http://webhook-server:5001/alerts'
+        send_resolved: true
+
+  # 严重告警接收者
+  - name: 'critical-receiver'
+    email_configs:
+      - to: 'admin@ar-backend.local,ops@ar-backend.local'
+        send_resolved: true
+    pagerduty_configs:
+      - service_key: '${PAGERDUTY_SERVICE_KEY}'
+        severity: critical
+        description: '{{ .GroupLabels.alertname }} - {{ .Annotations.summary }}'
+        details:
+          description: '{{ .Annotations.description }}'
+          summary: '{{ .GroupLabels.alertname }}'
+    webhook_configs:
+      - url: 'http://webhook-server:5001/alerts/critical'
+        send_resolved: true
+
+  # 警告告警接收者
+  - name: 'warning-receiver'
+    email_configs:
+      - to: 'admin@ar-backend.local'
+        send_resolved: true
+    webhook_configs:
+      - url: 'http://webhook-server:5001/alerts/warning'
+        send_resolved: true
+
+  # 服务特定接收者
+  - name: 'face-service-receiver'
+    webhook_configs:
+      - url: 'http://face-service:8001/api/alerts'
+        send_resolved: true
+
+  - name: 'video-service-receiver'
+    webhook_configs:
+      - url: 'http://video-service:8002/api/alerts'
+        send_resolved: true
+
+  - name: 'audio-service-receiver'
+    webhook_configs:
+      - url: 'http://audio-service:8003/api/alerts'
+        send_resolved: true
+
+# 抑制规则
+inhibit_rules:
+  # 当有严重告警时，抑制相同服务的警告告警
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'service']
+  
+  # 抑制重复告警
+  - source_match:
+      alertname: 'TargetDown'
+    target_match:
+      alertname: 'TargetDown'
+    equal: ['job']
+  
+  # 抑制节点告警
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['instance']
+

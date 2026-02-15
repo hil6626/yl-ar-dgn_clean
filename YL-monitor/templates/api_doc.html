@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="api-doc">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor API文档 - 交互式API文档中心">
+    <title data-i18n="api-doc.title">API文档 - 交互式API文档中心</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=8">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- API文档特定样式 -->
+
+    <link rel="stylesheet" href="/static/css/api-doc-optimized.css?v=9">
+    
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-api-doc">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- 控制塔头部 -->
+    <section id="api-header-mount" class="api-header-section"></section>
+    
+    <!-- 主内容区：两栏布局 -->
+    <div class="api-doc-container" data-page="api-doc">
+        <!-- 左侧导航栏（可折叠） -->
+        <aside id="api-sidebar-mount" class="api-sidebar"></aside>
+        
+        <!-- 右侧API详情内容区 -->
+        <main id="api-content-mount" class="api-main"></main>
+    </div>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    <div id="api-test-panel-mount" class="api-test-panel"></div>
+    
+    <!-- 代码高亮库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="platform">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor 夜灵多功能统一监控平台 - 系统首页">
+    <title>夜灵多功能统一监控平台</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=9">
+    
+    <!-- 平台首页特定样式 -->
+    <link rel="stylesheet" href="/static/css/platform-modern.css?v=9">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-platform">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- 主内容区挂载点 -->
+    <main id="main-content-mount" class="page-content">
+        <div class="platform-modern" data-page="platform">
+    <!-- 头部区域 -->
+    <header class="platform-header-modern fade-in">
+        <div class="header-content">
+            <h1 class="header-title">🚀 YL-Monitor 统一监控平台</h1>
+            <p class="header-subtitle">一站式系统监控、脚本管理、DAG编排与AR监控解决方案</p>
+        </div>
+    </header>
+
+    <!-- 功能模块网格 -->
+    <div class="modules-grid">
+        <!-- 仪表盘 -->
+        <a href="/dashboard" class="module-card slide-in">
+            <div class="module-icon">📊</div>
+            <h3 class="module-title">仪表盘</h3>
+            <p class="module-description">实时监控系统状态、资源使用情况和性能指标</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="dashboard-cpu">--</span>
+                    <span class="stat-label">CPU使用率</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="dashboard-mem">--</span>
+                    <span class="stat-label">内存使用率</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- API文档 -->
+        <a href="/api-doc" class="module-card slide-in">
+            <div class="module-icon">📚</div>
+            <h3 class="module-title">API文档</h3>
+            <p class="module-description">完整的API接口文档、测试工具和开发指南</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value">50+</span>
+                    <span class="stat-label">API接口</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">REST</span>
+                    <span class="stat-label">协议支持</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- DAG流水线 -->
+        <a href="/dag" class="module-card slide-in">
+            <div class="module-icon">🔄</div>
+            <h3 class="module-title">DAG流水线</h3>
+            <p class="module-description">可视化流程编排、任务调度和自动化工作流管理</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="dag-count">--</span>
+                    <span class="stat-label">活跃DAG</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">实时</span>
+                    <span class="stat-label">执行监控</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- 脚本管理 -->
+        <a href="/scripts" class="module-card slide-in">
+            <div class="module-icon">📜</div>
+            <h3 class="module-title">脚本管理</h3>
+            <p class="module-description">自动化脚本仓库、执行控制和日志分析中心</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="script-count">--</span>
+                    <span class="stat-label">可用脚本</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">定时</span>
+                    <span class="stat-label">轮询支持</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- AR监控 -->
+        <a href="/ar" class="module-card slide-in">
+            <div class="module-icon">🎥</div>
+            <h3 class="module-title">AR监控</h3>
+            <p class="module-description">AR-backend实时视频处理和人脸合成监控</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="ar-status">--</span>
+                    <span class="stat-label">节点状态</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">实时</span>
+                    <span class="stat-label">视频流</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- 告警中心 -->
+        <a href="/alerts" class="module-card slide-in">
+            <div class="module-icon">🔔</div>
+            <h3 class="module-title">告警中心</h3>
+            <p class="module-description">统一告警管理、规则配置和智能分析</p>
+            <div class="module-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="alert-count">--</span>
+                    <span class="stat-label">今日告警</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">智能</span>
+                    <span class="stat-label">分析引擎</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- 系统状态面板 -->
+    <div class="status-panel fade-in">
+        <div class="panel-header">
+            <h2 class="panel-title">系统健康状态</h2>
+            <span class="status-badge online">运行正常</span>
+        </div>
+        <div class="status-grid" id="system-status">
+            <div class="status-item">
+                <div class="status-icon cpu">💻</div>
+                <div class="status-info">
+                    <p class="status-label">CPU使用率</p>
+                    <p class="status-value" id="status-cpu">加载中...</p>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon memory">🧠</div>
+                <div class="status-info">
+                    <p class="status-label">内存使用率</p>
+                    <p class="status-value" id="status-memory">加载中...</p>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon disk">💾</div>
+                <div class="status-info">
+                    <p class="status-label">磁盘使用率</p>
+                    <p class="status-value" id="status-disk">加载中...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷操作区 -->
+    <div class="quick-actions-panel fade-in">
+        <div class="panel-header">
+            <h2 class="panel-title">快捷操作</h2>
+        </div>
+        <div class="actions-grid">
+            <button class="action-btn" data-action="run-quick-script" data-script="monitor_01_cpu_usage_monitor">
+                <span class="action-icon">🖥️</span>
+                <span class="action-label">CPU检测</span>
+            </button>
+            <button class="action-btn" data-action="run-quick-script" data-script="monitor_02_memory_usage_monitor">
+                <span class="action-icon">🧮</span>
+                <span class="action-label">内存检测</span>
+            </button>
+            <button class="action-btn" data-action="run-quick-script" data-script="monitor_03_disk_space_io_monitor">
+                <span class="action-icon">💿</span>
+                <span class="action-label">磁盘检测</span>
+            </button>
+            <button class="action-btn" data-action="run-quick-script" data-script="monitor_05_port_service_availability_check">
+                <span class="action-icon">🔌</span>
+                <span class="action-label">端口检查</span>
+            </button>
+        </div>
+        <pre id="quick-script-output" class="code-block" style="margin-top: 20px; display:none; background:#f7fafc; padding:15px; border-radius:8px; font-family:monospace;"></pre>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="platform-footer">
+        <p>夜灵多功能统一监控平台  © 2026 | 版本 1.0.6</p>
+        <p style="margin-top:5px; font-size:0.8rem;">访问地址: http://0.0.0.0:5500</p>
+    </footer>
+        </div>
+    </main>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+    
+    <!-- 页面特定脚本 -->
+    <script>
+// 平台首页数据加载
+async function loadPlatformData() {
+    try {
+        // 加载系统资源数据
+        const resourcesRes = await fetch('/api/v1/system/resources');
+        if (resourcesRes.ok) {
+            const resources = await resourcesRes.json();
+            document.getElementById('status-cpu').textContent = resources.cpu + '%';
+            document.getElementById('status-memory').textContent = resources.memory + '%';
+            document.getElementById('status-disk').textContent = resources.disk + '%';
+            document.getElementById('dashboard-cpu').textContent = resources.cpu + '%';
+            document.getElementById('dashboard-mem').textContent = resources.memory + '%';
+        }
+        
+        // 加载系统摘要
+        const summaryRes = await fetch('/api/summary');
+        if (summaryRes.ok) {
+            const summary = await summaryRes.json();
+            if (summary.scripts_count !== undefined) {
+                document.getElementById('script-count').textContent = summary.scripts_count;
+            }
+            if (summary.dags_count !== undefined) {
+                document.getElementById('dag-count').textContent = summary.dags_count;
+            }
+            if (summary.ar_nodes) {
+                const arStatus = summary.ar_nodes.online > 0 ? '在线' : '离线';
+                document.getElementById('ar-status').textContent = arStatus;
+            }
+        }
+    } catch (error) {
+        console.error('加载平台数据失败:', error);
+    }
+}
+
+// 平台首页快捷脚本执行函数
+async function platformRunQuickScript(scriptName) {
+    const output = document.getElementById('quick-script-output');
+    output.style.display = 'block';
+    output.textContent = '⏳ 执行中...';
+    
+    try {
+        const response = await fetch('/api/v1/scripts/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ script_name: scriptName, params: {} })
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            output.textContent = '✅ 执行成功!\n\n' + JSON.stringify(result, null, 2);
+        } else {
+            output.textContent = '❌ 执行失败: ' + (result.error || '未知错误');
+        }
+    } catch (error) {
+        output.textContent = '❌ 执行异常: ' + error.message;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 设置活动导航
+    if (window.setActiveNavLink) {
+        setActiveNavLink('platform');
+    }
+    
+    // 加载平台数据
+    loadPlatformData();
+    
+    // 定时刷新数据
+    setInterval(loadPlatformData, 30000);
+    
+    // 绑定快捷操作按钮事件（事件委托）
+    document.querySelector('.quick-actions-panel').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action="run-quick-script"]');
+        if (!btn) return;
+        
+        const scriptName = btn.dataset.script;
+        if (scriptName) {
+            platformRunQuickScript(scriptName);
+        }
+    });
+});
+</script>
+</body>
+</html>

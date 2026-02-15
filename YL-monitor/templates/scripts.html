@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="scripts">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor 脚本管理 - 自动化控制中心">
+    <title data-i18n="scripts.title">脚本管理 - 自动化控制中心</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=9">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- 脚本管理优化样式 -->
+    <link rel="stylesheet" href="/static/css/scripts-optimized.css?v=9">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-scripts">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- 脚本管理工作区 -->
+    <div class="scripts-workspace" data-page="scripts">
+        <!-- 页面头部：标题 + 操作按钮 -->
+        <section id="scripts-header" class="scripts-header"></section>
+        
+        <!-- 筛选控制栏 -->
+        <section id="scripts-filter-bar" class="scripts-filter-bar"></section>
+        
+        <!-- 批量操作工具栏 -->
+        <section id="scripts-batch-toolbar" class="scripts-batch-toolbar hidden"></section>
+        
+        <!-- 脚本卡片网格 -->
+        <section id="scripts-grid" class="scripts-grid-container"></section>
+        
+        <!-- 性能统计图表 -->
+        <section id="scripts-stats" class="scripts-stats-section"></section>
+    </div>
+    
+    <!-- 日志查看模态框 -->
+    <div id="logs-modal" class="modal-overlay hidden">
+        <div class="modal-content logs-modal-content">
+            <div class="modal-header">
+                <h3>执行日志</h3>
+                <button class="modal-close" id="close-logs-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="logs-container" id="logs-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+    
+    <!-- 脚本管理器 -->
+    <script type="module" src="/static/js/scripts-manager.js?v=1"></script>
+</body>
+</html>

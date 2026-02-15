@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YL-Monitor 监控报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label { color: #666; margin-top: 5px; }
+        .results { padding: 30px; }
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .status-ok { border-left: 4px solid #28a745; }
+        .status-error { border-left: 4px solid #dc3545; }
+        .status-missing { border-left: 4px solid #ffc107; }
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        .status-ok .status-icon { background: #d4edda; color: #155724; }
+        .status-error .status-icon { background: #f8d7da; color: #721c24; }
+        .status-missing .status-icon { background: #fff3cd; color: #856404; }
+        .result-info { flex: 1; }
+        .result-name { font-weight: 600; color: #333; }
+        .result-status { font-size: 0.9rem; color: #666; }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 YL-Monitor 监控报告</h1>
+            <p>生成时间: $(date '+%Y-%m-%d %H:%M:%S')</p>
+        </div>
+        <div class="summary">
+            <div class="stat-card">
+                <div class="stat-value">$TOTAL</div>
+                <div class="stat-label">总任务数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #28a745;">$SUCCESS</div>
+                <div class="stat-label">成功</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #dc3545;">$FAILED</div>
+                <div class="stat-label">失败</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #667eea;">$(awk "BEGIN {printf \"%.1f\", $SUCCESS/$TOTAL*100}")%</div>
+                <div class="stat-label">成功率</div>
+            </div>
+        </div>
+        <div class="results">
+            <h2 style="margin-bottom: 20px; color: #333;">执行详情</h2>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">01_cpu_usage_monitor.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">02_memory_usage_monitor.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">03_disk_space_io_monitor.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">04_system_load_process_monitor.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">05_port_service_availability_check.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">07_external_api_health_check.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+            <div class="result-item status-ok">
+                <div class="status-icon">✓</div>
+                <div class="result-info">
+                    <div class="result-name">10_log_anomaly_scan.py</div>
+                    <div class="result-status">状态: 成功</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>YL-Monitor 自动化监控系统 | 实时守护您的应用健康</p>
+        </div>
+    </div>
+</body>
+</html>

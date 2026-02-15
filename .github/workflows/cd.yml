@@ -1,0 +1,187 @@
+# YL-AR-DGN CD Pipeline
+
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: [CI Pipeline]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event.inputs.environment == 'staging' }}
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull latest images
+        run: |
+          docker-compose pull || true
+
+      - name: Deploy to Staging
+        run: |
+          echo "部署到预发布环境"
+          export ENVIRONMENT=staging
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh staging
+        env:
+          ENVIRONMENT: staging
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+
+      - name: Run smoke tests
+        run: |
+          echo "运行冒烟测试..."
+          curl -f http://localhost:8000/health || exit 1
+          curl -f http://localhost:3000/api/health || exit 1
+
+      - name: Notify deployment
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "text": "部署通知",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ 成功部署到预发布环境\n版本: ${{ github.sha }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: ${{ github.event.inputs.environment == 'production' }}
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tag images for production
+        run: |
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/ar-backend:${{ github.sha }} \
+            ${{ secrets.DOCKERHUB_USERNAME }}/ar-backend:latest
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/yl-monitor:${{ github.sha }} \
+            ${{ secrets.DOCKERHUB_USERNAME }}/yl-monitor:latest
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/user:${{ github.sha }} \
+            ${{ secrets.DOCKERHUB_USERNAME }}/user:latest
+
+      - name: Push production images
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ar-backend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/yl-monitor:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/user:latest
+
+      - name: Deploy to Production
+        run: |
+          echo "部署到生产环境"
+          export ENVIRONMENT=production
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh production
+        env:
+          ENVIRONMENT: production
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+
+      - name: Run smoke tests
+        run: |
+          echo "运行冒烟测试..."
+          curl -f https://api.example.com/health || exit 1
+          curl -f https://monitor.example.com/api/health || exit 1
+
+      - name: Notify production deployment
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "text": "生产环境部署",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🚀 成功部署到生产环境\n版本: ${{ github.sha }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  rollback:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.environment == 'rollback' }}
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Rollback to previous version
+        run: |
+          echo "执行回滚..."
+          chmod +x scripts/rollback.sh
+          ./scripts/rollback.sh production ${{ github.sha }}
+
+      - name: Notify rollback
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "text": "回滚通知",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🔄 已回滚到版本: ${{ github.sha }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+

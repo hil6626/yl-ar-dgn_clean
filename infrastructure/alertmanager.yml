@@ -1,0 +1,100 @@
+# Alertmanager配置文件
+# 用于管理报警通知和路由
+
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@yl-ar-dgn.local'
+
+# 路由配置
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'default'
+  
+  # 子路由配置
+  routes:
+    # 严重级别报警路由
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 0s
+      repeat_interval: 1h
+    
+    # 警告级别报警路由
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 10s
+      repeat_interval: 3h
+    
+    # 服务报警路由
+    - match:
+        component: service
+      receiver: 'service-alerts'
+    
+    # 数据库报警路由
+    - match:
+        component: database
+      receiver: 'database-alerts'
+
+# 接收者配置
+receivers:
+  # 默认接收者
+  - name: 'default'
+    webhook_configs:
+      - url: 'http://localhost:5001/alerts'
+        send_resolved: true
+  
+  # 严重报警接收者
+  - name: 'critical-alerts'
+    webhook_configs:
+      - url: 'http://localhost:5001/alerts/critical'
+        send_resolved: true
+      - url: 'https://hooks.slack.com/services/xxx/yyy/zzz'
+        send_resolved: true
+      - url: 'https://oapi.dingtalk.com/robot/send?access_token=xxx'
+        send_resolved: true
+    email_configs:
+      - to: 'admin@yl-ar-dgn.local'
+        send_resolved: true
+  
+  # 警告报警接收者
+  - name: 'warning-alerts'
+    webhook_configs:
+      - url: 'http://localhost:5001/alerts/warning'
+        send_resolved: true
+    email_configs:
+      - to: 'devops@yl-ar-dgn.local'
+        send_resolved: true
+  
+  # 服务报警接收者
+  - name: 'service-alerts'
+    webhook_configs:
+      - url: 'http://localhost:5001/alerts/service'
+        send_resolved: true
+  
+  # 数据库报警接收者
+  - name: 'database-alerts'
+    webhook_configs:
+      - url: 'http://localhost:5001/alerts/database'
+        send_resolved: true
+
+# 抑制规则
+inhibit_rules:
+  # 当服务不可用时，抑制相关资源报警
+  - source_match:
+      alertname: 'ServiceDown'
+    target_match:
+      severity: warning
+    equal: ['instance']
+  
+  # 当节点不可用时，抑制该节点上的容器报警
+  - source_match:
+      alertname: 'NodeDown'
+    target_match:
+      severity: warning
+    equal: ['instance']
+

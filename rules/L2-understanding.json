@@ -1,0 +1,77 @@
+{
+  "name": "L2 全局理解层",
+  "description": "yl-ar-dgn 的组件边界、运行形态与当前部署现实（含已知缺口）",
+  "version": "1.1.0",
+  "lastUpdated": "2026-02-09",
+  "architecture": {
+    "modules": [
+      {
+        "name": "AR-backend",
+        "type": "python",
+        "purpose": "后端核心能力：人脸/视频/音频处理、服务编排、脚本执行与告警（能力层为主，服务化入口仍需对齐）。",
+        "entrypoints": ["AR-backend/app/launcher.py"],
+        "notes": ["AR-backend/main.py 当前是 GUI 入口形态（非稳定服务入口），需在成熟度提升中修正。"]
+      },
+      {
+        "name": "YL-monitor",
+        "type": "static-web",
+        "purpose": "浏览器监控与可视化控制台（当前以静态页面为主，main.py/app.js 为占位）。",
+        "entrypoints": ["YL-monitor/index/index.html"]
+      },
+      {
+        "name": "scripts",
+        "type": "python",
+        "purpose": "自动化与运维脚本（监控、健康检查、资源监控、安全扫描等）。",
+        "entrypoints": ["scripts/scripts_manager.py", "scripts/monitor/monitor_router_refactored.py", "scripts/verify_start.sh"]
+      },
+      {
+        "name": "user",
+        "type": "python-gui",
+        "purpose": "本地 PyQt5 GUI 用户界面（桌面端交互入口），已优化路径管理、导入修复、状态上报。",
+        "entrypoints": ["user/main.py"],
+        "notes": ["user/main.py 已完成优化，支持路径自动发现和监控集成"]
+      },
+      {
+        "name": "api-map",
+        "type": "data",
+        "purpose": "API/节点映射与前后端契约（registry.json 当前为空，需要在成熟度提升中补齐）。",
+        "entrypoints": ["api-map/routes", "api-map/registry.json"]
+      }
+    ],
+    "runtimeTopology": {
+      "currentReality": [
+        "GUI 侧：运行 user/gui/gui.py（PyQt5）作为本地交互入口。",
+        "监控侧：主要以浏览器直接打开 YL-monitor/index/index.html 运行。",
+        "脚本侧：scripts/monitor 下提供监控与健康检查能力，但部分路由/脚本映射存在文件缺失或命名不一致。",
+        "后端侧：AR-backend 具备大量服务实现，但入口、路径检测与监控服务脚本仍有结构漂移。"
+      ],
+      "targetDirection": [
+        "单一后端服务入口（HTTP/WebSocket）+ 单一监控入口（Web UI）+ 统一脚本调度入口（scripts_manager）。",
+        "api-map/registry.json 作为前后端地址与能力注册中心。",
+        "rules/ 作为策略与约束的单一真相来源。"
+      ]
+    },
+    "dataFlow": [
+      "YL-monitor（浏览器）→ api-map（路由/节点映射）→ AR-backend（控制/状态接口）",
+      "scripts（健康检查/资源监控）→ logs/（落盘）→ YL-monitor（展示）",
+      "user（GUI）→ AR-backend（处理能力 / 本地接口，逐步对齐）"
+    ]
+  },
+  "knownGaps": [
+    "api-map/registry.json 为空，无法承载环境地址/端点注册。",
+    "部分监控路由/脚本映射引用了不存在的脚本文件（需对齐 scripts/monitor 实际文件）。",
+    "AR-backend/core/path_manager.py 的项目根目录判定与 yl-ar-dgn 当前结构不一致（需在成熟度提升阶段修正）。"
+  ],
+  "completedImprovements": [
+    "阶段1-监控整合：AR-backend监控服务、User-GUI状态上报、YL-monitor节点配置、统一监控面板、告警规则配置全部完成",
+    "阶段2-GUI优化：main.py入口、路径修复模块(path_manager.py)、GUI导入修复、服务客户端(monitor_client.py)、配置管理、启动脚本(start.sh/start.py)全部完成"
+  ],
+  "rules": [
+    {
+      "id": "maturity-default",
+      "condition": { "field": "deployment_maturity_level", "operator": "equals", "value": null },
+      "action": { "target": "deployment_maturity_level", "value": 1 },
+      "description": "未指定成熟度时默认为 Level 1（Local-Manual）"
+    }
+  ]
+}

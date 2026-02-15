@@ -1,0 +1,84 @@
+{
+  "id": "yl-monitor-prod-env",
+  "name": "YL-Monitor Production",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "https://yl-monitor.example.com",
+      "enabled": true
+    },
+    {
+      "key": "api_version",
+      "value": "v1",
+      "enabled": true
+    },
+    {
+      "key": "timeout",
+      "value": "60000",
+      "enabled": true
+    },
+    {
+      "key": "request_timeout",
+      "value": "60000",
+      "enabled": true
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "cpu_threshold",
+      "value": "85",
+      "enabled": true
+    },
+    {
+      "key": "memory_threshold",
+      "value": "95",
+      "enabled": true
+    },
+    {
+      "key": "disk_threshold",
+      "value": "90",
+      "enabled": true
+    },
+    {
+      "key": "script_category",
+      "value": "monitor",
+      "enabled": true
+    },
+    {
+      "key": "test_dag_id",
+      "value": "prod_dag",
+      "enabled": true
+    },
+    {
+      "key": "test_script_name",
+      "value": "01_cpu_usage_monitor.py",
+      "enabled": true
+    },
+    {
+      "key": "ar_scene",
+      "value": "production_scene",
+      "enabled": true
+    },
+    {
+      "key": "ar_resolution",
+      "value": "3840x2160",
+      "enabled": true
+    },
+    {
+      "key": "debug_mode",
+      "value": "false",
+      "enabled": true
+    },
+    {
+      "key": "ssl_verify",
+      "value": "true",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2024-01-01T00:00:00.000Z",
+  "_postman_exported_using": "Postman/10.0.0"
+}

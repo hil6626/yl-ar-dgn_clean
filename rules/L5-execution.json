@@ -1,0 +1,101 @@
+{
+  "name": "L5 执行层",
+  "description": "按部署成熟度分阶段的可执行清单（以“可验证 Gate”为验收口径）",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-04",
+  "executionPlans": {
+    "local-manual": {
+      "gates": ["entrypoints_exist", "basic_health_check"],
+      "phases": [
+        {
+          "name": "bootstrap",
+          "steps": [
+            "确认入口：user/gui/gui.py 可启动 GUI；YL-monitor/index/index.html 可打开；scripts/verify_start.sh 可运行",
+            "确认 logs/ 目录存在并可写",
+            "运行基础脚本：scripts/monitor/health_check.py、scripts/monitor/resource_monitor.py（如可用）"
+          ]
+        }
+      ]
+    },
+    "local-automated": {
+      "gates": ["scripts_mapping_consistent", "log_dirs_ready"],
+      "phases": [
+        {
+          "name": "contract-alignment",
+          "steps": [
+            "对齐脚本契约：路由/服务引用的脚本文件必须存在且可执行",
+            "统一脚本输出：支持 --json（或明确的输出约定）",
+            "补齐 api-map/registry.json 的 local/dev 地址与端点"
+          ]
+        }
+      ]
+    },
+    "singlehost-managed": {
+      "gates": ["process_supervision", "config_baseline", "rollback_plan"],
+      "phases": [
+        {
+          "name": "service-shaping",
+          "steps": [
+            "确定后端服务入口（统一 HTTP/WebSocket 服务，不与 GUI 入口混用）",
+            "引入进程守护（systemd 或 supervisord）与自动重启",
+            "建立配置基线：端口、路径、日志级别、依赖检查",
+            "准备回滚：版本备份、配置回滚、健康探测"
+          ]
+        }
+      ]
+    },
+    "containerized": {
+      "gates": ["container_build", "health_probe", "config_injection"],
+      "phases": [
+        {
+          "name": "container-baseline",
+          "steps": [
+            "提供可重复构建镜像（后端/监控可分别镜像化）",
+            "明确健康探针（/health 或脚本探针）",
+            "通过环境变量/挂载注入配置与 secrets"
+          ]
+        }
+      ]
+    },
+    "production-ready": {
+      "gates": ["metrics_alerts", "audit_trail", "slo_sla"],
+      "phases": [
+        {
+          "name": "observability",
+          "steps": [
+            "指标：关键资源、任务耗时、失败率、告警次数",
+            "日志：统一字段与关联 ID；保留周期与脱敏策略",
+            "审计：高风险操作留痕与回滚记录",
+            "降级：当资源超阈值或关键依赖不可用时有明确 fallback"
+          ]
+        }
+      ]
+    }
+  },
+  "automation": {
+    "scripts": [
+      "scripts/verify_start.sh",
+      "scripts/check_dependencies.py",
+      "scripts/check_scripts_integrity.py",
+      "scripts/validation/validate_rules_engine.py",
+      "scripts/validation/validate_entrypoints.py",
+      "scripts/monitor/health_check.py",
+      "scripts/monitor/resource_monitor.py",
+      "scripts/security/security_scan.py"
+    ]
+  },
+  "rules": [
+    {
+      "id": "completed-to-validated",
+      "condition": { "field": "phase", "operator": "equals", "value": "completed" },
+      "action": { "target": "status", "value": "validated" },
+      "description": "阶段标记完成后，自动将状态置为 validated"
+    },
+    {
+      "id": "timeout-warning",
+      "condition": { "field": "execution_time", "operator": "greater", "value": 30 },
+      "action": { "target": "alert", "value": "timeout_warning" },
+      "description": "执行超时发出警告（默认阈值 30 秒）"
+    }
+  ]
+}

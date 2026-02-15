@@ -1,0 +1,80 @@
+# YL-monitor 节点配置文件
+# 定义AR-backend和User-GUI监控节点
+
+nodes:
+  - node_id: 'ar-backend'
+    node_name: 'AR Backend Service'
+    node_type: 'ar-backend'
+    host: 'localhost'
+    port: 5501
+    health_endpoint: '/health'
+    status_endpoint: '/status'
+    metrics_endpoint: '/metrics'
+    check_interval: 30
+    timeout: 5
+    fail_threshold: 3
+
+  - node_id: 'user-gui'
+    node_name: 'User GUI Application'
+    node_type: 'user-gui'
+    host: 'localhost'
+    port: 5502
+    health_endpoint: '/health'
+    status_endpoint: '/status'
+    check_interval: 30
+    timeout: 5
+    fail_threshold: 3
+
+# 监控配置
+monitoring:
+  # 全局检查间隔（秒）
+  global_check_interval: 30
+  
+  # 健康检查超时（秒）
+  health_check_timeout: 5
+  
+  # 连续失败阈值
+  consecutive_fail_threshold: 3
+  
+  # 心跳超时倍数（检查间隔的倍数）
+  heartbeat_timeout_multiplier: 2
+  
+  # 是否启用自动注册
+  auto_register_enabled: true
+  
+  # 数据保留时间（天）
+  data_retention_days: 7
+
+# 告警配置
+alerts:
+  # 节点离线告警
+  node_offline:
+    enabled: true
+    severity: 'critical'
+    cooldown_minutes: 5
+    
+  # 服务异常告警
+  service_error:
+    enabled: true
+    severity: 'warning'
+    cooldown_minutes: 3
+    
+  # 性能阈值告警
+  performance:
+    enabled: true
+    severity: 'warning'
+    cpu_threshold: 80
+    memory_threshold: 85
+    disk_threshold: 90
+    cooldown_minutes: 10
+
+# WebSocket配置
+websocket:
+  # 更新推送间隔（秒）
+  push_interval: 5
+  
+  # 心跳检测间隔（秒）
+  ping_interval: 30
+  
+  # 连接超时（秒）
+  connection_timeout: 60

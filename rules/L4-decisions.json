@@ -1,0 +1,101 @@
+{
+  "name": "L4 决策层",
+  "description": "基于部署成熟度与任务上下文选择策略（先保证可运行，再逐步提升可重复/可观测/可回滚）",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-04",
+  "decisionMatrix": {
+    "priorityLevels": ["critical", "high", "medium", "low"],
+    "factors": ["impact", "urgency", "complexity", "resources", "deployment_maturity_level"]
+  },
+  "deploymentProfiles": [
+    {
+      "id": "local-manual",
+      "maturityLevel": 1,
+      "description": "手工运行：GUI + 静态监控页 + 手动脚本执行"
+    },
+    {
+      "id": "local-automated",
+      "maturityLevel": 2,
+      "description": "脚本化校验与执行：脚本映射/日志结构/健康检查可重复"
+    },
+    {
+      "id": "singlehost-managed",
+      "maturityLevel": 3,
+      "description": "单机受控：进程守护 + 配置基线 + 回滚方案"
+    },
+    {
+      "id": "containerized",
+      "maturityLevel": 4,
+      "description": "容器化：可重复构建与部署"
+    },
+    {
+      "id": "production-ready",
+      "maturityLevel": 5,
+      "description": "生产级：可观测/可追踪/可审计/可降级"
+    }
+  ],
+  "strategies": [
+    {
+      "id": "maturity-1-strategy",
+      "name": "Level 1 - 最小闭环",
+      "conditions": ["deployment_maturity_level == 1"],
+      "actions": ["document_entrypoints", "ensure_log_dirs", "basic_health_check"]
+    },
+    {
+      "id": "maturity-2-strategy",
+      "name": "Level 2 - 自动化一致性",
+      "conditions": ["deployment_maturity_level == 2"],
+      "actions": ["align_script_contracts", "validate_api_map_routes", "repeatable_checks"]
+    },
+    {
+      "id": "maturity-3-strategy",
+      "name": "Level 3 - 受控部署",
+      "conditions": ["deployment_maturity_level == 3"],
+      "actions": ["process_supervision", "config_baseline", "rollback_plan", "service_health_endpoints"]
+    },
+    {
+      "id": "maturity-4-strategy",
+      "name": "Level 4 - 容器化",
+      "conditions": ["deployment_maturity_level == 4"],
+      "actions": ["container_build", "config_injection", "health_probes"]
+    },
+    {
+      "id": "maturity-5-strategy",
+      "name": "Level 5 - 生产级",
+      "conditions": ["deployment_maturity_level == 5"],
+      "actions": ["metrics_alerts", "audit_trail", "graceful_degradation"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "select-profile-1",
+      "condition": { "field": "deployment_maturity_level", "operator": "equals", "value": 1 },
+      "action": { "target": "deployment_profile", "value": "local-manual" },
+      "description": "成熟度 1 选择 local-manual"
+    },
+    {
+      "id": "select-profile-2",
+      "condition": { "field": "deployment_maturity_level", "operator": "equals", "value": 2 },
+      "action": { "target": "deployment_profile", "value": "local-automated" },
+      "description": "成熟度 2 选择 local-automated"
+    },
+    {
+      "id": "select-profile-3plus",
+      "condition": { "field": "deployment_maturity_level", "operator": "greater_or_equal", "value": 3 },
+      "action": { "target": "process_supervision", "value": "required" },
+      "description": "成熟度 >= 3 需要进程守护"
+    },
+    {
+      "id": "containerize-4plus",
+      "condition": { "field": "deployment_maturity_level", "operator": "greater_or_equal", "value": 4 },
+      "action": { "target": "containerization", "value": true },
+      "description": "成熟度 >= 4 进入容器化轨道"
+    },
+    {
+      "id": "monitor-api-prefix",
+      "condition": { "field": "context", "operator": "contains", "value": "monitor-frontend" },
+      "action": { "target": "monitor_api_prefix", "value": "/monitor/api" },
+      "description": "监控前端统一使用 /monitor/api 前缀（同源联调优先）"
+    }
+  ]
+}

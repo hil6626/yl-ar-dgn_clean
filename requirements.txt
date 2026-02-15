@@ -1,0 +1,45 @@
+# YL-Monitor Python Dependencies
+# Generated: 2025-02-05
+# Python Version: 3.12.3
+
+# FastAPI 框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Pydantic 数据验证
+pydantic==2.5.0
+
+# 静态文件和模板
+aiofiles==23.2.1
+jinja2==3.1.4
+
+# WebSocket 支持
+websockets==12.0
+
+# 环境变量管理
+python-dotenv==1.0.0
+
+# 安全相关依赖 (Phase 7: 安全加固)
+cryptography==42.0.0          # AES-256-GCM 加密
+bcrypt==4.1.0                 # 密码哈希
+PyJWT==2.8.0                  # JWT Token 处理
+python-jose[cryptography]==3.3.0  # JWT 备用库
+
+# 数据库和缓存 (Phase 6: 性能优化)
+aiosqlite==0.19.0             # 异步 SQLite
+redis==5.0.0                  # Redis 缓存 (可选)
+
+# 可选：日志和监控
+# loguru==0.7.2
+# prometheus-client==0.19.0
+
+# PDF 生成
+weasyprint==61.2
+
+# 测试依赖
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-html==4.1.1
+httpx==0.25.2

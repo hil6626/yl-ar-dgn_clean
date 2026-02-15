@@ -1,0 +1,510 @@
+# AR Backend - 优化 Docker Compose 配置
+# 
+# 部署命令:
+#   开发环境: docker compose -f docker-compose.optimized.yml up -d
+#   GPU支持:  docker compose -f docker-compose.optimized.yml --profile gpu up -d
+#
+# 服务说明:
+#   - face-service:  人脸合成服务 (端口 8001)
+#   - video-service: 视频处理服务 (端口 8002)  
+#   - audio-service: 音频合成服务 (端口 8003)
+#   - monitor-service: 监控服务 (端口 8004)
+#   - scheduler-service: 任务调度服务 (端口 8005)
+
+version: '3.8'
+
+services:
+  # =========================================================================
+  # API Gateway - Nginx 负载均衡
+  # =========================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: ar-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./infrastructure/nginx/ssl:/etc/nginx/ssl:ro
+      - ./static:/var/www/static:ro
+    networks:
+      - ar-internal
+      - ar-external
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      face-service:
+        condition: service_healthy
+      video-service:
+        condition: service_healthy
+      audio-service:
+        condition: service_healthy
+      monitor-service:
+        condition: service_healthy
+
+  # =========================================================================
+  # Face Service - 人脸合成服务
+  # =========================================================================
+  face-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.face-service
+      args:
+        SERVICE_NAME: face-service
+        BASE_IMAGE: python:3.10-slim
+    container_name: ar-face-service
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - SERVICE_NAME=face-service
+      - REDIS_URL=redis://redis:6379/0
+      - MQ_URL=rabbitmq://rabbitmq:5672/
+      - AR_LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AR_MONITOR_PORT=8001
+      - GPU_ENABLED=${GPU_ENABLED:-false}
+    volumes:
+      - ./logs/face-service:/app/logs
+      - ./data/faces:/app/data/faces
+      - ./models:/app/models:ro
+      - ./integrations/Deep-Live-Cam:/app/integrations/Deep-Live-Cam:ro
+      - ./integrations/DeepFaceLab:/app/integrations/DeepFaceLab:ro
+      - ./integrations/faceswap:/app/integrations/faceswap:ro
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8001/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    profiles:
+      - face
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${GPU_COUNT:-1}
+              capabilities: [gpu]
+        limits:
+          cpus: '4'
+          memory: 8G
+
+  # =========================================================================
+  # Video Service - 视频处理服务
+  # =========================================================================
+  video-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.video-service
+      args:
+        SERVICE_NAME: video-service
+        BASE_IMAGE: python:3.10-slim
+    container_name: ar-video-service
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      - SERVICE_NAME=video-service
+      - REDIS_URL=redis://redis:6379/0
+      - MQ_URL=rabbitmq://rabbitmq:5672/
+      - AR_LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AR_MONITOR_PORT=8002
+      - GPU_ENABLED=${GPU_ENABLED:-false}
+    volumes:
+      - ./logs/video-service:/app/logs
+      - ./data/videos:/app/data/videos
+      - ./integrations/obs-studio:/app/integrations/obs-studio:ro
+      - ./integrations/opencv:/app/integrations/opencv:ro
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8002/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    profiles:
+      - video
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${GPU_COUNT:-1}
+              capabilities: [gpu]
+        limits:
+          cpus: '4'
+          memory: 8G
+
+  # =========================================================================
+  # Audio Service - 音频合成服务
+  # =========================================================================
+  audio-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.audio-service
+      args:
+        SERVICE_NAME: audio-service
+        BASE_IMAGE: python:3.10-slim
+    container_name: ar-audio-service
+    restart: unless-stopped
+    ports:
+      - "8003:8003"
+    environment:
+      - SERVICE_NAME=audio-service
+      - REDIS_URL=redis://redis:6379/0
+      - MQ_URL=rabbitmq://rabbitmq:5672/
+      - AR_LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AR_MONITOR_PORT=8003
+    volumes:
+      - ./logs/audio-service:/app/logs
+      - ./data/audio:/app/data/audio
+      - ./integrations/sox:/app/integrations/sox:ro
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8003/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    profiles:
+      - audio
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  # =========================================================================
+  # Monitor Service - 监控服务
+  # =========================================================================
+  monitor-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitor-service
+      args:
+        SERVICE_NAME: monitor-service
+        BASE_IMAGE: python:3.10-slim
+    container_name: ar-monitor-service
+    restart: unless-stopped
+    ports:
+      - "8004:8004"
+      - "5000:5000"
+    environment:
+      - SERVICE_NAME=monitor-service
+      - REDIS_URL=redis://redis:6379/0
+      - PROMETHEUS_URL=http://prometheus:9090
+      - AR_LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AR_MONITOR_PORT=8004
+    volumes:
+      - ./logs:/app/logs:ro
+      - ./data/metrics:/app/data/metrics
+      - ./config:/app/config:ro
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8004/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      redis:
+        condition: service_healthy
+      prometheus:
+        condition: service_started
+    profiles:
+      - monitor
+
+  # =========================================================================
+  # Scheduler Service - 任务调度服务
+  # =========================================================================
+  scheduler-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.scheduler-service
+      args:
+        SERVICE_NAME: scheduler-service
+        BASE_IMAGE: python:3.10-slim
+    container_name: ar-scheduler-service
+    restart: unless-stopped
+    ports:
+      - "8005:8005"
+    environment:
+      - SERVICE_NAME=scheduler-service
+      - REDIS_URL=redis://redis:6379/0
+      - MQ_URL=rabbitmq://rabbitmq:5672/
+      - AR_LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AR_MONITOR_PORT=8005
+    volumes:
+      - ./logs/scheduler:/app/logs
+      - ./data/tasks:/app/data/tasks
+      - ./scripts:/app/scripts:ro
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8005/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    profiles:
+      - scheduler
+
+  # =========================================================================
+  # Redis Cache - 缓存服务
+  # =========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: ar-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - ar-internal
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --timeout 300
+      --tcp-keepalive 60
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # =========================================================================
+  # RabbitMQ - 消息队列
+  # =========================================================================
+  rabbitmq:
+    image: rabbitmq:3.12-alpine
+    container_name: ar-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER:-ar_user}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD:-ar_secret}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # =========================================================================
+  # Prometheus - 监控数据存储
+  # =========================================================================
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: ar-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - ar-internal
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--storage.tsdb.retention.size=10GB'
+      - '--web.enable-lifecycle'
+      - '--query.max-concurrency=10'
+      - '--query.timeout=2m'
+
+  # =========================================================================
+  # Grafana - 监控面板
+  # =========================================================================
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: ar-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infrastructure/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      - ar-internal
+    depends_on:
+      prometheus:
+        condition: service_started
+
+  # =========================================================================
+  # Alertmanager - 告警管理
+  # =========================================================================
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    container_name: ar-alertmanager
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./infrastructure/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager-data:/alertmanager
+    networks:
+      - ar-internal
+    command:
+      - '--config.file=/etc/prometheus/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--cluster.listen-address='
+
+  # =========================================================================
+  # Elasticsearch - 日志存储
+  # =========================================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: ar-elasticsearch
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - xpack.security.enabled=false
+      - xpack.http.cors.enabled=true
+      - xpack.http.cors.allow-origin=*
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - ar-internal
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =========================================================================
+  # Fluentd - 日志收集
+  # =========================================================================
+  fluentd:
+    image: fluent/fluentd-kubernetes-daemonset:v1.16-debian-elasticsearch8-1
+    container_name: ar-fluentd
+    restart: unless-stopped
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    environment:
+      - FLUENT_ELASTICSEARCH_HOST=elasticsearch
+      - FLUENT_ELASTICSEARCH_PORT=9200
+      - FLUENTD_SYSTEMD_EMIT=1
+    volumes:
+      - ./logs:/var/log/app:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    networks:
+      - ar-internal
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+# ============================================================================
+# 网络配置
+# ============================================================================
+networks:
+  ar-internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
+    internal: false
+
+  ar-external:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+          gateway: 172.29.0.1
+
+# ============================================================================
+# 存储卷配置
+# ============================================================================
+volumes:
+  redis-data:
+    driver: local
+    driver_opts:
+      size: 1G
+
+  rabbitmq-data:
+    driver: local
+    driver_opts:
+      size: 2G
+
+  prometheus-data:
+    driver: local
+    driver_opts:
+      size: 10G
+
+  grafana-data:
+    driver: local
+    driver_opts:
+      size: 1G
+
+  alertmanager-data:
+    driver: local
+    driver_opts:
+      size: 500M
+
+  elasticsearch-data:
+    driver: local
+    driver_opts:
+      size: 20G
+
+# ============================================================================
+# 扩展配置
+# ============================================================================
+x-restart-policy: &restart-policy
+  restart: unless-stopped
+  timeout: 30s
+
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 10s
+

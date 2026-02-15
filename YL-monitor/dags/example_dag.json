@@ -1,0 +1,12 @@
+{
+  "dag_id": "example_dag",
+  "nodes": [
+    {"id": "task1", "name": "task_1", "status": "pending"},
+    {"id": "task2", "name": "task_2", "status": "pending"},
+    {"id": "task3", "name": "task_3", "status": "pending"}
+  ],
+  "edges": [
+    {"from": "task1", "to": "task2"},
+    {"from": "task2", "to": "task3"}
+  ]
+}

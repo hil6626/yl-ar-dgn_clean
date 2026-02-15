@@ -1,0 +1,751 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-05T00:00:00Z",
+  "description": "YL-Monitor 脚本注册中心 - 脚本白名单",
+  "categories": {
+    "monitor": {
+      "name": "系统监控",
+      "description": "CPU、内存、磁盘、网络等实时监控",
+      "scripts": [
+        {
+          "id": "01",
+          "name": "CPU使用率监控",
+          "file": "monitor/01_cpu_usage_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "01"
+          },
+          "description": "实时监控CPU使用率，返回百分比和趋势"
+        },
+        {
+          "id": "02",
+          "name": "内存使用率监控",
+          "file": "monitor/02_memory_usage_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "02"
+          },
+          "description": "监控系统内存使用情况"
+        },
+        {
+          "id": "03",
+          "name": "磁盘空间与I/O监控",
+          "file": "monitor/03_disk_space_io_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "03"
+          },
+          "description": "监控磁盘空间和读写IOPS"
+        },
+        {
+          "id": "04",
+          "name": "系统负载与进程监控",
+          "file": "monitor/04_system_load_process_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "04"
+          },
+          "description": "监控load average和关键进程状态"
+        },
+        {
+          "id": "05",
+          "name": "端口服务可用性检查",
+          "file": "monitor/05_port_service_availability_check.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "05"
+          },
+          "description": "检查指定端口和服务是否可达"
+        },
+        {
+          "id": "06",
+          "name": "网络延迟与带宽监控",
+          "file": "monitor/06_network_latency_bandwidth_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "06"
+          },
+          "description": "测量网络延迟和带宽使用"
+        },
+        {
+          "id": "07",
+          "name": "外部API健康检查",
+          "file": "monitor/07_external_api_health_check.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "07"
+          },
+          "description": "检查外部API接口健康状态"
+        },
+        {
+          "id": "08",
+          "name": "Web应用可用性检测",
+          "file": "monitor/08_web_app_availability_check.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "08"
+          },
+          "description": "检测Web应用页面可用性"
+        },
+        {
+          "id": "09",
+          "name": "数据库连接与查询监控",
+          "file": "monitor/09_database_connection_query_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "09"
+          },
+          "description": "监控数据库连接池和查询性能"
+        },
+        {
+          "id": "10",
+          "name": "日志异常扫描",
+          "file": "monitor/10_log_anomaly_scan.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "10"
+          },
+          "description": "扫描日志文件检测异常模式"
+        },
+        {
+          "id": "13",
+          "name": "AR节点资源监控",
+          "file": "monitor/13_ar_node_resource_monitor.py",
+          "type": "monitor",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "13"
+          },
+          "description": "监控AR渲染节点GPU/CPU资源"
+        }
+      ]
+    },
+    "maintenance": {
+      "name": "系统维护",
+      "description": "系统巡检、备份、配置管理",
+      "scripts": [
+        {
+          "id": "11",
+          "name": "脚本执行状态监控",
+          "file": "maintenance/11_script_execution_status_monitor.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "11"
+          },
+          "description": "监控所有脚本的历史执行状态"
+        },
+        {
+          "id": "12",
+          "name": "DAG节点状态监控",
+          "file": "maintenance/12_dag_node_status_monitor.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "12"
+          },
+          "description": "监控DAG流水线各节点执行状态"
+        },
+        {
+          "id": "15",
+          "name": "定时巡检报告生成",
+          "file": "maintenance/15_scheduled_inspection_report.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "15"
+          },
+          "description": "生成系统健康巡检报告"
+        },
+        {
+          "id": "22",
+          "name": "系统更新补丁检查",
+          "file": "maintenance/22_system_update_patch_check.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "22"
+          },
+          "description": "检查系统和软件更新"
+        },
+        {
+          "id": "25",
+          "name": "文件备份归档",
+          "file": "maintenance/25_file_backup_archive.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "25"
+          },
+          "description": "备份重要文件和配置"
+        },
+        {
+          "id": "26",
+          "name": "日志异常归档",
+          "file": "maintenance/26_log_anomaly_archive.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "26"
+          },
+          "description": "归档异常日志便于分析"
+        },
+        {
+          "id": "30",
+          "name": "应用配置检查修复",
+          "file": "maintenance/30_app_config_check_repair.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "30"
+          },
+          "description": "检测并修复应用配置问题"
+        },
+        {
+          "id": "33",
+          "name": "自动归档回滚",
+          "file": "maintenance/33_auto_archive_rollback.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "33"
+          },
+          "description": "自动化归档与回滚机制"
+        },
+        {
+          "id": "36",
+          "name": "系统启动加速优化",
+          "file": "maintenance/36_boot_acceleration_optimize.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "36"
+          },
+          "description": "优化系统启动速度"
+        },
+        {
+          "id": "38",
+          "name": "数据库索引优化",
+          "file": "maintenance/38_db_index_optimize.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "38"
+          },
+          "description": "优化数据库索引提升查询性能"
+        },
+        {
+          "id": "39",
+          "name": "日志智能归类标签",
+          "file": "maintenance/39_log_classify_tagging.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "39"
+          },
+          "description": "智能归类日志并添加标签"
+        },
+        {
+          "id": "40",
+          "name": "历史数据压缩归档",
+          "file": "maintenance/40_history_data_compress_archive.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "40"
+          },
+          "description": "压缩归档历史数据节省空间"
+        },
+        {
+          "id": "41",
+          "name": "自动数据摘要",
+          "file": "maintenance/41_auto_data_summary.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "41"
+          },
+          "description": "自动生成数据统计摘要"
+        },
+        {
+          "id": "42",
+          "name": "服务依赖检测",
+          "file": "maintenance/42_service_dependency_detect.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "42"
+          },
+          "description": "检测服务间依赖关系"
+        },
+        {
+          "id": "44",
+          "name": "API负载测试",
+          "file": "maintenance/44_api_load_test.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "44"
+          },
+          "description": "对API进行压力测试"
+        },
+        {
+          "id": "52",
+          "name": "自动配置异常修复",
+          "file": "maintenance/52_auto_config_anomaly_fix.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "52"
+          },
+          "description": "自动检测并修复配置异常"
+        },
+        {
+          "id": "53",
+          "name": "多环境脚本同步",
+          "file": "maintenance/53_multi_env_script_sync.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "53"
+          },
+          "description": "同步不同环境的脚本配置"
+        },
+        {
+          "id": "54",
+          "name": "安全策略校验",
+          "file": "maintenance/54_security_policy_validate.py",
+          "type": "maintenance",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "54"
+          },
+          "description": "校验系统安全策略合规性"
+        }
+      ]
+    },
+    "optimize": {
+      "name": "性能优化",
+      "description": "清理、压缩、资源调度优化",
+      "scripts": [
+        {
+          "id": "16",
+          "name": "资源趋势分析",
+          "file": "optimize/16_resource_trend_analysis.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "16"
+          },
+          "description": "分析CPU/内存/磁盘使用趋势"
+        },
+        {
+          "id": "17",
+          "name": "磁盘垃圾清理",
+          "file": "optimize/17_disk_junk_cleanup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "17"
+          },
+          "description": "清理系统临时文件和垃圾",
+          "note": "默认dry-run模式，需要--apply参数执行真实清理"
+        },
+        {
+          "id": "18",
+          "name": "重复文件去重",
+          "file": "optimize/18_duplicate_file_dedup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "18"
+          },
+          "description": "检测并清理重复文件"
+        },
+        {
+          "id": "19",
+          "name": "缓存清理",
+          "file": "optimize/19_cache_cleanup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "19"
+          },
+          "description": "清理系统/浏览器/应用缓存"
+        },
+        {
+          "id": "20",
+          "name": "临时文件清理",
+          "file": "optimize/20_temp_file_cleanup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "20"
+          },
+          "description": "清理临时目录文件",
+          "note": "默认dry-run模式，需要--apply参数执行真实清理"
+        },
+        {
+          "id": "21",
+          "name": "日志轮转压缩",
+          "file": "optimize/21_log_rotate_compress.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "21"
+          },
+          "description": "轮转并压缩历史日志"
+        },
+        {
+          "id": "23",
+          "name": "数据库冗余清理",
+          "file": "optimize/23_db_redundant_data_cleanup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "23"
+          },
+          "description": "清理数据库冗余数据"
+        },
+        {
+          "id": "24",
+          "name": "缓存数据库维护",
+          "file": "optimize/24_cache_db_maintenance.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "24"
+          },
+          "description": "维护缓存数据库性能"
+        },
+        {
+          "id": "27",
+          "name": "应用临时数据清理",
+          "file": "optimize/27_app_temp_data_cleanup.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "27"
+          },
+          "description": "清理应用产生的临时数据"
+        },
+        {
+          "id": "28",
+          "name": "浏览器历史管理",
+          "file": "optimize/28_browser_history_management.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "28"
+          },
+          "description": "管理浏览器历史记录"
+        },
+        {
+          "id": "29",
+          "name": "服务缓存刷新",
+          "file": "optimize/29_service_cache_refresh.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "29"
+          },
+          "description": "刷新各服务的缓存数据"
+        },
+        {
+          "id": "31",
+          "name": "清理优化组合任务",
+          "file": "optimize/31_combo_cleanup_optimize.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "31"
+          },
+          "description": "组合多种清理优化任务"
+        },
+        {
+          "id": "32",
+          "name": "智能维护脚本",
+          "file": "optimize/32_smart_maintenance.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "32"
+          },
+          "description": "智能分析并执行维护任务"
+        },
+        {
+          "id": "34",
+          "name": "进程优先级调整",
+          "file": "optimize/34_process_priority_auto_adjust.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "34"
+          },
+          "description": "自动调整进程优先级"
+        },
+        {
+          "id": "35",
+          "name": "内存泄漏检测告警",
+          "file": "optimize/35_memory_leak_detect_alert.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "35"
+          },
+          "description": "检测内存泄漏并发送告警"
+        },
+        {
+          "id": "37",
+          "name": "CPU核心负载均衡",
+          "file": "optimize/37_cpu_core_load_balance.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "37"
+          },
+          "description": "均衡CPU核心负载"
+        },
+        {
+          "id": "43",
+          "name": "流量异常识别",
+          "file": "optimize/43_traffic_anomaly_detect.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "43"
+          },
+          "description": "智能识别网络流量异常"
+        },
+        {
+          "id": "45",
+          "name": "负载均衡调优",
+          "file": "optimize/45_load_balancer_tune.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "45"
+          },
+          "description": "调优负载均衡配置"
+        },
+        {
+          "id": "46",
+          "name": "任务依赖自动修复",
+          "file": "optimize/46_task_dependency_auto_fix.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "46"
+          },
+          "description": "自动修复DAG任务依赖问题"
+        },
+        {
+          "id": "47",
+          "name": "AR渲染节点调度",
+          "file": "optimize/47_ar_render_node_schedule.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "47"
+          },
+          "description": "调度AR渲染节点负载"
+        },
+        {
+          "id": "48",
+          "name": "脚本异常回滚",
+          "file": "optimize/48_script_failure_auto_rollback.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "48"
+          },
+          "description": "脚本执行异常时自动回滚"
+        },
+        {
+          "id": "49",
+          "name": "脚本优先级调度",
+          "file": "optimize/49_script_priority_scheduler.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "49"
+          },
+          "description": "智能调度脚本执行优先级"
+        },
+        {
+          "id": "50",
+          "name": "性能趋势预测",
+          "file": "optimize/50_performance_trend_predict.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "50"
+          },
+          "description": "预测系统性能趋势"
+        },
+        {
+          "id": "51",
+          "name": "智能清理策略生成",
+          "file": "optimize/51_smart_cleanup_policy_generate.py",
+          "type": "optimize",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "51"
+          },
+          "description": "生成智能资源清理策略"
+        }
+      ]
+    },
+    "alert": {
+      "name": "告警通知",
+      "description": "阈值告警与通知",
+      "scripts": [
+        {
+          "id": "14",
+          "name": "阈值告警通知",
+          "file": "alert/14_threshold_alert_notify.py",
+          "type": "alert",
+          "endpoint": "/api/scripts/run",
+          "methods": ["POST"],
+          "parameters": {
+            "script_id": "14"
+          },
+          "description": "基于阈值触发告警和通知"
+        }
+      ]
+    }
+  },
+  "tools": {
+    "name": "运维工具",
+    "description": "项目维护与部署工具",
+    "scripts": [
+      {
+        "id": "TOOL-001",
+        "name": "项目启动脚本",
+        "file": "tools/project_run.sh",
+        "type": "tool",
+        "usage": "bash scripts/project_run.sh"
+      },
+      {
+        "id": "TOOL-002",
+        "name": "Docker镜像构建",
+        "file": "tools/docker_build.sh",
+        "type": "tool",
+        "usage": "bash scripts/docker_build.sh"
+      },
+      {
+        "id": "TOOL-003",
+        "name": "Docker容器启动",
+        "file": "tools/docker_start.sh",
+        "type": "tool",
+        "usage": "bash scripts/docker_start.sh"
+      },
+      {
+        "id": "TOOL-004",
+        "name": "Docker容器停止",
+        "file": "tools/docker_stop.sh",
+        "type": "tool",
+        "usage": "bash scripts/docker_stop.sh"
+      },
+      {
+        "id": "TOOL-005",
+        "name": "清理旧文件",
+        "file": "tools/cleanup_old_files.py",
+        "type": "tool",
+        "usage": "python3 scripts/cleanup_old_files.py"
+      },
+      {
+        "id": "TOOL-006",
+        "name": "前端优化验证",
+        "file": "tools/verify_frontend_optimization.py",
+        "type": "tool",
+        "usage": "python3 scripts/verify_frontend_optimization.py"
+      },
+      {
+        "id": "TOOL-007",
+        "name": "静态资源验证",
+        "file": "tools/verify_static_resources.sh",
+        "type": "tool",
+        "usage": "bash scripts/verify_static_resources.sh"
+      },
+      {
+        "id": "TOOL-008",
+        "name": "部署验证",
+        "file": "tools/verify_deployment.py",
+        "type": "tool",
+        "usage": "python3 scripts/verify_deployment.py"
+      },
+      {
+        "id": "TOOL-009",
+        "name": "API功能测试",
+        "file": "tools/test_api_functionality.py",
+        "type": "tool",
+        "usage": "python3 scripts/test_api_functionality.py"
+      }
+    ]
+  }
+}
+

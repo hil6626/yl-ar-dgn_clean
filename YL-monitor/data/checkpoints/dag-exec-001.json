@@ -1,0 +1,14 @@
+{
+  "checkpoint_id": "dag-exec-001",
+  "timestamp": "2026-02-09 01:31:26.752760",
+  "state_data": {
+    "completed_nodes": [
+      "A",
+      "B"
+    ],
+    "current_node": "C"
+  },
+  "metadata": {
+    "dag_id": "dag-001"
+  }
+}

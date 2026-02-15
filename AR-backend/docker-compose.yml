@@ -1,0 +1,174 @@
+# AR Backend Docker Compose 配置
+# 
+# 使用方法:
+#   启动所有服务: docker compose up -d
+#   停止所有服务: docker compose down
+#   查看日志: docker compose logs -f
+#   查看状态: docker compose ps
+# 
+# 服务端口映射:
+#   - AR Backend: 8000
+#   - Redis: 6379
+#   - Prometheus: 9090
+#   - Grafana: 3000
+#   - Elasticsearch: 9200
+
+version: '3.8'
+
+services:
+  # AR Backend 主服务
+  ar-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ar-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - AR_ENV=production
+      - AR_LOG_LEVEL=INFO
+      - AR_MONITOR_PORT=8000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - ar-network
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # Redis 缓存服务
+  redis:
+    image: redis:7-alpine
+    container_name: ar-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - ar-network
+
+  # Prometheus 监控服务
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: ar-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - ar-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+
+  # Grafana 监控面板
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: ar-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning:ro
+    restart: unless-stopped
+    networks:
+      - ar-network
+    depends_on:
+      prometheus:
+        condition: service_started
+
+  # Fluentd 日志收集
+  fluentd:
+    image: fluent/fluentd-kubernetes-daemonset:v1.16-debian-elasticsearch8-1
+    container_name: ar-fluentd
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    environment:
+      - FLUENT_ELASTICSEARCH_HOST=elasticsearch
+      - FLUENT_ELASTICSEARCH_PORT=9200
+    volumes:
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    restart: unless-stopped
+    networks:
+      - ar-network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  # Elasticsearch 日志存储
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: ar-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    restart: unless-stopped
+    networks:
+      - ar-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Alertmanager 告警管理
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    container_name: ar-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./infrastructure/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager-data:/alertmanager
+    restart: unless-stopped
+    networks:
+      - ar-network
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+
+networks:
+  ar-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  alertmanager-data:
+    driver: local

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor AR监控 - 增强现实节点管理">
+    <title data-i18n="ar.title">AR监控 - 增强现实节点</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=9">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- AR监控优化样式 -->
+    <link rel="stylesheet" href="/static/css/ar-optimized.css?v=9">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-ar">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- AR监控布局 -->
+    <div class="sidebar-layout" data-page="ar">
+        <!-- 左侧边栏挂载点 -->
+        <aside id="sidebar-mount" class="sidebar-left"></aside>
+        
+        <!-- 主内容区挂载点 -->
+        <main id="main-content-mount" class="sidebar-main"></main>
+    </div>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+</body>
+</html>

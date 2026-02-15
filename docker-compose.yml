@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # AR-backend 服务
+  ar-backend:
+    build:
+      context: ./AR-backend
+      dockerfile: Dockerfile
+    container_name: ar-backend
+    ports:
+      - "5501:5501"
+    volumes:
+      - ./AR-backend/logs:/app/logs
+      - ./AR-backend/data:/app/data
+      - /dev/video0:/dev/video0
+    environment:
+      - FLASK_ENV=production
+      - LOG_LEVEL=INFO
+      - MONITOR_API_KEY=${MONITOR_API_KEY:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5501/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - ar-network
+
+  # YL-monitor 服务
+  yl-monitor:
+    build:
+      context: ./YL-monitor
+      dockerfile: Dockerfile
+    container_name: yl-monitor
+    ports:
+      - "5500:8000"
+    volumes:
+      - ./YL-monitor/logs:/app/logs
+      - ./YL-monitor/config:/app/config
+      - ./YL-monitor/data:/app/data
+    environment:
+      - YL_MONITOR_PORT=8000
+      - YL_MONITOR_HOST=0.0.0.0
+      - YL_MONITOR_WORKERS=2
+      - DATABASE_URL=sqlite:///data/monitor.db
+      - YL_MONITOR_LOG_LEVEL=info
+      - AR_BACKEND_URL=http://ar-backend:5501
+    depends_on:
+      ar-backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - ar-network
+
+  # User GUI 服务（可选，如果需要容器化）
+  user-gui:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    container_name: user-gui
+    ports:
+      - "5502:5502"
+    volumes:
+      - ./user/logs:/app/logs
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - PYTHONUNBUFFERED=1
+      - YL_MONITOR_URL=http://yl-monitor:8000
+      - AR_BACKEND_URL=http://ar-backend:5501
+    depends_on:
+      - ar-backend
+      - yl-monitor
+    restart: unless-stopped
+    networks:
+      - ar-network
+    # 注意：GUI应用需要X11转发，生产环境可能需要调整
+
+networks:
+  ar-network:
+    name: ar-network
+    driver: bridge
+
+volumes:
+  ar-backend-logs:
+  ar-backend-data:
+  yl-monitor-logs:
+  yl-monitor-data:
+  user-logs:

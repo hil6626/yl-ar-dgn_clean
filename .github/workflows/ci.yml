@@ -1,0 +1,163 @@
+# YL-AR-DGN CI Pipeline
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black mypy
+
+      - name: Lint with flake8
+        run: flake8 . --max-line-length=100 --ignore=E501,W503
+
+      - name: Format with black
+        run: black --check .
+
+      - name: Type check with mypy
+        run: mypy .
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov coverage
+          pip install -r AR-backend/requirements/requirements.txt
+
+      - name: Run unit tests
+        run: pytest --cov=. --cov-report=xml --cov-report=term test/
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Bandit security scan
+        uses: pypa/gh-action-bandit@v2
+        with:
+          level: low
+          exclude: ['test/', 'docs/']
+
+      - name: Run safety check
+        uses: pyupio/safety-action@v1
+        with:
+          api-key: ${{ secrets.SAFETY_API_KEY }}
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push AR-backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./AR-backend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ar-backend:${{ github.sha }}
+          load: true
+
+      - name: Build and push YL-monitor
+        uses: docker/build-push-action@v6
+        with:
+          context: ./YL-monitor
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/yl-monitor:${{ github.sha }}
+          load: true
+
+      - name: Build and push user module
+        uses: docker/build-push-action@v6
+        with:
+          context: ./user
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/user:${{ github.sha }}
+          load: true
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [lint, test, security-scan]
+    if: always()
+    steps:
+      - name: Send notification
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "text": "CI Pipeline 结果",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*CI Pipeline ${{ job.status }}*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*分支:*\n${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*提交:*\n${{ github.sha }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+

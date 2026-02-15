@@ -1,0 +1,60 @@
+{
+  "name": "L1 元目标层",
+  "description": "yl-ar-dgn 的最高优先级目标与演进方向（以部署成熟度为主轴可渐进收敛）",
+  "version": "1.1.0",
+  "lastUpdated": "2026-02-09",
+  "goals": [
+    {
+      "id": "run-min-loop",
+      "title": "最小可运行闭环",
+      "description": "至少在单机上可完成：启动 GUI / 打开监控页面 / 执行关键脚本（健康检查、资源监控）并产生日志。",
+      "priority": "critical",
+      "status": "active"
+    },
+    {
+      "id": "rules-driven",
+      "title": "规则驱动的一致性",
+      "description": "以 rules/ 为单一真相来源：约束、决策、执行流程能指导 scripts/、AR-backend/、YL-monitor/ 的协作，减少路径/脚本/接口漂移。",
+      "priority": "high",
+      "status": "active"
+    },
+    {
+      "id": "deployment-maturity",
+      "title": "部署成熟度渐进提升",
+      "description": "从 Level 1（手工单机）逐步演进到 Level 5（生产级可观测与可回滚），每一级都有可验证 Gate。",
+      "priority": "high",
+      "status": "active"
+    },
+    {
+      "id": "safety",
+      "title": "安全与可控",
+      "description": "默认安全（敏感信息不入库/不入仓库），高风险操作具备确认与回滚路径。",
+      "priority": "high",
+      "status": "active"
+    },
+    {
+      "id": "monitoring-integration",
+      "title": "监控整合完成",
+      "description": "AR-backend监控服务、User-GUI状态上报、YL-monitor节点配置、统一监控面板、告警规则配置全部完成并通过验证。",
+      "priority": "high",
+      "status": "completed",
+      "completedDate": "2026-02-09"
+    },
+    {
+      "id": "gui-optimization",
+      "title": "GUI优化完成",
+      "description": "User GUI优化全部完成：main.py入口、路径修复模块、GUI导入修复、服务客户端、配置管理、启动脚本、功能验证。",
+      "priority": "high",
+      "status": "completed",
+      "completedDate": "2026-02-09"
+    }
+  ],
+  "rules": [
+    {
+      "id": "deploy-boost-priority",
+      "condition": { "field": "action", "operator": "contains", "value": "deploy" },
+      "action": { "target": "priority", "value": "high" },
+      "description": "涉及部署/上线的工作默认高优先级处理"
+    }
+  ]
+}

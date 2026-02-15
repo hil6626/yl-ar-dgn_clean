@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="alerts">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor 告警中心 - 智能监控与告警管理">
+    <title data-i18n="alerts.title">告警中心 - 智能监控</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=8">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- 告警中心特定样式 -->
+
+    <link rel="stylesheet" href="/static/css/alert-center-optimized.css?v=9">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-alerts">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- 页面布局 -->
+    <div class="page-layout" data-page="alerts">
+        <!-- 统计卡片区域挂载点 -->
+        <section id="stats-cards-mount" class="mb-6"></section>
+        
+        <!-- 批量工具栏挂载点 -->
+        <section id="scripts-batch-toolbar" class="mb-4 hidden"></section>
+        
+        <!-- 标签导航挂载点（悬浮置顶） -->
+        <section id="tab-navigation-mount" class="tab-navigation-sticky mb-6"></section>
+        
+        <!-- 内容面板挂载点 -->
+        <section id="tab-content-mount"></section>
+    </div>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    <div id="notification-permission-mount" class="notification-permission-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+</body>
+</html>

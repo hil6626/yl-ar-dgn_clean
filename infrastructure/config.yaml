@@ -1,0 +1,70 @@
+# 基础设施配置文件
+# 包含日志、数据、备份和监控配置
+
+## 日志配置
+logs:
+  # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: INFO
+  # 日志轮转配置
+  rotation:
+    max_size: 100MB
+    backup_count: 7
+  # 日志格式
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  # 日志文件路径
+  paths:
+    backend: "logs/backend-logs/backend.log"
+    monitor: "logs/monitor-logs/monitor.log"
+    scripts: "logs/scripts-logs/scripts.log"
+    user: "logs/user-logs/user.log"
+
+## 数据目录配置
+data:
+  upload_dir: "data/uploads"
+  processed_dir: "data/processed"
+  export_dir: "data/exports"
+  temp_dir: "data/tmp"
+  max_upload_size: 100
+
+## 备份配置
+backups:
+  dir: "infrastructure/backups"
+  schedule: "daily"
+  retention:
+    daily: 7
+    weekly: 4
+    monthly: 12
+  compression:
+    enabled: true
+    format: "gz"
+
+## 监控配置
+monitoring:
+  enabled: true
+  interval: 60
+  thresholds:
+    cpu_warning: 70
+    cpu_critical: 90
+    memory_warning: 80
+    memory_critical: 95
+    disk_warning: 80
+    disk_critical: 90
+
+## 性能配置
+performance:
+  max_connections: 100
+  request_timeout: 30
+  db_pool_size: 10
+
+## 安全配置
+security:
+  api_key_length: 64
+  password_min_length: 8
+  session_timeout: 60
+  cors_enabled: true
+
+## 环境配置
+environment:
+  name: "development"
+  debug: true
+  log_level_override: null

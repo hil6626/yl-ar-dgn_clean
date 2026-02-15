@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端调试测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>前端调试测试</h1>
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        // 测试1: 检查必要的全局对象
+        addResult('开始前端调试测试...', 'info');
+
+        setTimeout(() => {
+            // 测试全局对象
+            if (typeof window.pageManager !== 'undefined') {
+                addResult('✅ PageManager 已加载', 'success');
+            } else {
+                addResult('❌ PageManager 未加载', 'error');
+            }
+
+            if (typeof window.moduleManager !== 'undefined') {
+                addResult('✅ ModuleManager 已加载', 'success');
+            } else {
+                addResult('❌ ModuleManager 未加载', 'error');
+            }
+
+            if (typeof window.OverviewModule !== 'undefined') {
+                addResult('✅ OverviewModule 已加载', 'success');
+            } else {
+                addResult('❌ OverviewModule 未加载', 'error');
+            }
+
+            if (typeof window.ScriptsModule !== 'undefined') {
+                addResult('✅ ScriptsModule 已加载', 'success');
+            } else {
+                addResult('❌ ScriptsModule 未加载', 'error');
+            }
+
+            if (typeof window.ResourceChartModule !== 'undefined') {
+                addResult('✅ ResourceChartModule 已加载', 'success');
+            } else {
+                addResult('❌ ResourceChartModule 未加载', 'error');
+            }
+
+            if (typeof window.LogsModule !== 'undefined') {
+                addResult('✅ LogsModule 已加载', 'success');
+            } else {
+                addResult('❌ LogsModule 未加载', 'error');
+            }
+
+            if (typeof window.BubbleDetectModule !== 'undefined') {
+                addResult('✅ BubbleDetectModule 已加载', 'success');
+            } else {
+                addResult('❌ BubbleDetectModule 未加载', 'error');
+            }
+
+            // 测试导航元素
+            const navItems = document.querySelectorAll('.nav-item');
+            addResult(`找到 ${navItems.length} 个导航项`, navItems.length > 0 ? 'success' : 'error');
+
+            // 测试页面容器
+            const pages = document.querySelectorAll('.page-content');
+            addResult(`找到 ${pages.length} 个页面容器`, pages.length > 0 ? 'success' : 'error');
+
+            // 测试CSS
+            const bodyStyle = getComputedStyle(document.body);
+            const overflow = bodyStyle.overflow;
+            addResult(`Body overflow: ${overflow}`, overflow.includes('auto') || overflow.includes('scroll') ? 'success' : 'error');
+
+            addResult('调试测试完成', 'info');
+        }, 1000);
+    </script>
+
+    <!-- 加载实际的脚本 -->
+    <script src="/static/js/api-config.js"></script>
+    <script src="/static/modules/module-manager.js"></script>
+    <script src="/static/js/websocket-manager.js"></script>
+    <script src="/static/modules/overview-module.js"></script>
+    <script src="/static/modules/scripts-module.js"></script>
+    <script src="/static/modules/resource-chart-module.js"></script>
+    <script src="/static/modules/logs-module.js"></script>
+    <script src="/static/modules/bubble-detect-module.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/page-manager.js"></script>
+    <script src="/static/js/app-init.js"></script>
+</body>
+</html>

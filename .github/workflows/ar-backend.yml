@@ -1,0 +1,270 @@
+name: AR Backend CI/CD
+
+# AR Backend 持续集成和持续部署工作流
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'AR-backend/**'
+      - '.github/workflows/ar-backend.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'AR-backend/**'
+      - '.github/workflows/ar-backend.yml'
+
+env:
+  DOCKER_BUILDKIT: 1
+  BUILDKIT_PROGRESS: plain
+
+jobs:
+  # ============ 阶段1: 代码检查 ============
+  lint:
+    name: 代码检查
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: 安装检查工具
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black mypy
+
+      - name: 运行代码检查
+        run: |
+          echo "=== Python 语法检查 ==="
+          python -m py_compile AR-backend/app/launcher.py AR-backend/main.py
+          echo "✅ Python 语法检查通过"
+
+      - name: 检查文件结构
+        run: |
+          echo "=== 检查必要文件 ==="
+          for file in AR-backend/app/launcher.py AR-backend/main.py AR-backend/requirements/requirements.txt; do
+            if [ -f "$file" ]; then
+              echo "✅ $file 存在"
+            else
+              echo "❌ $file 不存在"
+              exit 1
+            fi
+          done
+
+  # ============ 阶段2: Docker 构建 ============
+  build:
+    name: 构建 Docker 镜像
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 构建 Docker 镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: ./AR-backend
+          push: false
+          tags: |
+            yl-ar-dgn/ar-backend:test
+            yl-ar-dgn/ar-backend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          load: true
+
+      - name: 验证镜像
+        run: |
+          echo "=== 镜像信息 ==="
+          docker images yl-ar-dgn/ar-backend
+          echo ""
+          echo "镜像大小: $(docker images yl-ar-dgn/ar-backend --format '{{.Size}}')"
+
+  # ============ 阶段3: 安全扫描 ============
+  security:
+    name: 安全扫描
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安全扫描
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: './AR-backend'
+          severity: 'CRITICAL,HIGH'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: 上传扫描结果
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # ============ 阶段4: 测试 (可选) ============
+  test:
+    name: 运行测试
+    runs-on: ubuntu-latest
+    needs: build
+    if: false  # 根据需要启用
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 安装依赖
+        run: |
+          cd AR-backend
+          pip install -r requirements/requirements.txt
+          pip install pytest pytest-cov
+
+      - name: 运行测试
+        run: |
+          cd AR-backend
+          python -m pytest test/ -v --cov=. --cov-report=xml || true
+
+      - name: 上传覆盖率
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+
+  # ============ 阶段5: 部署到开发环境 ============
+  deploy-dev:
+    name: 部署到开发环境
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    environment:
+      name: development
+      url: https://dev.ar.example.com
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 构建并推送镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: ./AR-backend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY }}/yl-ar-dgn/ar-backend:dev-${{ github.sha }}
+            ${{ secrets.DOCKER_REGISTRY }}/yl-ar-dgn/ar-backend:latest-dev
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 部署到服务器
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USER }}
+          key: ${{ secrets.DEV_SSH_KEY }}
+          script: |
+            cd /opt/ar-backend
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
+
+      - name: 验证部署
+        run: |
+          echo "等待服务启动..."
+          sleep 10
+          echo "检查服务状态..."
+          curl -f https://dev.ar.example.com/health || echo "健康检查可能需要更多时间"
+
+  # ============ 阶段6: 部署到生产环境 ============
+  deploy-prod:
+    name: 部署到生产环境
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://ar.example.com
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 构建并推送镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: ./AR-backend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY }}/yl-ar-dgn/ar-backend:${{ github.sha }}
+            ${{ secrets.DOCKER_REGISTRY }}/yl-ar-dgn/ar-backend:latest
+            ${{ secrets.DOCKER_REGISTRY }}/yl-ar-dgn/ar-backend:${{ github.run_number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 部署到生产服务器
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            cd /opt/ar-backend
+            docker compose pull
+            docker compose up -d --no-build
+            docker image prune -f --filter "until=24h"
+            echo "部署完成: $(date)"
+
+      - name: 验证部署
+        run: |
+          echo "等待服务启动..."
+          sleep 15
+          echo "执行健康检查..."
+          HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://ar.example.com/health || echo "000")
+          if [ "$HEALTH_STATUS" = "200" ]; then
+            echo "✅ 健康检查通过"
+          else
+            echo "⚠️ 健康检查返回: $HEALTH_STATUS (可能正在启动)"
+          fi
+
+      - name: 发送通知
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ 部署成功" | curl -X POST -H 'Content-Type: application/json' \
+              -d "{\"content\": \"✅ AR Backend 已部署到生产环境 (${GITHUB_SHA:0:8})\"}" \
+              ${{ secrets.DISCORD_WEBHOOK_URL }} || true
+          else
+            echo "❌ 部署失败" | curl -X POST -H 'Content-Type: application/json' \
+              -d "{\"content\": \"❌ AR Backend 部署失败 (${GITHUB_SHA:0:8})\"}" \
+              ${{ secrets.DISCORD_WEBHOOK_URL }} || true
+          fi
+
+# ============ 手动触发部署 ============
+workflow_dispatch:
+  inputs:
+    environment:
+      description: '部署环境'
+      required: true
+      default: 'development'
+      type: choice
+      options:
+        - development
+        - staging
+        - production
+    tag:
+      description: '镜像标签 (留空则使用最新)'
+      required: false
+      default: ''

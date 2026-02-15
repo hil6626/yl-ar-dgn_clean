@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="dag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor DAG流水线 - 可视化流程编排">
+    <title data-i18n="dag.title">DAG流水线 - 可视化流程编排</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=8">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- DAG优化样式 -->
+
+    <link rel="stylesheet" href="/static/css/dag-optimized.css?v=9">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-dag">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- DAG工作区 -->
+    <div class="dag-workspace" data-page="dag">
+        <!-- 控制栏 -->
+        <section id="dag-control-bar" class="dag-control-bar"></section>
+        
+        <!-- 三栏布局 -->
+        <div class="dag-three-column">
+            <!-- 左侧：节点库 -->
+            <aside id="dag-nodes-panel" class="dag-nodes-panel"></aside>
+            
+            <!-- 中间：画布 -->
+            <main id="dag-canvas-container" class="dag-canvas-container">
+                <div id="dag-canvas" class="dag-canvas">
+                    <svg id="dag-edges-layer" class="dag-edges-layer"></svg>
+                    <div id="dag-nodes-layer" class="dag-nodes-layer"></div>
+                </div>
+                <!-- 画布控制 -->
+                <div class="dag-canvas-controls">
+                    <button class="canvas-control-btn" id="zoom-in" title="放大">+</button>
+                    <button class="canvas-control-btn" id="zoom-out" title="缩小">-</button>
+                    <button class="canvas-control-btn" id="zoom-fit" title="适应">⟲</button>
+                    <span class="zoom-level" id="zoom-level">100%</span>
+                </div>
+            </main>
+            
+            <!-- 右侧：属性面板 -->
+            <aside id="dag-properties-panel" class="dag-properties-panel"></aside>
+        </div>
+        
+        <!-- 执行状态面板（可折叠） -->
+        <section id="dag-execution-panel" class="dag-execution-panel collapsed">
+            <div class="execution-panel-header">
+                <span class="execution-toggle" id="execution-toggle">▲</span>
+                <span class="execution-title">执行状态</span>
+                <span class="execution-status-badge" id="execution-status">就绪</span>
+            </div>
+            <div class="execution-panel-content" id="execution-content">
+                <div class="execution-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0%</span>
+                </div>
+                <div class="execution-logs" id="execution-logs"></div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+</body>
+</html>

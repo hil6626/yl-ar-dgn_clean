@@ -1,0 +1,85 @@
+# 告警规则配置
+
+rules:
+  # 节点离线告警
+  - rule_id: node_offline
+    name: 节点离线
+    description: 节点连续多次健康检查失败，已标记为离线
+    level: error
+    condition: 'status == "offline"'
+    duration: 0
+    enabled: true
+    channels:
+      - log
+      - webhook
+    cooldown: 300
+
+  # CPU使用率告警
+  - rule_id: high_cpu
+    name: CPU使用率过高
+    description: 节点CPU使用率超过80%，持续5分钟
+    level: warning
+    condition: 'cpu_percent > 80'
+    duration: 300
+    enabled: true
+    channels:
+      - log
+    cooldown: 600
+
+  # 内存使用率告警
+  - rule_id: high_memory
+    name: 内存使用率过高
+    description: 节点内存使用率超过85%，持续5分钟
+    level: warning
+    condition: 'memory_percent > 85'
+    duration: 300
+    enabled: true
+    channels:
+      - log
+    cooldown: 600
+
+  # 服务不可用告警
+  - rule_id: service_unavailable
+    name: 服务不可用
+    description: 关键服务无法访问，需要立即处理
+    level: critical
+    condition: 'health_check_failed'
+    duration: 0
+    enabled: true
+    channels:
+      - log
+      - webhook
+      - email
+    cooldown: 60
+
+  # 心跳超时告警
+  - rule_id: heartbeat_timeout
+    name: 心跳超时
+    description: 节点超过2分钟未上报心跳
+    level: warning
+    condition: 'heartbeat_timeout'
+    duration: 120
+    enabled: true
+    channels:
+      - log
+    cooldown: 300
+
+# 通知渠道配置
+channels:
+  webhook:
+    enabled: false
+    url: ""
+  
+  email:
+    enabled: false
+    smtp_server: ""
+    smtp_port: 587
+    username: ""
+    password: ""
+    to_addresses: []
+
+# 告警抑制配置
+suppression:
+  enabled: true
+  max_alerts_per_hour: 10
+  group_similar: true

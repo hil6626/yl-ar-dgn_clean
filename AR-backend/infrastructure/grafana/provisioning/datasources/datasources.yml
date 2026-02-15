@@ -1,0 +1,60 @@
+# Grafana 数据源配置
+# 
+# 功能:
+#   - Prometheus 数据源
+#   - Elasticsearch 数据源
+
+apiVersion: 1
+
+# 删除现有数据源
+deleteDatasources:
+  - name: Prometheus
+  - name: Elasticsearch
+
+# 添加数据源
+datasources:
+  # Prometheus 数据源
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    jsonData:
+      httpMethod: GET
+      prometheusType: Prometheus
+      prometheusVersion: 2.45.0
+      cacheTimeout: 60
+    secureJsonData:
+      # 如果需要认证，取消注释以下行
+      # basicAuthPassword: '${PROMETHEUS_PASSWORD}'
+      # bearerToken: '${PROMETHEUS_TOKEN}'
+    version: 1
+    editable: false
+
+  # Elasticsearch 数据源
+  - name: Elasticsearch
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    jsonData:
+      interval: Daily
+      timeField: '@timestamp'
+      esVersion: 8.8.0
+      logMessageField: message
+      logLevelField: level
+    secureJsonData:
+      # 如果需要认证，取消注释以下行
+      # basicAuthPassword: '${ELASTICSEARCH_PASSWORD}'
+    version: 1
+    editable: false
+
+  # Loki 日志数据源 (可选)
+  # - name: Loki
+  #   type: loki
+  #   access: proxy
+  #   url: http://loki:3100
+  #   jsonData:
+  #     maxLines: 1000
+  #   version: 1
+  #   editable: false
+

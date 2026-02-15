@@ -1,0 +1,54 @@
+# PostgreSQL Exporter配置文件
+# 用于收集PostgreSQL数据库指标
+
+auth:
+  # 使用环境变量或文件进行认证
+  enable: true
+  password:
+    # 从环境变量或文件读取密码
+    env:
+      - POSTGRES_PASSWORD
+    file:
+      - /run/secrets/postgres_password
+
+# 自定义指标
+custom_queries:
+  # 慢查询统计
+  - query: |
+      SELECT
+        states.state,
+        count(*) as count
+      FROM (
+        SELECT state
+        FROM pg_stat_activity
+        WHERE datname = current_database()
+      ) states
+      GROUP BY states.state
+    metrics:
+      - state:
+          usage: "LABEL"
+          description: "连接状态"
+      - count:
+          usage: "GAUGE"
+          description: "连接数量"
+  
+  # 表大小统计
+  - query: |
+      SELECT
+        schemaname,
+        relname,
+        pg_total_relation_size(relid) as size_bytes
+      FROM pg_stat_user_tables
+      ORDER BY size_bytes DESC
+      LIMIT 10
+    metrics:
+      - schemaname:
+          usage: "LABEL"
+          description: "模式名称"
+      - relname:
+          usage: "LABEL"
+          description: "表名称"
+      - size_bytes:
+          usage: "GAUGE"
+          description: "表大小（字节）"
+

@@ -1,0 +1,316 @@
+#!/bin/bash
+# services目录重组脚本
+# 任务008: AR Backend 中期优化 - services目录重组
+
+set -e
+
+PROJECT_DIR="/workspaces/yl-ar-dgn/AR-backend"
+SERVICES_DIR="$PROJECT_DIR/services"
+BACKUP_DIR="$PROJECT_DIR/services.backup.$(date +%Y%m%d_%H%M%S)"
+
+echo "=========================================="
+echo "  AR Backend Services 目录重组"
+echo "=========================================="
+echo ""
+
+# 步骤1: 备份原目录
+echo "📦 步骤1: 备份原目录"
+echo "-------------------------------------------"
+cp -r "$SERVICES_DIR" "$BACKUP_DIR"
+echo "✅ 备份完成: $BACKUP_DIR"
+echo "大小: $(du -sh "$BACKUP_DIR" | cut -f1)"
+echo ""
+
+# 步骤2: 创建新目录结构
+echo "📁 步骤2: 创建新目录结构"
+echo "-------------------------------------------"
+
+# 创建主目录
+mkdir -p "$SERVICES_DIR/core"
+mkdir -p "$SERVICES_DIR/face/detection"
+mkdir -p "$SERVICES_DIR/face/recognition"
+mkdir -p "$SERVICES_DIR/face/synthesis"
+mkdir -p "$SERVICES_DIR/pipeline/inference_engine"
+mkdir -p "$SERVICES_DIR/pipeline/video_processor"
+mkdir -p "$SERVICES_DIR/monitor/performance"
+mkdir -p "$SERVICES_DIR/monitor/resource"
+mkdir -p "$SERVICES_DIR/monitor/system"
+mkdir -p "$SERVICES_DIR/monitor/health"
+mkdir -p "$SERVICES_DIR/security"
+mkdir -p "$SERVICES_DIR/integration"
+mkdir -p "$SERVICES_DIR/utils"
+
+# 创建__init__.py文件
+touch "$SERVICES_DIR/__init__.py"
+touch "$SERVICES_DIR/core/__init__.py"
+touch "$SERVICES_DIR/face/__init__.py"
+touch "$SERVICES_DIR/face/detection/__init__.py"
+touch "$SERVICES_DIR/face/recognition/__init__.py"
+touch "$SERVICES_DIR/face/synthesis/__init__.py"
+touch "$SERVICES_DIR/pipeline/__init__.py"
+touch "$SERVICES_DIR/pipeline/inference_engine/__init__.py"
+touch "$SERVICES_DIR/monitor/__init__.py"
+touch "$SERVICES_DIR/monitor/performance/__init__.py"
+touch "$SERVICES_DIR/monitor/resource/__init__.py"
+touch "$SERVICES_DIR/monitor/system/__init__.py"
+touch "$SERVICES_DIR/monitor/health/__init__.py"
+touch "$SERVICES_DIR/security/__init__.py"
+touch "$SERVICES_DIR/integration/__init__.py"
+touch "$SERVICES_DIR/utils/__init__.py"
+
+echo "✅ 新目录结构创建完成"
+echo ""
+
+# 步骤3: 移动文件
+echo "📦 步骤3: 移动文件"
+echo "-------------------------------------------"
+
+# 核心服务
+echo "  移动 core 服务..."
+cp "$SERVICES_DIR/health_check.py" "$SERVICES_DIR/core/health_check.py" 2>/dev/null || true
+cp "$SERVICES_DIR/config_service.py" "$SERVICES_DIR/core/config_service.py" 2>/dev/null || true
+
+# 人脸检测
+echo "  移动 face_detection..."
+cp "$SERVICES_DIR/face_detection_processor.py" "$SERVICES_DIR/face/detection/processor.py" 2>/dev/null || true
+
+# 人脸识别
+echo "  移动 face_recognition..."
+cp "$SERVICES_DIR/face_recognition_processor.py" "$SERVICES_DIR/face/recognition/processor.py" 2>/dev/null || true
+
+# 人脸合成
+echo "  移动 face_live_cam..."
+cp "$SERVICES_DIR/face_live_cam.py" "$SERVICES_DIR/face/synthesis/live_cam.py" 2>/dev/null || true
+
+# 监控模块
+echo "  移动 monitor..."
+cp "$SERVICES_DIR/performance_collector.py" "$SERVICES_DIR/monitor/performance/collector.py" 2>/dev/null || true
+cp "$SERVICES_DIR/performance_optimizer.py" "$SERVICES_DIR/monitor/performance/optimizer.py" 2>/dev/null || true
+cp "$SERVICES_DIR/resource_monitor.py" "$SERVICES_DIR/monitor/resource/monitor.py" 2>/dev/null || true
+cp "$SERVICES_DIR/system_monitor_service.py" "$SERVICES_DIR/monitor/system/service.py" 2>/dev/null || true
+cp "$SERVICES_DIR/health_check_service.py" "$SERVICES_DIR/monitor/health/service.py" 2>/dev/null || true
+
+# 安全模块
+echo "  移动 security..."
+cp "$SERVICES_DIR/auth.py" "$SERVICES_DIR/security/auth.py" 2>/dev/null || true
+cp "$SERVICES_DIR/rbac.py" "$SERVICES_DIR/security/rbac.py" 2>/dev/null || true
+cp "$SERVICES_DIR/audit.py" "$SERVICES_DIR/security/audit.py" 2>/dev/null || true
+cp "$SERVICES_DIR/security_manager.py" "$SERVICES_DIR/security/manager.py" 2>/dev/null || true
+
+# 集成模块
+echo "  移动 integration..."
+cp "$SERVICES_DIR/faceswap_module.py" "$SERVICES_DIR/integration/faceswap.py" 2>/dev/null || true
+cp "$SERVICES_DIR/deep_face_lab.py" "$SERVICES_DIR/integration/deep_face_lab.py" 2>/dev/null || true
+cp "$SERVICES_DIR/obs_virtual_camera.py" "$SERVICES_DIR/integration/obs_camera.py" 2>/dev/null || true
+
+# 工具模块
+echo "  移动 utils..."
+cp "$SERVICES_DIR/cache_manager_service.py" "$SERVICES_DIR/utils/cache_manager.py" 2>/dev/null || true
+cp "$SERVICES_DIR/notification_service.py" "$SERVICES_DIR/utils/notification.py" 2>/dev/null || true
+cp "$SERVICES_DIR/deployment_tracker_service.py" "$SERVICES_DIR/utils/deployment_tracker.py" 2>/dev/null || true
+
+echo "✅ 文件移动完成"
+echo ""
+
+# 步骤4: 删除原文件和空目录
+echo "🗑️ 步骤4: 清理原文件"
+echo "-------------------------------------------"
+
+# 删除原py文件
+rm -f "$SERVICES_DIR/health_check.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/config_service.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/face_detection_processor.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/face_recognition_processor.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/face_live_cam.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/performance_collector.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/performance_optimizer.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/resource_monitor.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/system_monitor_service.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/health_check_service.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/auth.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/rbac.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/audit.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/security_manager.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/faceswap_module.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/deep_face_lab.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/obs_virtual_camera.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/cache_manager_service.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/notification_service.py" 2>/dev/null || true
+rm -f "$SERVICES_DIR/deployment_tracker_service.py" 2>/dev/null || true
+
+# 删除空子目录
+rm -rf "$SERVICES_DIR/adaptive_optimizer" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/deploy" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/display_manager" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/face_alignment" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/face_blender" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/face_detection" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/face_recognition" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/face_synthesis" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/health" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/inference_engine" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/logging" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/model_loader" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/model_manager" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/monitor" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/output_processor" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/performance_monitor" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/pipeline" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/recorder" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/resource_manager" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/security" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/system_integrator" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/video_pipeline" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/video_stream" 2>/dev/null || true
+rm -rf "$SERVICES_DIR/workflow_manager" 2>/dev/null || true
+
+echo "✅ 清理完成"
+echo ""
+
+# 步骤5: 创建统一导出索引
+echo "📝 步骤5: 创建统一导出索引"
+echo "-------------------------------------------"
+
+cat > "$SERVICES_DIR/__init__.py" << 'INITEOF'
+"""
+AR Backend Services 统一导出模块
+
+此模块提供所有服务的统一导入接口。
+按照功能分为: core, face, pipeline, monitor, security, integration, utils
+
+使用方式:
+    from services import HealthCheck
+    from services.face.detection import FaceDetector
+    from services.monitor.performance import PerformanceCollector
+
+版本: 2.0.0
+最后更新: 2026-02-04
+"""
+
+__version__ = "2.0.0"
+__author__ = "AI 编程代理"
+
+# Core services
+try:
+    from .core.health_check import HealthCheck
+    from .core.config_service import ConfigService
+except ImportError:
+    pass
+
+# Face services
+try:
+    from .face.detection.processor import FaceDetector
+    from .face.recognition.processor import FaceRecognizer
+    from .face.synthesis.live_cam import FaceLiveCam
+except ImportError:
+    pass
+
+# Pipeline services
+try:
+    from .pipeline.frame_buffer import FrameBuffer
+    from .pipeline.inference_engine import InferenceEngine
+    from .pipeline.video_pipeline import VideoPipeline
+    from .pipeline.output_processor import OutputProcessor
+except ImportError:
+    pass
+
+# Monitor services
+try:
+    from .monitor.performance.performance_collector import PerformanceCollector
+    from .monitor.performance.performance_optimizer import PerformanceOptimizer
+    from .monitor.resource.monitor import ResourceMonitor
+    from .monitor.system.service import SystemMonitorService
+    from .monitor.health.service import HealthService
+except ImportError:
+    pass
+
+# Security services
+try:
+    from .security.auth import AuthService
+    from .security.rbac import RBACService
+    from .security.audit import AuditService
+    from .security.manager import SecurityManager
+except ImportError:
+    pass
+
+# Integration services
+try:
+    from .integration.faceswap import FaceSwapIntegration
+    from .integration.deep_face_lab import DeepFaceLabIntegration
+    from .integration.obs_camera import OBSCameraIntegration
+except ImportError:
+    pass
+
+# Utils services
+try:
+    from .utils.cache_manager import CacheManager
+    from .utils.notification import NotificationService
+    from .utils.deployment_tracker import DeploymentTracker
+except ImportError:
+    pass
+
+# 导出列表
+__all__ = [
+    # Core
+    "HealthCheck",
+    "ConfigService",
+    
+    # Face
+    "FaceDetector",
+    "FaceRecognizer",
+    "FaceLiveCam",
+    
+    # Pipeline
+    "FrameBuffer",
+    "InferenceEngine",
+    "VideoPipeline",
+    "OutputProcessor",
+    
+    # Monitor
+    "PerformanceCollector",
+    "PerformanceOptimizer",
+    "ResourceMonitor",
+    "SystemMonitorService",
+    "HealthService",
+    
+    # Security
+    "AuthService",
+    "RBACService",
+    "AuditService",
+    "SecurityManager",
+    
+    # Integration
+    "FaceSwapIntegration",
+    "DeepFaceLabIntegration",
+    "OBSCameraIntegration",
+    
+    # Utils
+    "CacheManager",
+    "NotificationService",
+    "DeploymentTracker",
+]
+INITEOF
+
+echo "✅ 统一导出索引创建完成"
+echo ""
+
+# 步骤6: 显示新结构
+echo "📊 新目录结构"
+echo "-------------------------------------------"
+find "$SERVICES_DIR" -type f -name "*.py" | head -50
+echo ""
+
+echo "✅ 重组完成!"
+echo ""
+echo "=========================================="
+echo "  重组摘要"
+echo "=========================================="
+echo ""
+echo "📦 备份位置: $BACKUP_DIR"
+echo "📁 新结构位置: $SERVICES_DIR"
+echo ""
+echo "新目录结构:"
+find "$SERVICES_DIR" -type d | sort
+echo ""
+echo "✅ 可使用回滚脚本恢复:"
+echo "   cp -rf $BACKUP_DIR/* $SERVICES_DIR/"

@@ -1,0 +1,8 @@
+{
+  "checkpoint_id": "test-chk",
+  "timestamp": "2026-02-09 01:31:26.774217",
+  "state_data": {
+    "test": "data"
+  },
+  "metadata": {}
+}

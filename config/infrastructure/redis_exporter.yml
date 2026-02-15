@@ -1,0 +1,44 @@
+# Redis Exporter配置文件
+# 用于收集Redis性能指标
+
+# Redis服务器地址
+redis_addr: "redis://redis:6379"
+
+# 认证配置
+password: ""
+
+# 采集配置
+# 关键指标采集间隔（秒）
+metrics_offset: ""
+
+# 自定义指标脚本
+script: ""
+
+# 导出配置
+# 是否导出客户端列表
+export_client_list: false
+
+# 是否导出客户端配置
+export_client_config: false
+
+# 是否导出慢查询日志
+export_slowlog: true
+
+# 慢查询日志最大条数
+slowlog_max_len: 128
+
+# 慢查询阈值（微秒）
+slowlog_log_slower_than: 10000
+
+# 集群配置
+cluster_enabled: false
+
+# TLS配置
+tls_cert_file: ""
+tls_key_file: ""
+tls_ca_cert_file: ""
+
+# 连接池配置
+redis_password: ""
+redis_user: ""
+

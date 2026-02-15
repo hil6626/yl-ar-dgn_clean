@@ -1,0 +1,47 @@
+# AR 节点配置
+# 配置 AR-backend 和 User GUI 节点的监控参数
+
+nodes:
+  - node_id: ar-backend
+    node_name: AR Backend Service
+    node_type: ar-backend
+    host: localhost
+    port: 5501
+    health_endpoint: /health
+    status_endpoint: /status
+    check_interval: 30
+    timeout: 5
+    fail_threshold: 3
+
+  - node_id: user-gui
+    node_name: User GUI Application
+    node_type: user-gui
+    host: localhost
+    port: 5502
+    health_endpoint: /health
+    status_endpoint: /status
+    check_interval: 30
+    timeout: 5
+    fail_threshold: 3
+
+# 告警配置
+alerts:
+  enabled: true
+  channels:
+    - type: log
+      enabled: true
+    - type: webhook
+      enabled: false
+      url: ""
+    - type: email
+      enabled: false
+      smtp_server: ""
+      smtp_port: 587
+      username: ""
+      password: ""
+      to_addresses: []
+
+# 数据保留配置
+retention:
+  heartbeat_history_days: 7
+  status_history_days: 30

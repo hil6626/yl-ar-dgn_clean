@@ -1,0 +1,871 @@
+/**
+ * YL-Monitor DAG流水线优化样式
+ * 版本: v8.0.0
+ * 特性: 三栏布局、节点形状区分、贝塞尔曲线、画布控制
+ */
+
+/* DAG工作区 */
+.dag-workspace {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
+    background: var(--bg-secondary);
+}
+
+/* 控制栏 */
+.dag-control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.dag-control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dag-control-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dag-control-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dag-control-btn:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-300);
+}
+
+.dag-control-btn.primary {
+    background: var(--primary-500);
+    color: white;
+    border-color: var(--primary-500);
+}
+
+.dag-control-btn.primary:hover {
+    background: var(--primary-600);
+}
+
+.dag-control-btn.success {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+.dag-control-btn.danger {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+.dag-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 三栏布局 */
+.dag-three-column {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 左侧节点库 */
+.dag-nodes-panel {
+    width: 240px;
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.dag-nodes-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dag-nodes-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dag-node-category {
+    border-bottom: 1px solid var(--border);
+}
+
+.dag-category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.dag-category-header:hover {
+    background: var(--bg-tertiary);
+}
+
+.dag-category-header .category-icon {
+    font-size: 16px;
+}
+
+.dag-category-header .category-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.dag-category-header .category-toggle {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    transition: transform 0.2s;
+}
+
+.dag-category-header.expanded .category-toggle {
+    transform: rotate(90deg);
+}
+
+.dag-category-nodes {
+    padding: 0 16px 12px;
+    display: none;
+}
+
+.dag-category-nodes.expanded {
+    display: block;
+}
+
+/* 可拖拽节点 */
+.dag-node-template {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: grab;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.dag-node-template:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-300);
+    transform: translateX(4px);
+}
+
+.dag-node-template:active {
+    cursor: grabbing;
+}
+
+.dag-node-template .node-shape {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dag-node-template .node-shape.circle {
+    background: var(--primary-500);
+    border-radius: 50%;
+}
+
+.dag-node-template .node-shape.rect {
+    background: var(--success);
+    border-radius: 4px;
+}
+
+.dag-node-template .node-shape.diamond {
+    background: var(--warning);
+    transform: rotate(45deg);
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+}
+
+.dag-node-template .node-shape.hexagon {
+    background: var(--info);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    width: 22px;
+    height: 20px;
+}
+
+.dag-node-template .node-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* 中间画布区 */
+.dag-canvas-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.dag-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+    cursor: grab;
+}
+
+.dag-canvas:active {
+    cursor: grabbing;
+}
+
+.dag-canvas.dragging {
+    cursor: grabbing;
+}
+
+/* 边线层 */
+.dag-edges-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.dag-edge {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2;
+    transition: stroke 0.2s;
+}
+
+.dag-edge:hover {
+    stroke: var(--primary-400);
+    stroke-width: 3;
+}
+
+.dag-edge.selected {
+    stroke: var(--primary-500);
+    stroke-width: 3;
+}
+
+.dag-edge-path {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2;
+}
+
+.dag-edge-path.conditional {
+    stroke-dasharray: 5, 5;
+}
+
+/* 节点层 */
+.dag-nodes-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* DAG节点 */
+.dag-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    min-width: 120px;
+}
+
+.dag-node:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.dag-node.selected {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.dag-node.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+    z-index: 100;
+}
+
+/* 节点形状 */
+.dag-node.shape-circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+}
+
+.dag-node.shape-rect {
+    border-radius: var(--radius-md);
+}
+
+.dag-node.shape-rounded {
+    border-radius: 24px;
+}
+
+.dag-node.shape-diamond {
+    transform: rotate(45deg);
+    width: 100px;
+    height: 100px;
+}
+
+.dag-node.shape-diamond .node-content {
+    transform: rotate(-45deg);
+}
+
+.dag-node.shape-hexagon {
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    padding: 16px 24px;
+}
+
+/* 节点内容 */
+.dag-node .node-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.dag-node .node-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dag-node .node-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* 节点状态 */
+.dag-node.status-pending {
+    border-color: var(--gray-400);
+}
+
+.dag-node.status-running {
+    border-color: var(--primary-500);
+    animation: nodePulse 2s infinite;
+}
+
+.dag-node.status-success {
+    border-color: var(--success);
+}
+
+.dag-node.status-error {
+    border-color: var(--danger);
+}
+
+.dag-node.status-warning {
+    border-color: var(--warning);
+}
+
+@keyframes nodePulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+    }
+}
+
+/* 连接点 */
+.dag-node .connection-point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-500);
+    border-radius: 50%;
+    cursor: crosshair;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.dag-node:hover .connection-point {
+    opacity: 1;
+}
+
+.dag-node .connection-point.top {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dag-node .connection-point.bottom {
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dag-node .connection-point.left {
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dag-node .connection-point.right {
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 画布控制 */
+.dag-canvas-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-primary);
+    padding: 8px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.canvas-control-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.canvas-control-btn:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-300);
+}
+
+.zoom-level {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 40px;
+    text-align: center;
+}
+
+/* 右侧属性面板 */
+.dag-properties-panel {
+    width: 280px;
+    background: var(--bg-primary);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.dag-properties-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dag-properties-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dag-properties-content {
+    padding: 16px;
+    flex: 1;
+}
+
+.dag-properties-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-tertiary);
+}
+
+.dag-properties-empty .empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.dag-properties-empty p {
+    font-size: 13px;
+    margin: 0;
+}
+
+/* 属性表单 */
+.dag-property-group {
+    margin-bottom: 20px;
+}
+
+.dag-property-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dag-property-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dag-property-input:focus {
+    outline: none;
+    border-color: var(--primary-500);
+}
+
+.dag-property-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.dag-property-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    min-height: 80px;
+    resize: vertical;
+}
+
+.dag-property-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.dag-property-toggle input {
+    display: none;
+}
+
+.dag-toggle-slider {
+    width: 40px;
+    height: 20px;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.dag-toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.dag-property-toggle input:checked + .dag-toggle-slider {
+    background: var(--primary-500);
+}
+
+.dag-property-toggle input:checked + .dag-toggle-slider::after {
+    transform: translateX(20px);
+}
+
+.dag-property-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+/* 执行状态面板 */
+.dag-execution-panel {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border);
+    transition: all 0.3s;
+}
+
+.dag-execution-panel.collapsed {
+    height: 48px;
+    overflow: hidden;
+}
+
+.dag-execution-panel.expanded {
+    height: 200px;
+}
+
+.execution-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.execution-panel-header:hover {
+    background: var(--bg-tertiary);
+}
+
+.execution-toggle {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    transition: transform 0.2s;
+}
+
+.dag-execution-panel.expanded .execution-toggle {
+    transform: rotate(180deg);
+}
+
+.execution-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.execution-status-badge {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.execution-status-badge.running {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-500);
+    animation: statusPulse 2s infinite;
+}
+
+.execution-status-badge.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.execution-status-badge.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.execution-panel-content {
+    padding: 0 24px 16px;
+}
+
+.execution-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+    border-radius: var(--radius-full);
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 40px;
+    text-align: right;
+}
+
+.execution-logs {
+    height: 120px;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.execution-log-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.execution-log-time {
+    color: var(--text-tertiary);
+    min-width: 60px;
+}
+
+.execution-log-level {
+    font-weight: 600;
+    min-width: 40px;
+}
+
+.execution-log-level.info {
+    color: var(--info);
+}
+
+.execution-log-level.success {
+    color: var(--success);
+}
+
+.execution-log-level.error {
+    color: var(--danger);
+}
+
+.execution-log-level.warning {
+    color: var(--warning);
+}
+
+.execution-log-message {
+    color: var(--text-primary);
+}
+
+/* 响应式 */
+@media (max-width: 1200px) {
+    .dag-nodes-panel {
+        width: 200px;
+    }
+    
+    .dag-properties-panel {
+        width: 240px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .dag-three-column {
+        flex-direction: column;
+    }
+    
+    .dag-nodes-panel {
+        width: 100%;
+        height: 200px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .dag-properties-panel {
+        width: 100%;
+        height: 200px;
+        border-left: none;
+        border-top: 1px solid var(--border);
+    }
+    
+    .dag-canvas-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dag-control-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .dag-control-group {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .dag-control-title {
+        font-size: 16px;
+    }
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .dag-canvas {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .dag-node {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .execution-logs {
+    background: #0f172a;
+    color: #e2e8f0;
+}

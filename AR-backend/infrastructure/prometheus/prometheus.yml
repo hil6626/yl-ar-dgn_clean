@@ -1,0 +1,99 @@
+# Prometheus 配置
+# 
+# 功能:
+#   - 服务发现
+#   - 抓取配置
+#   - 告警规则
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'ar-backend'
+    env: '${ENVIRONMENT:-development}'
+
+# 告警规则文件
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+# 抓取配置
+scrape_configs:
+  # Prometheus 自身监控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: /metrics
+
+  # 监控服务自身
+  - job_name: 'monitor-service'
+    static_configs:
+      - targets: ['monitor-service:8004']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Face Service 监控
+  - job_name: 'face-service'
+    static_configs:
+      - targets: ['face-service:8001']
+    metrics_path: /metrics
+    scrape_interval: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+):\\d+'
+        replacement: '${1}'
+
+  # Video Service 监控
+  - job_name: 'video-service'
+    static_configs:
+      - targets: ['video-service:8002']
+    metrics_path: /metrics
+    scrape_interval: 5s
+
+  # Audio Service 监控
+  - job_name: 'audio-service'
+    static_configs:
+      - targets: ['audio-service:8003']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Scheduler Service 监控
+  - job_name: 'scheduler-service'
+    static_configs:
+      - targets: ['scheduler-service:8005']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Redis 监控
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    metrics_path: /metrics
+    # 注意: 需要配置 redis_exporter
+
+  # RabbitMQ 监控
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['rabbitmq:15672']
+    metrics_path: /metrics
+    # 注意: 需要配置 rabbitmq_exporter
+
+  # Node Exporter - 主机监控
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    # 注意: 需要部署 node-exporter
+
+  # Docker 容器监控
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    # 注意: 需要部署 cadvisor
+
+# 远程写入配置 (可选)
+# remote_write:
+#   - url: "https://prometheus-remote-write.example.com/api/v1/write"
+#     basic_auth:
+#       username: prometheus
+#       password_file: /etc/prometheus/remote_write_password
+

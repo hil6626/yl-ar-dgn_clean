@@ -1,0 +1,28 @@
+# User GUI 监控配置
+
+monitor:
+  # YL-monitor 地址
+  url: "http://localhost:5500"
+  
+  # 节点标识
+  node_id: "user-gui"
+  node_name: "User GUI Application"
+  
+  # 上报配置
+  report_interval: 30  # 秒
+  timeout: 5  # 秒
+  max_retries: 3
+  retry_delay: 2  # 秒
+  
+  # 功能开关
+  enabled: true
+
+# 本地HTTP服务配置
+local_server:
+  enabled: true
+  port: 5502
+
+# 日志配置
+logging:
+  level: "INFO"
+  file: "logs/user_gui_monitor.log"

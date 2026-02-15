@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="dashboard">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YL-Monitor 系统仪表盘 - 全局监控控制台">
+    <title data-i18n="dashboard.title">系统仪表盘</title>
+    
+    <!-- 统一主题系统 -->
+    <link rel="stylesheet" href="/static/css/theme-system.css?v=9">
+    
+    <!-- 统一布局系统 -->
+    <link rel="stylesheet" href="/static/css/layout-system.css?v=9">
+    
+    <!-- 统一组件库 -->
+    <link rel="stylesheet" href="/static/css/components-optimized.css?v=8">
+    
+    <!-- UI反馈系统样式 -->
+    <link rel="stylesheet" href="/static/css/ui-feedback.css?v=1">
+    
+    <!-- 页面特定主题（由JS动态加载） -->
+
+    <link rel="stylesheet" href="" id="page-theme-css">
+    
+    <!-- 头部资源插槽 -->
+    <slot name="head-resources"></slot>
+</head>
+<body class="theme-dashboard">
+    <!-- 导航栏挂载点 -->
+    <header id="navbar-mount"></header>
+    
+    <!-- 仪表盘布局 -->
+    <div class="dashboard-layout" data-page="dashboard">
+        <!-- 概览卡片区域 -->
+        <section id="overview-cards-mount" class="dashboard-section overview"></section>
+        
+        <!-- 实时监控区域 -->
+        <section id="realtime-monitor-mount" class="dashboard-section full"></section>
+        
+        <!-- 资源图表区域 -->
+        <section id="resource-charts-mount" class="dashboard-section charts"></section>
+        
+        <!-- 功能矩阵区域 -->
+        <section id="function-matrix-mount" class="dashboard-section sidebar"></section>
+    </div>
+    
+    <!-- 页脚挂载点 -->
+    <footer id="footer-mount"></footer>
+    
+    <!-- 全局挂载点 -->
+    <div id="modal-mount" class="modal-container"></div>
+    <div id="toast-mount" class="toast-container"></div>
+    
+    <!-- 应用加载器（唯一脚本入口） -->
+    <script type="module" src="/static/js/app-loader.js?v=9"></script>
+</body>
+</html>

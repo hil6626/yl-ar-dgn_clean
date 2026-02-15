@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-04",
+  "documents": {
+    "README": {
+      "path": "README.md",
+      "title": "项目主文档",
+      "description": "YL-AR-DGN项目主文档",
+      "category": "general",
+      "tags": ["project", "overview"],
+      "status": "verified"
+    }
+  }
+}

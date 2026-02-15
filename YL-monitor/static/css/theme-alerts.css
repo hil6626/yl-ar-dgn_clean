@@ -1,0 +1,269 @@
+/**
+ * YL-Monitor 告警中心主题
+ * 版本: v1.0.0
+ * 特性: 告警专用色彩系统、状态指示器、动画效果
+ */
+
+/* 基础主题变量继承 */
+@import url('theme-system.css');
+
+:root {
+  /* 告警专用色彩系统 */
+  --alert-critical-bg: #fef2f2;
+  --alert-critical-border: #fecaca;
+  --alert-critical-text: #991b1b;
+  --alert-critical-icon: #dc2626;
+  
+  --alert-warning-bg: #fffbeb;
+  --alert-warning-border: #fde68a;
+  --alert-warning-text: #92400e;
+  --alert-warning-icon: #f59e0b;
+  
+  --alert-info-bg: #eff6ff;
+  --alert-info-border: #bfdbfe;
+  --alert-info-text: #1e40af;
+  --alert-info-icon: #3b82f6;
+  
+  --alert-success-bg: #f0fdf4;
+  --alert-success-border: #bbf7d0;
+  --alert-success-text: #166534;
+  --alert-success-icon: #22c55e;
+  
+  /* 时间轴色彩 */
+  --timeline-line: #e2e8f0;
+  --timeline-dot: #94a3b8;
+  --timeline-dot-active: #3b82f6;
+  
+  /* 状态指示器 */
+  --status-pulse-critical: rgba(220, 38, 38, 0.4);
+  --status-pulse-warning: rgba(245, 158, 11, 0.4);
+  --status-pulse-info: rgba(59, 130, 246, 0.4);
+  
+  /* 卡片悬停效果 */
+  --card-hover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --card-hover-transform: translateY(-2px);
+  
+  /* 动画时长 */
+  --alert-transition-fast: 150ms;
+  --alert-transition-normal: 250ms;
+  --alert-transition-slow: 350ms;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] {
+  --alert-critical-bg: rgba(153, 27, 27, 0.2);
+  --alert-critical-border: rgba(220, 38, 38, 0.3);
+  --alert-critical-text: #fca5a5;
+  --alert-critical-icon: #f87171;
+  
+  --alert-warning-bg: rgba(146, 64, 14, 0.2);
+  --alert-warning-border: rgba(245, 158, 11, 0.3);
+  --alert-warning-text: #fcd34d;
+  --alert-warning-icon: #fbbf24;
+  
+  --alert-info-bg: rgba(30, 64, 175, 0.2);
+  --alert-info-border: rgba(59, 130, 246, 0.3);
+  --alert-info-text: #93c5fd;
+  --alert-info-icon: #60a5fa;
+  
+  --alert-success-bg: rgba(22, 101, 52, 0.2);
+  --alert-success-border: rgba(34, 197, 94, 0.3);
+  --alert-success-text: #86efac;
+  --alert-success-icon: #4ade80;
+  
+  --timeline-line: #334155;
+  --timeline-dot: #64748b;
+  --timeline-dot-active: #60a5fa;
+}
+
+/* 告警级别样式 */
+.alert-level-critical {
+  background: var(--alert-critical-bg);
+  border-color: var(--alert-critical-border);
+  color: var(--alert-critical-text);
+}
+
+.alert-level-warning {
+  background: var(--alert-warning-bg);
+  border-color: var(--alert-warning-border);
+  color: var(--alert-warning-text);
+}
+
+.alert-level-info {
+  background: var(--alert-info-bg);
+  border-color: var(--alert-info-border);
+  color: var(--alert-info-text);
+}
+
+/* 状态脉冲动画 */
+@keyframes pulse-critical {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--status-pulse-critical);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--status-pulse-warning);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+.pulse-critical {
+  animation: pulse-critical 2s infinite;
+}
+
+.pulse-warning {
+  animation: pulse-warning 2s infinite;
+}
+
+/* 时间轴样式 */
+.timeline-item {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--timeline-line);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--timeline-dot);
+  transition: all var(--alert-transition-fast);
+}
+
+.timeline-item:hover::before {
+  background: var(--timeline-dot-active);
+  transform: scale(1.2);
+}
+
+/* 统计卡片脉冲边框 */
+.pulse-border-danger {
+  position: relative;
+}
+
+.pulse-border-danger::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--danger);
+  animation: pulse-border 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-border {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.02);
+  }
+}
+
+/* 快速操作按钮 */
+.btn-quick-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--alert-transition-fast);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.btn-quick-action:hover {
+  background: var(--bg-secondary);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-quick-action.success {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.btn-quick-action.success:hover {
+  background: var(--alert-success-bg);
+}
+
+/* 筛选栏样式 */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.filter-group label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 空状态样式 */
+.alerts-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.alerts-empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.alerts-empty-state .empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .timeline-item {
+    padding-left: 1rem;
+  }
+}

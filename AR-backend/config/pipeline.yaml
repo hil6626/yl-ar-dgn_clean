@@ -1,0 +1,51 @@
+# AR-backend 流水线配置
+# 处理流水线配置参数
+
+## 图像处理流水线配置
+image_pipeline:
+  enabled: true
+  preprocess:
+    - convert_rgb
+    - normalize
+  process:
+    - face_detection
+    - landmark_extraction
+  postprocess:
+    - format_output
+  resize:
+    size: [224, 224]
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+
+## 视频处理流水线配置
+video_pipeline:
+  enabled: true
+  frame_interval: 1  # 每秒提取1帧
+  process_each_frame: true
+  preview:
+    fps: 30
+    codec: mp4v
+
+## 通用流水线配置
+pipeline:
+  enabled: true
+  timeout: 300  # 5分钟超时
+  retry:
+    enabled: true
+    max_attempts: 3
+    delay: 1
+  parallel:
+    enabled: false
+    max_workers: 4
+
+## 批处理配置
+batch:
+  enabled: true
+  size: 32
+  shuffle: true
+
+## 日志配置
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

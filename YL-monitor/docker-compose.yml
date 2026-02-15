@@ -1,0 +1,121 @@
+# ============================================================================
+# YL-Monitor Docker Compose 配置
+# 完整部署配置，包含应用、数据库、缓存
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # 主应用服务
+  # ==========================================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: yl-monitor:latest
+    container_name: yl-monitor-app
+    ports:
+      - "${YL_MONITOR_PORT:-8000}:8000"
+    environment:
+      - YL_MONITOR_PORT=8000
+      - YL_MONITOR_HOST=0.0.0.0
+      - YL_MONITOR_WORKERS=${YL_MONITOR_WORKERS:-4}
+      - DATABASE_URL=sqlite:///data/monitor.db
+      - YL_MONITOR_LOG_LEVEL=${YL_MONITOR_LOG_LEVEL:-info}
+      - YL_MONITOR_CORS_ORIGINS=${YL_MONITOR_CORS_ORIGINS:-*}
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      # 数据持久化
+      - app_data:/app/data
+      - app_logs:/app/logs
+      # 脚本目录（可选，用于动态加载脚本）
+      - ./scripts:/app/scripts:ro
+    networks:
+      - yl-monitor-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================================================
+  # Redis 缓存服务（可选）
+  # ==========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: yl-monitor-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - yl-monitor-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================================================
+  # Nginx 反向代理（可选，用于生产环境）
+  # ==========================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: yl-monitor-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - yl-monitor-network
+    depends_on:
+      - app
+    restart: unless-stopped
+    profiles:
+      - production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ============================================================================
+# 数据卷
+# ============================================================================
+volumes:
+  app_data:
+    driver: local
+  app_logs:
+    driver: local
+  redis_data:
+    driver: local
+
+# ============================================================================
+# 网络
+# ============================================================================
+networks:
+  yl-monitor-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

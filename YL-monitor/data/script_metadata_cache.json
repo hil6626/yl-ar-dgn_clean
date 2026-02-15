@@ -1,0 +1,3152 @@
+{
+  "scripts": {
+    "system-monitor_monitors_system_system_load_process_monitor_py": {
+      "id": "system-monitor_monitors_system_system_load_process_monitor_py",
+      "name": "System Load Process Monitor",
+      "filename": "04_system_load_process_monitor.py",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "脚本: 04 system load process monitor",
+      "path": "scripts/monitors/system/04_system_load_process_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "system-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "max-procs",
+          "type": "string",
+          "required": false,
+          "description": "Max processes to scan.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "max-procs",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "system-monitor_monitors_system_memory_usage_monitor_py": {
+      "id": "system-monitor_monitors_system_memory_usage_monitor_py",
+      "name": "Memory Usage Monitor",
+      "filename": "02_memory_usage_monitor.py",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "kB",
+      "path": "scripts/monitors/system/02_memory_usage_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "system-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "system-monitor_monitors_system_disk_space_io_monitor_py": {
+      "id": "system-monitor_monitors_system_disk_space_io_monitor_py",
+      "name": "Disk Space Io Monitor",
+      "filename": "03_disk_space_io_monitor.py",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "脚本: 03 disk space io monitor",
+      "path": "scripts/monitors/system/03_disk_space_io_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "system-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Path to check disk usage for.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "system-monitor_monitors_system_init_py": {
+      "id": "system-monitor_monitors_system_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/monitors/system/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "system-monitor",
+        "monitor"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "system-monitor_monitors_system_cpu_usage_monitor_py": {
+      "id": "system-monitor_monitors_system_cpu_usage_monitor_py",
+      "name": "Cpu Usage Monitor",
+      "filename": "01_cpu_usage_monitor.py",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "脚本: 01 cpu usage monitor",
+      "path": "scripts/monitors/system/01_cpu_usage_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "system-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "interval",
+          "type": "string",
+          "required": false,
+          "description": "Sampling interval seconds.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "interval",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_external_api_health_check_py": {
+      "id": "service-monitor_monitors_service_external_api_health_check_py",
+      "name": "External Api Health Check",
+      "filename": "07_external_api_health_check.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "脚本: 07 external api health check",
+      "path": "scripts/monitors/service/07_external_api_health_check.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "URL to check (repeatable).",
+          "default": null
+        },
+        {
+          "name": "timeout",
+          "type": "string",
+          "required": false,
+          "description": "Request timeout seconds.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "timeout",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_database_connection_query_monitor_py": {
+      "id": "service-monitor_monitors_service_database_connection_query_monitor_py",
+      "name": "Database Connection Query Monitor",
+      "filename": "09_database_connection_query_monitor.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "数据库配置",
+      "path": "scripts/monitors/service/09_database_connection_query_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_init_py": {
+      "id": "service-monitor_monitors_service_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/monitors/service/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_network_latency_bandwidth_monitor_py": {
+      "id": "service-monitor_monitors_service_network_latency_bandwidth_monitor_py",
+      "name": "Network Latency Bandwidth Monitor",
+      "filename": "06_network_latency_bandwidth_monitor.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "1. 获取网络接口统计",
+      "path": "scripts/monitors/service/06_network_latency_bandwidth_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_port_service_availability_check_py": {
+      "id": "service-monitor_monitors_service_port_service_availability_check_py",
+      "name": "Port Service Availability Check",
+      "filename": "05_port_service_availability_check.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "脚本: 05 port service availability check",
+      "path": "scripts/monitors/service/05_port_service_availability_check.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "timeout",
+          "type": "string",
+          "required": false,
+          "description": "TCP connect timeout seconds.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "timeout",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_log_anomaly_scan_py": {
+      "id": "service-monitor_monitors_service_log_anomaly_scan_py",
+      "name": "Log Anomaly Scan",
+      "filename": "10_log_anomaly_scan.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "脚本: 10 log anomaly scan",
+      "path": "scripts/monitors/service/10_log_anomaly_scan.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Log file or directory (repeatable).",
+          "default": null
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "Regex pattern (repeatable).",
+          "default": null
+        },
+        {
+          "name": "max-lines",
+          "type": "string",
+          "required": false,
+          "description": "Max lines to scan per file.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "max-lines",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-monitor_monitors_service_web_app_availability_check_py": {
+      "id": "service-monitor_monitors_service_web_app_availability_check_py",
+      "name": "Web App Availability Check",
+      "filename": "08_web_app_availability_check.py",
+      "category": "service-monitor",
+      "subcategory": "",
+      "description": "检查本地 YL-Monitor 服务",
+      "path": "scripts/monitors/service/08_web_app_availability_check.py",
+      "script_type": "python",
+      "tags": [
+        "service-monitor",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "ar-monitor_monitors_ar_ar_node_resource_monitor_py": {
+      "id": "ar-monitor_monitors_ar_ar_node_resource_monitor_py",
+      "name": "Ar Node Resource Monitor",
+      "filename": "13_ar_node_resource_monitor.py",
+      "category": "ar-monitor",
+      "subcategory": "",
+      "description": "1. 检查 AR 相关进程",
+      "path": "scripts/monitors/ar/13_ar_node_resource_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "ar-monitor",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "ar-monitor_monitors_ar_init_py": {
+      "id": "ar-monitor_monitors_ar_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "ar-monitor",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/monitors/ar/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "ar-monitor",
+        "monitor"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_log_rotate_compress_py": {
+      "id": "resource-optimizer_optimizers_resource_log_rotate_compress_py",
+      "name": "Log Rotate Compress",
+      "filename": "21_log_rotate_compress.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/21_log_rotate_compress.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_resource_trend_analysis_py": {
+      "id": "resource-optimizer_optimizers_resource_resource_trend_analysis_py",
+      "name": "Resource Trend Analysis",
+      "filename": "16_resource_trend_analysis.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/16_resource_trend_analysis.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_browser_history_management_py": {
+      "id": "resource-optimizer_optimizers_resource_browser_history_management_py",
+      "name": "Browser History Management",
+      "filename": "28_browser_history_management.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/28_browser_history_management.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_duplicate_file_dedup_py": {
+      "id": "resource-optimizer_optimizers_resource_duplicate_file_dedup_py",
+      "name": "Duplicate File Dedup",
+      "filename": "18_duplicate_file_dedup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/18_duplicate_file_dedup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_cache_db_maintenance_py": {
+      "id": "resource-optimizer_optimizers_resource_cache_db_maintenance_py",
+      "name": "Cache Db Maintenance",
+      "filename": "24_cache_db_maintenance.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/24_cache_db_maintenance.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_init_py": {
+      "id": "resource-optimizer_optimizers_resource_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/optimizers/resource/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_disk_junk_cleanup_py": {
+      "id": "resource-optimizer_optimizers_resource_disk_junk_cleanup_py",
+      "name": "Disk Junk Cleanup",
+      "filename": "17_disk_junk_cleanup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "脚本: 17 disk junk cleanup",
+      "path": "scripts/optimizers/resource/17_disk_junk_cleanup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Directory to clean (repeatable).",
+          "default": null
+        },
+        {
+          "name": "older-than-days",
+          "type": "string",
+          "required": false,
+          "description": "Delete files older than N days.",
+          "default": null
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "required": false,
+          "description": "Actually delete files (default: dry-run).",
+          "default": null
+        },
+        {
+          "name": "max-files",
+          "type": "string",
+          "required": false,
+          "description": "Max files to delete/plan per run.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "older-than-days",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "max-files",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_smart_maintenance_py": {
+      "id": "resource-optimizer_optimizers_resource_smart_maintenance_py",
+      "name": "Smart Maintenance",
+      "filename": "32_smart_maintenance.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/32_smart_maintenance.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_db_redundant_data_cleanup_py": {
+      "id": "resource-optimizer_optimizers_resource_db_redundant_data_cleanup_py",
+      "name": "Db Redundant Data Cleanup",
+      "filename": "23_db_redundant_data_cleanup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/23_db_redundant_data_cleanup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_cache_cleanup_py": {
+      "id": "resource-optimizer_optimizers_resource_cache_cleanup_py",
+      "name": "Cache Cleanup",
+      "filename": "19_cache_cleanup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/19_cache_cleanup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_app_temp_data_cleanup_py": {
+      "id": "resource-optimizer_optimizers_resource_app_temp_data_cleanup_py",
+      "name": "App Temp Data Cleanup",
+      "filename": "27_app_temp_data_cleanup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/27_app_temp_data_cleanup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_service_cache_refresh_py": {
+      "id": "resource-optimizer_optimizers_resource_service_cache_refresh_py",
+      "name": "Service Cache Refresh",
+      "filename": "29_service_cache_refresh.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/29_service_cache_refresh.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_temp_file_cleanup_py": {
+      "id": "resource-optimizer_optimizers_resource_temp_file_cleanup_py",
+      "name": "Temp File Cleanup",
+      "filename": "20_temp_file_cleanup.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "脚本: 20 temp file cleanup",
+      "path": "scripts/optimizers/resource/20_temp_file_cleanup.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Temp directory to clean (repeatable).",
+          "default": null
+        },
+        {
+          "name": "older-than-hours",
+          "type": "string",
+          "required": false,
+          "description": "Delete files older than N hours.",
+          "default": null
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "required": false,
+          "description": "Actually delete files (default: dry-run).",
+          "default": null
+        },
+        {
+          "name": "max-files",
+          "type": "string",
+          "required": false,
+          "description": "Max files to delete/plan per run.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "older-than-hours",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "max-files",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "resource-optimizer_optimizers_resource_combo_cleanup_optimize_py": {
+      "id": "resource-optimizer_optimizers_resource_combo_cleanup_optimize_py",
+      "name": "Combo Cleanup Optimize",
+      "filename": "31_combo_cleanup_optimize.py",
+      "category": "resource-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/resource/31_combo_cleanup_optimize.py",
+      "script_type": "python",
+      "tags": [
+        "resource-optimizer",
+        "cleanup",
+        "optimize"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_smart_cleanup_policy_generate_py": {
+      "id": "service-optimizer_optimizers_service_smart_cleanup_policy_generate_py",
+      "name": "Smart Cleanup Policy Generate",
+      "filename": "51_smart_cleanup_policy_generate.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/51_smart_cleanup_policy_generate.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "cleanup",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_cpu_core_load_balance_py": {
+      "id": "service-optimizer_optimizers_service_cpu_core_load_balance_py",
+      "name": "Cpu Core Load Balance",
+      "filename": "37_cpu_core_load_balance.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/37_cpu_core_load_balance.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_traffic_anomaly_detect_py": {
+      "id": "service-optimizer_optimizers_service_traffic_anomaly_detect_py",
+      "name": "Traffic Anomaly Detect",
+      "filename": "43_traffic_anomaly_detect.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/43_traffic_anomaly_detect.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_script_priority_scheduler_py": {
+      "id": "service-optimizer_optimizers_service_script_priority_scheduler_py",
+      "name": "Script Priority Scheduler",
+      "filename": "49_script_priority_scheduler.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/49_script_priority_scheduler.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_task_dependency_auto_fix_py": {
+      "id": "service-optimizer_optimizers_service_task_dependency_auto_fix_py",
+      "name": "Task Dependency Auto Fix",
+      "filename": "46_task_dependency_auto_fix.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/46_task_dependency_auto_fix.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_process_priority_auto_adjust_py": {
+      "id": "service-optimizer_optimizers_service_process_priority_auto_adjust_py",
+      "name": "Process Priority Auto Adjust",
+      "filename": "34_process_priority_auto_adjust.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/34_process_priority_auto_adjust.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_init_py": {
+      "id": "service-optimizer_optimizers_service_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/optimizers/service/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_load_balancer_tune_py": {
+      "id": "service-optimizer_optimizers_service_load_balancer_tune_py",
+      "name": "Load Balancer Tune",
+      "filename": "45_load_balancer_tune.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/45_load_balancer_tune.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_memory_leak_detect_alert_py": {
+      "id": "service-optimizer_optimizers_service_memory_leak_detect_alert_py",
+      "name": "Memory Leak Detect Alert",
+      "filename": "35_memory_leak_detect_alert.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/35_memory_leak_detect_alert.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "alert",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_ar_render_node_schedule_py": {
+      "id": "service-optimizer_optimizers_service_ar_render_node_schedule_py",
+      "name": "Ar Render Node Schedule",
+      "filename": "47_ar_render_node_schedule.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/47_ar_render_node_schedule.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_script_failure_auto_rollback_py": {
+      "id": "service-optimizer_optimizers_service_script_failure_auto_rollback_py",
+      "name": "Script Failure Auto Rollback",
+      "filename": "48_script_failure_auto_rollback.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/48_script_failure_auto_rollback.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "service-optimizer_optimizers_service_performance_trend_predict_py": {
+      "id": "service-optimizer_optimizers_service_performance_trend_predict_py",
+      "name": "Performance Trend Predict",
+      "filename": "50_performance_trend_predict.py",
+      "category": "service-optimizer",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/optimizers/service/50_performance_trend_predict.py",
+      "script_type": "python",
+      "tags": [
+        "service-optimizer",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_maintenance_backup_log_anomaly_archive_py": {
+      "id": "maintenance-backup_maintenance_backup_log_anomaly_archive_py",
+      "name": "Log Anomaly Archive",
+      "filename": "26_log_anomaly_archive.py",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/backup/26_log_anomaly_archive.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-backup",
+        "backup"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_maintenance_backup_history_data_compress_archive_py": {
+      "id": "maintenance-backup_maintenance_backup_history_data_compress_archive_py",
+      "name": "History Data Compress Archive",
+      "filename": "40_history_data_compress_archive.py",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/backup/40_history_data_compress_archive.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-backup",
+        "backup"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_maintenance_backup_init_py": {
+      "id": "maintenance-backup_maintenance_backup_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/maintenance/backup/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-backup",
+        "backup"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_maintenance_backup_file_backup_archive_py": {
+      "id": "maintenance-backup_maintenance_backup_file_backup_archive_py",
+      "name": "File Backup Archive",
+      "filename": "25_file_backup_archive.py",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/backup/25_file_backup_archive.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-backup",
+        "backup"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_maintenance_backup_auto_archive_rollback_py": {
+      "id": "maintenance-backup_maintenance_backup_auto_archive_rollback_py",
+      "name": "Auto Archive Rollback",
+      "filename": "33_auto_archive_rollback.py",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/backup/33_auto_archive_rollback.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-backup",
+        "backup"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_auto_config_anomaly_fix_py": {
+      "id": "maintenance-health_maintenance_health_auto_config_anomaly_fix_py",
+      "name": "Auto Config Anomaly Fix",
+      "filename": "52_auto_config_anomaly_fix.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/52_auto_config_anomaly_fix.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_app_config_check_repair_py": {
+      "id": "maintenance-health_maintenance_health_app_config_check_repair_py",
+      "name": "App Config Check Repair",
+      "filename": "30_app_config_check_repair.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/30_app_config_check_repair.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_multi_env_script_sync_py": {
+      "id": "maintenance-health_maintenance_health_multi_env_script_sync_py",
+      "name": "Multi Env Script Sync",
+      "filename": "53_multi_env_script_sync.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/53_multi_env_script_sync.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_dag_node_status_monitor_py": {
+      "id": "maintenance-health_maintenance_health_dag_node_status_monitor_py",
+      "name": "Dag Node Status Monitor",
+      "filename": "12_dag_node_status_monitor.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/12_dag_node_status_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_system_update_patch_check_py": {
+      "id": "maintenance-health_maintenance_health_system_update_patch_check_py",
+      "name": "System Update Patch Check",
+      "filename": "22_system_update_patch_check.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/22_system_update_patch_check.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_log_classify_tagging_py": {
+      "id": "maintenance-health_maintenance_health_log_classify_tagging_py",
+      "name": "Log Classify Tagging",
+      "filename": "39_log_classify_tagging.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/39_log_classify_tagging.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_script_execution_status_monitor_py": {
+      "id": "maintenance-health_maintenance_health_script_execution_status_monitor_py",
+      "name": "Script Execution Status Monitor",
+      "filename": "11_script_execution_status_monitor.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/11_script_execution_status_monitor.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_init_py": {
+      "id": "maintenance-health_maintenance_health_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/maintenance/health/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_scheduled_inspection_report_py": {
+      "id": "maintenance-health_maintenance_health_scheduled_inspection_report_py",
+      "name": "Scheduled Inspection Report",
+      "filename": "15_scheduled_inspection_report.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/15_scheduled_inspection_report.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_security_policy_validate_py": {
+      "id": "maintenance-health_maintenance_health_security_policy_validate_py",
+      "name": "Security Policy Validate",
+      "filename": "54_security_policy_validate.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/54_security_policy_validate.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_auto_data_summary_py": {
+      "id": "maintenance-health_maintenance_health_auto_data_summary_py",
+      "name": "Auto Data Summary",
+      "filename": "41_auto_data_summary.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/41_auto_data_summary.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_api_load_test_py": {
+      "id": "maintenance-health_maintenance_health_api_load_test_py",
+      "name": "Api Load Test",
+      "filename": "44_api_load_test.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/44_api_load_test.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_db_index_optimize_py": {
+      "id": "maintenance-health_maintenance_health_db_index_optimize_py",
+      "name": "Db Index Optimize",
+      "filename": "38_db_index_optimize.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/38_db_index_optimize.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_boot_acceleration_optimize_py": {
+      "id": "maintenance-health_maintenance_health_boot_acceleration_optimize_py",
+      "name": "Boot Acceleration Optimize",
+      "filename": "36_boot_acceleration_optimize.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/36_boot_acceleration_optimize.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-health_maintenance_health_service_dependency_detect_py": {
+      "id": "maintenance-health_maintenance_health_service_dependency_detect_py",
+      "name": "Service Dependency Detect",
+      "filename": "42_service_dependency_detect.py",
+      "category": "maintenance-health",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/maintenance/health/42_service_dependency_detect.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-health",
+        "monitor",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-cleanup_maintenance_cleanup_init_py": {
+      "id": "maintenance-cleanup_maintenance_cleanup_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "maintenance-cleanup",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/maintenance/cleanup/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-cleanup",
+        "cleanup"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_alerts_handlers_threshold_alert_notify_py": {
+      "id": "alert-handler_alerts_handlers_threshold_alert_notify_py",
+      "name": "Threshold Alert Notify",
+      "filename": "14_threshold_alert_notify.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "Default: lightweight, safe, non-destructive.",
+      "path": "scripts/alerts/handlers/14_threshold_alert_notify.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "alert"
+      ],
+      "parameters": [
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "Pretty-print JSON output.",
+          "default": null
+        },
+        {
+          "name": "pretty",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_alerts_handlers_init_py": {
+      "id": "alert-handler_alerts_handlers_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/alerts/handlers/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "alert"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_alerts_rules_init_py": {
+      "id": "alert-handler_alerts_rules_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/alerts/rules/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "alert"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_alerts_notifiers_init_py": {
+      "id": "alert-handler_alerts_notifiers_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/alerts/notifiers/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "alert"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_css_init_py": {
+      "id": "tools_utils_css_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/utils/css/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_css_manager_py": {
+      "id": "tools_utils_css_manager_py",
+      "name": "Manager",
+      "filename": "manager.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor CSS 统一管理器",
+      "path": "scripts/utils/css/manager.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "cleanup",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_doc_linter_py": {
+      "id": "tools_utils_dev_doc_linter_py",
+      "name": "Doc Linter",
+      "filename": "doc_linter.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "【文件功能】",
+      "path": "scripts/utils/dev/doc_linter.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "alert",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_sync_postman_to_rest_client_py": {
+      "id": "tools_utils_dev_sync_postman_to_rest_client_py",
+      "name": "Sync Postman To Rest Client",
+      "filename": "sync_postman_to_rest_client.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "Postman 集合与 REST Client 配置同步工具",
+      "path": "scripts/utils/dev/sync_postman_to_rest_client.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "monitor",
+        "alert",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_init_py": {
+      "id": "tools_utils_dev_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/utils/dev/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_start_and_verify_sh": {
+      "id": "tools_utils_dev_start_and_verify_sh",
+      "name": "Start And Verify",
+      "filename": "start_and_verify.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor 启动并验证脚本",
+      "path": "scripts/utils/dev/start_and_verify.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_project_run_sh": {
+      "id": "tools_utils_dev_project_run_sh",
+      "name": "Project Run",
+      "filename": "project_run.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor 应用启动脚本",
+      "path": "scripts/utils/dev/project_run.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_test_api_functionality_py": {
+      "id": "tools_utils_dev_test_api_functionality_py",
+      "name": "Test Api Functionality",
+      "filename": "test_api_functionality.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor API 功能测试脚本",
+      "path": "scripts/utils/dev/test_api_functionality.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_term_checker_py": {
+      "id": "tools_utils_dev_term_checker_py",
+      "name": "Term Checker",
+      "filename": "term_checker.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "【文件功能】",
+      "path": "scripts/utils/dev/term_checker.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "monitor",
+        "alert",
+        "backup",
+        "optimize",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_dev_api_test_workflow_sh": {
+      "id": "tools_utils_dev_api_test_workflow_sh",
+      "name": "Api Test Workflow",
+      "filename": "api_test_workflow.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "API 测试工作流脚本",
+      "path": "scripts/utils/dev/api_test_workflow.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "monitor",
+        "alert",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_verify_mcp_and_postman_sh": {
+      "id": "tools_utils_verify_verify_mcp_and_postman_sh",
+      "name": "Verify Mcp And Postman",
+      "filename": "verify_mcp_and_postman.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor MCP Server + Postman 联动自动化验证脚本",
+      "path": "scripts/utils/verify/verify_mcp_and_postman.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "monitor",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_verify_deployment_py": {
+      "id": "tools_utils_verify_verify_deployment_py",
+      "name": "Verify Deployment",
+      "filename": "verify_deployment.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor 项目落地验证脚本",
+      "path": "scripts/utils/verify/verify_deployment.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "monitor",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_verify_frontend_fix_sh": {
+      "id": "tools_utils_verify_verify_frontend_fix_sh",
+      "name": "Verify Frontend Fix",
+      "filename": "verify_frontend_fix.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "============================================================================",
+      "path": "scripts/utils/verify/verify_frontend_fix.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_init_py": {
+      "id": "tools_utils_verify_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/utils/verify/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_verify_mcp_server_sh": {
+      "id": "tools_utils_verify_verify_mcp_server_sh",
+      "name": "Verify Mcp Server",
+      "filename": "verify_mcp_server.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "YL-Monitor MCP Server 验证脚本",
+      "path": "scripts/utils/verify/verify_mcp_server.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_utils_verify_verify_frontend_optimization_py": {
+      "id": "tools_utils_verify_verify_frontend_optimization_py",
+      "name": "Verify Frontend Optimization",
+      "filename": "verify_frontend_optimization.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "前端优化验证脚本",
+      "path": "scripts/utils/verify/verify_frontend_optimization.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "optimize",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "core_core_start_py": {
+      "id": "core_core_start_py",
+      "name": "Start",
+      "filename": "start.py",
+      "category": "core",
+      "subcategory": "",
+      "description": "YL-Monitor 统一启动脚本",
+      "path": "scripts/core/start.py",
+      "script_type": "python",
+      "tags": [
+        "core",
+        "monitor",
+        "cleanup",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "core_core_verify_py": {
+      "id": "core_core_verify_py",
+      "name": "Verify",
+      "filename": "verify.py",
+      "category": "core",
+      "subcategory": "",
+      "description": "YL-Monitor 统一验证脚本",
+      "path": "scripts/core/verify.py",
+      "script_type": "python",
+      "tags": [
+        "core",
+        "monitor",
+        "alert",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "core_core_init_py": {
+      "id": "core_core_init_py",
+      "name": "  Init  ",
+      "filename": "__init__.py",
+      "category": "core",
+      "subcategory": "",
+      "description": "脚本:   init  ",
+      "path": "scripts/core/__init__.py",
+      "script_type": "python",
+      "tags": [
+        "core",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-backup_backup_sh": {
+      "id": "maintenance-backup_backup_sh",
+      "name": "Backup",
+      "filename": "backup.sh",
+      "category": "maintenance-backup",
+      "subcategory": "",
+      "description": "系统备份脚本",
+      "path": "scripts/backup.sh",
+      "script_type": "shell",
+      "tags": [
+        "maintenance-backup",
+        "cleanup",
+        "backup"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-cleanup_cleanup_duplicate_files_py": {
+      "id": "maintenance-cleanup_cleanup_duplicate_files_py",
+      "name": "Cleanup Duplicate Files",
+      "filename": "cleanup_duplicate_files.py",
+      "category": "maintenance-cleanup",
+      "subcategory": "",
+      "description": "重复文件清理",
+      "path": "scripts/cleanup_duplicate_files.py",
+      "script_type": "python",
+      "tags": [
+        "maintenance-cleanup",
+        "cleanup",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "maintenance-cleanup_cleanup_old_files_sh": {
+      "id": "maintenance-cleanup_cleanup_old_files_sh",
+      "name": "Cleanup Old Files",
+      "filename": "cleanup_old_files.sh",
+      "category": "maintenance-cleanup",
+      "subcategory": "",
+      "description": "旧文件清理",
+      "path": "scripts/cleanup_old_files.sh",
+      "script_type": "shell",
+      "tags": [
+        "maintenance-cleanup",
+        "cleanup",
+        "backup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_docker_build_sh": {
+      "id": "tools_docker_build_sh",
+      "name": "Docker Build",
+      "filename": "docker_build.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "Docker构建",
+      "path": "scripts/docker_build.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_docker_start_sh": {
+      "id": "tools_docker_start_sh",
+      "name": "Docker Start",
+      "filename": "docker_start.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "Docker启动",
+      "path": "scripts/docker_start.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_docker_stop_sh": {
+      "id": "tools_docker_stop_sh",
+      "name": "Docker Stop",
+      "filename": "docker_stop.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "Docker停止",
+      "path": "scripts/docker_stop.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_optimize_project_structure_py": {
+      "id": "tools_optimize_project_structure_py",
+      "name": "Optimize Project Structure",
+      "filename": "optimize_project_structure.py",
+      "category": "tools",
+      "subcategory": "",
+      "description": "项目结构优化",
+      "path": "scripts/optimize_project_structure.py",
+      "script_type": "python",
+      "tags": [
+        "tools",
+        "monitor",
+        "cleanup",
+        "backup",
+        "optimize",
+        "check"
+      ],
+      "parameters": [
+        {
+          "name": "verbose",
+          "type": "string",
+          "required": false,
+          "description": "详细输出",
+          "default": null
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "required": false,
+          "description": "模拟运行",
+          "default": null
+        },
+        {
+          "name": "verbose",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "default": null
+        }
+      ],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "system-monitor_run_all_monitors_sh": {
+      "id": "system-monitor_run_all_monitors_sh",
+      "name": "Run All Monitors",
+      "filename": "run_all_monitors.sh",
+      "category": "system-monitor",
+      "subcategory": "",
+      "description": "运行所有监控",
+      "path": "scripts/run_all_monitors.sh",
+      "script_type": "shell",
+      "tags": [
+        "system-monitor",
+        "monitor",
+        "backup"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "tools_setup_vscode_testing_sh": {
+      "id": "tools_setup_vscode_testing_sh",
+      "name": "Setup Vscode Testing",
+      "filename": "setup_vscode_testing.sh",
+      "category": "tools",
+      "subcategory": "",
+      "description": "VSCode测试环境",
+      "path": "scripts/setup_vscode_testing.sh",
+      "script_type": "shell",
+      "tags": [
+        "tools",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_simple_alert_test_py": {
+      "id": "alert-handler_simple_alert_test_py",
+      "name": "Simple Alert Test",
+      "filename": "simple_alert_test.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "简单告警测试",
+      "path": "scripts/simple_alert_test.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "alert",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    "alert-handler_test_alert_system_py": {
+      "id": "alert-handler_test_alert_system_py",
+      "name": "Test Alert System",
+      "filename": "test_alert_system.py",
+      "category": "alert-handler",
+      "subcategory": "",
+      "description": "告警系统测试",
+      "path": "scripts/test_alert_system.py",
+      "script_type": "python",
+      "tags": [
+        "alert-handler",
+        "monitor",
+        "alert",
+        "cleanup",
+        "check"
+      ],
+      "parameters": [],
+      "schedule": null,
+      "timeout": 300,
+      "enabled": true,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  "categories": [
+    {
+      "id": "tools",
+      "name": "工具脚本",
+      "icon": "🛠️",
+      "description": "CSS管理、开发工具、验证工具",
+      "script_count": 21,
+      "path": "utils"
+    },
+    {
+      "id": "maintenance-health",
+      "name": "维护健康",
+      "icon": "🏥",
+      "description": "状态监控、巡检报告、配置检查",
+      "script_count": 15,
+      "path": "maintenance/health"
+    },
+    {
+      "id": "resource-optimizer",
+      "name": "资源优化",
+      "icon": "🧹",
+      "description": "磁盘清理、缓存清理、日志轮转",
+      "script_count": 14,
+      "path": "optimizers/resource"
+    },
+    {
+      "id": "service-optimizer",
+      "name": "服务优化",
+      "icon": "⚡",
+      "description": "进程调度、内存泄漏检测、负载均衡",
+      "script_count": 12,
+      "path": "optimizers/service"
+    },
+    {
+      "id": "service-monitor",
+      "name": "服务监控",
+      "icon": "🌐",
+      "description": "端口、网络、API、Web应用监控",
+      "script_count": 7,
+      "path": "monitors/service"
+    },
+    {
+      "id": "system-monitor",
+      "name": "系统监控",
+      "icon": "🔍",
+      "description": "CPU、内存、磁盘、系统负载监控",
+      "script_count": 6,
+      "path": "monitors/system"
+    },
+    {
+      "id": "maintenance-backup",
+      "name": "维护备份",
+      "icon": "💾",
+      "description": "文件备份、日志归档、数据压缩",
+      "script_count": 6,
+      "path": "maintenance/backup"
+    },
+    {
+      "id": "alert-handler",
+      "name": "告警处理",
+      "icon": "🚨",
+      "description": "告警处理器和通知器",
+      "script_count": 6,
+      "path": "alerts"
+    },
+    {
+      "id": "maintenance-cleanup",
+      "name": "维护清理",
+      "icon": "🧽",
+      "description": "系统清理和垃圾回收",
+      "script_count": 3,
+      "path": "maintenance/cleanup"
+    },
+    {
+      "id": "core",
+      "name": "核心脚本",
+      "icon": "🔧",
+      "description": "启动和验证脚本",
+      "script_count": 3,
+      "path": "core"
+    },
+    {
+      "id": "ar-monitor",
+      "name": "AR监控",
+      "icon": "🎥",
+      "description": "AR节点资源监控",
+      "script_count": 2,
+      "path": "monitors/ar"
+    }
+  ]
+}

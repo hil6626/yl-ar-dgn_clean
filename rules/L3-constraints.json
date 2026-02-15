@@ -1,0 +1,76 @@
+{
+  "name": "L3 约束层",
+  "description": "技术/运维/资源约束 + 分成熟度 Gate（先宽松可跑，后逐步收紧）",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-04",
+  "constraints": {
+    "technical": [
+      {
+        "id": "python-version",
+        "rule": "Python 版本建议 >= 3.8（依赖栈与类型提示需求）",
+        "enforcement": "recommended"
+      },
+      {
+        "id": "entrypoints-consistency",
+        "rule": "每个模块必须至少有 1 个可用入口（可执行、路径正确、README 指向一致）",
+        "enforcement": "mandatory",
+        "minMaturity": 1
+      },
+      {
+        "id": "script-contract",
+        "rule": "scripts/ 中被路由/服务引用的脚本必须存在且命名一致（避免“映射存在但文件缺失”）",
+        "enforcement": "mandatory",
+        "minMaturity": 2
+      },
+      {
+        "id": "api-map-registry",
+        "rule": "api-map/registry.json 必须能表达环境地址、服务端点与能力（至少 dev/local 一套）",
+        "enforcement": "mandatory",
+        "minMaturity": 3
+      }
+    ],
+    "operational": [
+      {
+        "id": "logs-structure",
+        "rule": "所有模块日志必须落在 logs/ 子目录并有 README 说明（backend/monitor/scripts/user）",
+        "enforcement": "mandatory",
+        "minMaturity": 2
+      },
+      {
+        "id": "secrets",
+        "rule": "敏感信息不得提交仓库；通过环境变量或本地配置注入",
+        "enforcement": "critical",
+        "minMaturity": 1
+      },
+      {
+        "id": "process-supervision",
+        "rule": "关键服务需具备进程守护（systemd/supervisord 或容器编排）",
+        "enforcement": "mandatory",
+        "minMaturity": 3
+      }
+    ],
+    "resource": [
+      {
+        "id": "timeout",
+        "rule": "脚本/接口默认超时 <= 30 秒（可按白名单放宽）",
+        "enforcement": "strict",
+        "minMaturity": 1
+      },
+      {
+        "id": "cpu-memory",
+        "rule": "CPU/内存利用率阈值需要可观测（告警阈值可先建议后强制）",
+        "enforcement": "monitoring",
+        "minMaturity": 3
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "deploy-requires-constraints-check",
+      "condition": { "field": "action", "operator": "contains", "value": "deploy" },
+      "action": { "target": "validate", "value": "constraints" },
+      "description": "部署动作默认触发约束校验"
+    }
+  ]
+}
+

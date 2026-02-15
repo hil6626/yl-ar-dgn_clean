@@ -1,0 +1,193 @@
+# YL-AR-DGN 统一脚本配置
+# 所有脚本的集中配置管理
+
+version: "2.0.0"
+last_updated: "2026-02-09"
+
+# 项目路径配置
+paths:
+  project_root: "${PROJECT_ROOT}"
+  ar_backend: "${PROJECT_ROOT}/AR-backend"
+  yl_monitor: "${PROJECT_ROOT}/YL-monitor"
+  user: "${PROJECT_ROOT}/user"
+  rules: "${PROJECT_ROOT}/rules"
+  logs: "${PROJECT_ROOT}/logs"
+  temp: "${PROJECT_ROOT}/temp"
+
+# 服务配置
+services:
+  ar_backend:
+    host: "0.0.0.0"
+    port: 5501
+    health_endpoint: "/health"
+    status_endpoint: "/status"
+    metrics_endpoint: "/metrics"
+    start_script: "AR-backend/start_monitor.sh"
+
+  yl_monitor:
+    host: "0.0.0.0"
+    port: 5000
+    health_endpoint: "/api/health"
+    start_script: "YL-monitor/scripts/start_app_simple.sh"
+
+  user_gui:
+    host: "0.0.0.0"
+    port: 8080
+    start_script: "user/start.sh"
+
+# 监控配置
+monitoring:
+  check_interval: 30  # 秒
+  timeout: 5  # 秒
+  fail_threshold: 3
+  metrics_retention_days: 7
+
+  # 资源阈值
+  thresholds:
+    cpu_percent: 80
+    memory_percent: 85
+    disk_percent: 90
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARN, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  max_file_size: "10MB"
+  backup_count: 5
+
+  # 日志文件路径
+  files:
+    ar_backend: "AR-backend/logs/monitor_server.log"
+    yl_monitor: "YL-monitor/logs/app.log"
+    user: "user/logs/app.log"
+    scripts: "logs/scripts.log"
+
+# 部署配置
+deployment:
+  environments:
+    - development
+    - staging
+    - production
+
+  default_environment: "development"
+
+  # 部署检查点
+  checkpoints:
+    - pre_deployment_verify
+    - backup_current
+    - deploy_new_version
+    - post_deployment_verify
+    - rollback_on_failure
+
+# 清理配置
+cleanup:
+  # 自动清理配置
+  auto_cleanup:
+    enabled: true
+    schedule: "0 2 * * *"  # 每天凌晨2点
+
+  # 保留期限（天）
+  retention:
+    temp_files: 1
+    logs: 7
+    cache: 3
+    pyc_files: 1
+
+  # 清理路径
+  paths:
+    - "temp/"
+    - "logs/*.log.old"
+    - "**/__pycache__"
+    - "**/*.pyc"
+    - ".pytest_cache/"
+
+# 通知配置
+notifications:
+  enabled: true
+
+  channels:
+    email:
+      enabled: false
+      smtp_server: ""
+      smtp_port: 587
+      username: ""
+      password: ""  # 使用环境变量或密钥管理
+      from_address: ""
+      to_addresses: []
+
+    webhook:
+      enabled: false
+      url: ""
+      headers:
+        Content-Type: "application/json"
+
+    dingtalk:
+      enabled: false
+      webhook_url: ""
+      secret: ""
+
+# 安全配置
+security:
+  # 敏感信息环境变量
+  env_variables:
+    - DB_PASSWORD
+    - API_KEY
+    - SECRET_KEY
+    - SMTP_PASSWORD
+
+  # 禁止硬编码的模式
+  forbidden_patterns:
+    - "password\\s*=\\s*['\"][^'\"]+['\"]"
+    - "api_key\\s*=\\s*['\"][^'\"]+['\""
+    - "secret\\s*=\\s*['\"][^'\"]+['\""
+
+# 脚本命令映射
+commands:
+  monitor:
+    description: "启动系统监控"
+    script: "scripts/yl-ar-dgn.sh monitor"
+    requires:
+      - python3
+      - curl
+
+  deploy:
+    description: "执行部署"
+    script: "YL-monitor/scripts/deploy.sh"
+    arguments:
+      - environment
+
+  cleanup:
+    description: "清理和优化"
+    script: "YL-monitor/scripts/optimize/31_combo_cleanup_optimize.py"
+
+  verify:
+    description: "验证系统状态"
+    script: "YL-monitor/scripts/verify_start.sh"
+
+  health:
+    description: "健康检查"
+    script: "scripts/yl-ar-dgn.sh health"
+
+  logs:
+    description: "查看日志"
+    script: "scripts/yl-ar-dgn.sh logs"
+    arguments:
+      - service
+
+  status:
+    description: "查看系统状态"
+    script: "scripts/yl-ar-dgn.sh status"
+
+# 退出码定义
+exit_codes:
+  SUCCESS: 0
+  GENERAL_ERROR: 1
+  INVALID_ARGUMENT: 2
+  DEPENDENCY_MISSING: 3
+  SERVICE_NOT_FOUND: 4
+  SERVICE_UNHEALTHY: 5
+  DEPLOYMENT_FAILED: 6
+  VERIFICATION_FAILED: 7
+  CONFIG_ERROR: 8
+  PERMISSION_DENIED: 9
+  TIMEOUT: 124

@@ -1,0 +1,24 @@
+{
+  "name": "yl-monitor-visual-regression",
+  "version": "1.0.0",
+  "description": "YL-Monitor 视觉回归测试",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:baseline": "playwright test --update-snapshots",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0"
+  },
+  "keywords": [
+    "visual-regression",
+    "testing",
+    "playwright"
+  ],
+  "author": "YL-Monitor Team",
+  "license": "MIT"
+}

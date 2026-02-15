@@ -1,0 +1,408 @@
+/**
+ * 告警中心优化样式
+ * 版本: v8.0.0
+ * 特性: 时间轴布局、脉冲边框、通知开关
+ */
+
+/* ============================================
+   统计卡片脉冲边框动画
+   ============================================ */
+.stat-card.pulse-border-danger {
+    animation: pulse-border-danger 2s infinite;
+    border-left: 4px solid var(--danger);
+}
+
+@keyframes pulse-border-danger {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+    }
+}
+
+/* ============================================
+   标签导航悬浮置顶
+   ============================================ */
+.tab-navigation-sticky {
+    position: sticky;
+    top: 64px; /* 导航栏高度 */
+    z-index: 100;
+    background: var(--bg-primary);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-navigation-sticky .nav-tabs {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+/* ============================================
+   通知权限开关
+   ============================================ */
+.notification-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+}
+
+.notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    transition: background var(--transition-fast) ease;
+}
+
+.toggle-switch.active {
+    background: var(--primary-500);
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--transition-fast) ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.toggle-switch.active::after {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   告警时间轴布局
+   ============================================ */
+.alerts-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.alerts-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition) ease;
+}
+
+.timeline-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--bg-primary);
+}
+
+.timeline-item.level-critical::before {
+    background: var(--danger);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.timeline-item.level-warning::before {
+    background: var(--warning);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+}
+
+.timeline-item.level-info::before {
+    background: var(--info);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.timeline-time {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+}
+
+.timeline-level {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.timeline-level.critical {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.timeline-level.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.timeline-level.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info);
+}
+
+.timeline-content {
+    margin-bottom: 0.75rem;
+}
+
+.timeline-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.timeline-message {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.timeline-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.timeline-node {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.timeline-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* ============================================
+   快速操作按钮
+   ============================================ */
+.btn-quick-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease;
+}
+
+.btn-quick-action:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--primary-300);
+}
+
+.btn-quick-action.success:hover {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.btn-quick-action.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* ============================================
+   规则可视化编辑器
+   ============================================ */
+.rules-visual-editor {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    min-height: 500px;
+}
+
+.rules-sidebar {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+}
+
+.rules-canvas {
+    background: var(--bg-primary);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.rule-node {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease;
+}
+
+.rule-node:hover {
+    border-color: var(--primary-300);
+    box-shadow: var(--shadow-sm);
+}
+
+.rule-node.active {
+    border-color: var(--primary-500);
+    background: var(--primary-50);
+}
+
+.rule-node-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.rule-node-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+.rule-node-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.rule-node-status.active {
+    background: var(--success);
+}
+
+.rule-node-status.inactive {
+    background: var(--text-tertiary);
+}
+
+.rule-node-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   空状态优化
+   ============================================ */
+.alerts-empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--border);
+}
+
+.alerts-empty-state .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.alerts-empty-state .empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.alerts-empty-state .empty-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   响应式调整
+   ============================================ */
+@media (max-width: 768px) {
+    .alerts-timeline {
+        padding-left: 1.5rem;
+    }
+    
+    .timeline-item::before {
+        left: -1.25rem;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .timeline-meta {
+        flex-wrap: wrap;
+    }
+    
+    .rules-visual-editor {
+        grid-template-columns: 1fr;
+    }
+    
+    .notification-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -1,0 +1,51 @@
+# YL-Monitor 预提交钩子配置
+# 
+# 安装pre-commit: pip install pre-commit
+# 
+# 注意: pre-commit需要在Git仓库中运行
+# 如果不在Git仓库中（本地部署），可以使用以下替代方案:
+#   1. 直接运行检测脚本: python3 scripts/tools/check_css_compliance.py
+#   2. 运行本地维护脚本: bash scripts/tools/local_css_maintenance.sh
+#   3. 设置定时任务: bash scripts/tools/scheduled_css_check.sh
+#
+# 在Git仓库中启用钩子:
+#   pre-commit install
+#
+# 手动运行所有检查:
+#   pre-commit run --all-files
+#
+# 本地部署维护指南: docs/local-deployment-guide.md
+
+repos:
+  - repo: local
+    hooks:
+      - id: css-compliance-check
+        name: CSS Compliance Check
+        entry: python3 scripts/tools/check_css_compliance.py
+        language: system
+        files: \.(css|html)$
+        pass_filenames: false
+        always_run: true
+        description: "检查CSS文件是否符合前端样式规范（本地部署可直接运行此脚本）"
+      
+      - id: local-css-maintenance
+        name: Local CSS Maintenance Check
+        entry: bash scripts/tools/local_css_maintenance.sh --quick
+        language: system
+        files: \.(css|html)$
+        pass_filenames: false
+        always_run: false
+        stages: [manual]
+        description: "本地部署CSS维护检查（手动运行: pre-commit run local-css-maintenance）"
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        files: \.(css|html|py|md|yml|yaml)$
+      - id: end-of-file-fixer
+        files: \.(css|html|py|md|yml|yaml)$
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']

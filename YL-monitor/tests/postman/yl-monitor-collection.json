@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "yl-monitor-api-collection",
+    "name": "YL-Monitor API Collection",
+    "description": "YL-Monitor 系统 API 测试集合 - 与 VS Code MCP Server 联动",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "系统健康检查",
+      "item": [
+        {
+          "name": "健康检查 (v1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/dashboard/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "health"]
+            },
+            "description": "检查 YL-Monitor 服务健康状态 (v1 API)"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has status field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});",
+                  "",
+                  "pm.test(\"Service is healthy\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.eql('ok');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "系统摘要 (v1)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/dashboard/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "summary"]
+            },
+            "description": "获取系统健康摘要 - CPU、内存、磁盘使用率"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "    pm.expect(jsonData).to.have.property('cpu_usage');",
+                  "    pm.expect(jsonData).to.have.property('memory_usage');",
+                  "    pm.expect(jsonData).to.have.property('disk_usage');",
+                  "    pm.expect(jsonData).to.have.property('services');",
+                  "});",
+                  "",
+                  "pm.test(\"CPU usage is valid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.cpu_usage).to.be.a('number');",
+                  "    pm.expect(jsonData.cpu_usage).to.be.at.least(0);",
+                  "    pm.expect(jsonData.cpu_usage).to.be.at.most(100);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "系统摘要 (Legacy)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "summary"]
+            },
+            "description": "获取系统健康摘要 (Legacy API)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AR 模块",
+      "item": [
+        {
+          "name": "获取 AR 状态",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ar/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ar", "status"]
+            },
+            "description": "获取 AR 渲染节点状态"
+          },
+          "response": []
+        },
+        {
+          "name": "触发 AR 任务",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"task_id\": \"ar-task-{{$timestamp}}\",\n  \"priority\": \"normal\",\n  \"params\": {\n    \"scene\": \"test_scene\",\n    \"resolution\": \"1920x1080\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/ar/trigger",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ar", "trigger"]
+            },
+            "description": "触发 AR 渲染任务"
+          },
+          "response": []
+        },
+        {
+          "name": "获取 AR 节点资源",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ar/nodes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ar", "nodes"]
+            },
+            "description": "获取所有 AR 节点信息"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DAG 模块",
+      "item": [
+        {
+          "name": "获取 DAG 状态",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/dag/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dag", "status"]
+            },
+            "description": "获取 DAG 执行状态"
+          },
+          "response": []
+        },
+        {
+          "name": "执行 DAG",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dag_id\": \"example_dag\",\n  \"run_id\": \"run-{{$timestamp}}\",\n  \"params\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/dag/execute",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dag", "execute"]
+            },
+            "description": "执行指定 DAG"
+          },
+          "response": []
+        },
+        {
+          "name": "获取 DAG 列表",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/dag/list",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dag", "list"]
+            },
+            "description": "获取所有可用 DAG"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "脚本管理",
+      "item": [
+        {
+          "name": "获取脚本状态",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/scripts/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "scripts", "status"]
+            },
+            "description": "获取脚本执行状态"
+          },
+          "response": []
+        },
+        {
+          "name": "执行脚本",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"script_name\": \"01_cpu_usage_monitor.py\",\n  \"category\": \"monitor\",\n  \"params\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/scripts/execute",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "scripts", "execute"]
+            },
+            "description": "执行指定脚本"
+          },
+          "response": []
+        },
+        {
+          "name": "获取脚本列表",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/scripts/list",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "scripts", "list"]
+            },
+            "description": "获取所有可用脚本"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API 元数据",
+      "item": [
+        {
+          "name": "获取 API 元数据",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/meta",
+              "host": ["{{base_url}}"],
+              "path": ["api", "meta"]
+            },
+            "description": "获取 API 元数据、功能注册表和模块信息"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('version');",
+                  "    pm.expect(jsonData).to.have.property('modules');",
+                  "    pm.expect(jsonData).to.have.property('function_registry');",
+                  "    pm.expect(jsonData).to.have.property('ws_endpoints');",
+                  "});",
+                  "",
+                  "pm.test(\"Modules is an array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.modules).to.be.an('array');",
+                  "    pm.expect(jsonData.modules.length).to.be.greaterThan(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "功能冒泡检测",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"params\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/functions/cpu_monitor/bubble_check",
+              "host": ["{{base_url}}"],
+              "path": ["api", "functions", "cpu_monitor", "bubble_check"]
+            },
+            "description": "触发 CPU 监控功能的冒泡检测"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "WebSocket",
+      "item": [
+        {
+          "name": "WebSocket 连接信息",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ws/info",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ws", "info"]
+            },
+            "description": "获取 WebSocket 连接信息"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 设置默认 base_url",
+          "if (!pm.environment.get('base_url')) {",
+          "    pm.environment.set('base_url', 'http://localhost:5500');",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5500",
+      "type": "string",
+      "description": "YL-Monitor 服务基础 URL"
+    },
+    {
+      "key": "api_version",
+      "value": "v1",
+      "type": "string",
+      "description": "API 版本号"
+    },
+    {
+      "key": "timeout",
+      "value": "30000",
+      "type": "string",
+      "description": "请求超时时间（毫秒）"
+    }
+  ]
+}

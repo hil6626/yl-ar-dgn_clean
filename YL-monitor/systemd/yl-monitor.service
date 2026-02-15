@@ -1,0 +1,65 @@
+# ============================================================================
+# YL-Monitor Systemd 服务配置
+# 用于生产环境后台运行
+# ============================================================================
+
+[Unit]
+Description=夜灵多功能统一监控平台
+Documentation=https://github.com/your-org/yl-monitor
+After=network.target redis.service
+Wants=redis.service
+
+[Service]
+Type=simple
+User=ylmonitor
+Group=ylmonitor
+
+# 工作目录
+WorkingDirectory=/opt/yl-monitor
+
+# 环境变量
+Environment="YL_MONITOR_PORT=8000"
+Environment="YL_MONITOR_HOST=0.0.0.0"
+Environment="YL_MONITOR_WORKERS=4"
+Environment="DATABASE_URL=sqlite:///data/monitor.db"
+Environment="YL_MONITOR_LOG_LEVEL=info"
+Environment="YL_MONITOR_CORS_ORIGINS=*"
+Environment="PYTHONPATH=/opt/yl-monitor"
+
+# 启动命令
+ExecStartPre=/bin/bash -c 'mkdir -p /opt/yl-monitor/logs /opt/yl-monitor/data'
+ExecStartPre=/opt/yl-monitor/venv/bin/python migrations/001_create_function_mappings.py
+ExecStartPre=/opt/yl-monitor/venv/bin/python migrations/002_create_scripts_table.py
+
+ExecStart=/opt/yl-monitor/venv/bin/uvicorn app.main:app \
+    --host ${YL_MONITOR_HOST} \
+    --port ${YL_MONITOR_PORT} \
+    --workers ${YL_MONITOR_WORKERS} \
+    --log-level ${YL_MONITOR_LOG_LEVEL} \
+    --access-log \
+    --error-logfile /opt/yl-monitor/logs/error.log
+
+# 重启策略
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+
+# 资源限制
+LimitNOFILE=65535
+LimitNPROC=4096
+
+# 安全设置
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/yl-monitor/data /opt/yl-monitor/logs
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=yl-monitor
+
+[Install]
+WantedBy=multi-user.target
