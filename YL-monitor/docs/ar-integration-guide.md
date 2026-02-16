@@ -345,7 +345,7 @@ await auto_register_projects()
 
 ```javascript
 // 连接AR监控WebSocket
-const ws = new WebSocket('ws://localhost:8000/ws/ar');
+const ws = new WebSocket('ws://0.0.0.0:8000/ws/ar');
 
 // 订阅项目
 ws.send(JSON.stringify({

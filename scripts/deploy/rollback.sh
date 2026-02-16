@@ -77,19 +77,19 @@ log_info "验证服务状态..."
 ROLLBACK_SUCCESS=true
 
 # Check AR-backend
-if ! curl -sf http://localhost:8000/health > /dev/null 2>&1; then
+if ! curl -sf http://0.0.0.0:8000/health > /dev/null 2>&1; then
     log_error "AR-backend 回滚验证失败"
     ROLLBACK_SUCCESS=false
 fi
 
 # Check Prometheus
-if ! curl -sf http://localhost:9090/api/v1/query?query=up > /dev/null 2>&1; then
+if ! curl -sf http://0.0.0.0:9090/api/v1/query?query=up > /dev/null 2>&1; then
     log_error "Prometheus 回滚验证失败"
     ROLLBACK_SUCCESS=false
 fi
 
 # Check Grafana
-if ! curl -sf http://localhost:3000/api/health > /dev/null 2>&1; then
+if ! curl -sf http://0.0.0.0:3000/api/health > /dev/null 2>&1; then
     log_error "Grafana 回滚验证失败"
     ROLLBACK_SUCCESS=false
 fi

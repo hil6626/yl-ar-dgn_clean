@@ -1,0 +1,93 @@
+{
+  "scripts": {},
+  "categories": [
+    {
+      "id": "system-monitor",
+      "name": "系统监控",
+      "icon": "🔍",
+      "description": "CPU、内存、磁盘、系统负载监控",
+      "script_count": 0,
+      "path": "monitors/system"
+    },
+    {
+      "id": "service-monitor",
+      "name": "服务监控",
+      "icon": "🌐",
+      "description": "端口、网络、API、Web应用监控",
+      "script_count": 0,
+      "path": "monitors/service"
+    },
+    {
+      "id": "ar-monitor",
+      "name": "AR监控",
+      "icon": "🎥",
+      "description": "AR节点资源监控",
+      "script_count": 0,
+      "path": "monitors/ar"
+    },
+    {
+      "id": "resource-optimizer",
+      "name": "资源优化",
+      "icon": "🧹",
+      "description": "磁盘清理、缓存清理、日志轮转",
+      "script_count": 0,
+      "path": "optimizers/resource"
+    },
+    {
+      "id": "service-optimizer",
+      "name": "服务优化",
+      "icon": "⚡",
+      "description": "进程调度、内存泄漏检测、负载均衡",
+      "script_count": 0,
+      "path": "optimizers/service"
+    },
+    {
+      "id": "maintenance-backup",
+      "name": "维护备份",
+      "icon": "💾",
+      "description": "文件备份、日志归档、数据压缩",
+      "script_count": 0,
+      "path": "maintenance/backup"
+    },
+    {
+      "id": "maintenance-health",
+      "name": "维护健康",
+      "icon": "🏥",
+      "description": "状态监控、巡检报告、配置检查",
+      "script_count": 0,
+      "path": "maintenance/health"
+    },
+    {
+      "id": "maintenance-cleanup",
+      "name": "维护清理",
+      "icon": "🧽",
+      "description": "系统清理和垃圾回收",
+      "script_count": 0,
+      "path": "maintenance/cleanup"
+    },
+    {
+      "id": "alert-handler",
+      "name": "告警处理",
+      "icon": "🚨",
+      "description": "告警处理器和通知器",
+      "script_count": 0,
+      "path": "alerts"
+    },
+    {
+      "id": "tools",
+      "name": "工具脚本",
+      "icon": "🛠️",
+      "description": "CSS管理、开发工具、验证工具",
+      "script_count": 0,
+      "path": "utils"
+    },
+    {
+      "id": "core",
+      "name": "核心脚本",
+      "icon": "🔧",
+      "description": "启动和验证脚本",
+      "script_count": 0,
+      "path": "core"
+    }
+  ]
+}

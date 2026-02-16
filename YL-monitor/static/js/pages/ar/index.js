@@ -251,10 +251,10 @@ export default class ARPage {
   async loadComponentStatus() {
     try {
       // 获取AR-backend状态
-      const arBackendStatus = await this.fetchComponentHealth('http://localhost:5501/health');
+      const arBackendStatus = await this.fetchComponentHealth('http://0.0.0.0:5501/health');
       
       // 获取User GUI状态
-      const userGuiStatus = await this.fetchComponentHealth('http://localhost:5502/health');
+      const userGuiStatus = await this.fetchComponentHealth('http://0.0.0.0:5502/health');
       
       // 更新UI
       this.mainContent.updateComponentStatus({

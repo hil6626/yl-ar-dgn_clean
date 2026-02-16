@@ -165,7 +165,7 @@ class HealthChecker:
     """健康检查器"""
     
     def __init__(self, host: str, port: int, logger: Logger):
-        self.host = host if host != '0.0.0.0' else 'localhost'
+        self.host = host if host != '0.0.0.0' else '0.0.0.0'
         self.port = port
         self.logger = logger
     
@@ -390,7 +390,7 @@ class ApplicationStarter:
         """打开浏览器"""
         import webbrowser
         
-        url = f"http://localhost:{self.config['port']}"
+        url = f"http://0.0.0.0:{self.config['port']}"
         self.logger.info(f"打开浏览器: {url}")
         
         try:

@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # 配置
-BASE_URL="http://localhost:5500"
+BASE_URL="http://0.0.0.0:5500"
 POSTMAN_COLLECTION="tests/postman/yl-monitor-collection.json"
 POSTMAN_ENV="tests/postman/environments/local.json"
 REST_CLIENT_FILE=".vscode/rest-client.http"
@@ -302,7 +302,7 @@ YL-Monitor API 测试工作流
     $0 all      # 运行完整测试流程
 
 环境变量:
-    BASE_URL    服务基础 URL (默认: http://localhost:5500)
+    BASE_URL    服务基础 URL (默认: http://0.0.0.0:5500)
 EOF
 }
 

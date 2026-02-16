@@ -281,10 +281,10 @@ start_monitor() {
         MONITOR_PID=$!
         print_success "监控服务已启动 (PID: $MONITOR_PID)"
         echo $MONITOR_PID > .monitor_pid
-        print_success "监控地址: http://localhost:5501"
+        print_success "监控地址: http://0.0.0.0:5501"
     else
         # 前台运行
-        print_info "监控地址: http://localhost:5501"
+        print_info "监控地址: http://0.0.0.0:5501"
         $PYTHON_CMD monitor_server.py
     fi
 }
@@ -382,9 +382,9 @@ main() {
     echo ""
     print_success "启动完成！"
     if [[ "$MONITOR_ONLY" == true ]]; then
-        print_success "监控服务: http://localhost:5501"
+        print_success "监控服务: http://0.0.0.0:5501"
     else
-        print_success "监控页面: http://localhost:$PORT"
+        print_success "监控页面: http://0.0.0.0:$PORT"
     fi
 }
 

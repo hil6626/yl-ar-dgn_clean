@@ -138,7 +138,7 @@ services:
       - ar-internal
       - ar-external
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      test: ["CMD", "wget", "-q", "--spider", "http://0.0.0.0/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -172,7 +172,7 @@ services:
       rabbitmq:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8001/health', timeout=5)"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://0.0.0.0:8001/health', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -211,7 +211,7 @@ services:
       rabbitmq:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8002/health', timeout=5)"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://0.0.0.0:8002/health', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -240,7 +240,7 @@ services:
       rabbitmq:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8003/health', timeout=5)"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://0.0.0.0:8003/health', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -405,7 +405,7 @@ services:
     networks:
       - ar-internal
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://0.0.0.0:9200/_cluster/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5

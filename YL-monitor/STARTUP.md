@@ -87,10 +87,10 @@ uvicorn app.main:app --host 0.0.0.0 --port 5500 --workers 4
 
 启动成功后，可以通过以下地址访问应用：
 
-- **平台入口（SPA）**: http://localhost:5500
-- **仪表盘（独立页）**: http://localhost:5500/dashboard
-- **API 文档**: http://localhost:5500/api-doc
-- **OpenAPI 规范**: http://localhost:5500/openapi.json
+- **平台入口（SPA）**: http://0.0.0.0:5500
+- **仪表盘（独立页）**: http://0.0.0.0:5500/dashboard
+- **API 文档**: http://0.0.0.0:5500/api-doc
+- **OpenAPI 规范**: http://0.0.0.0:5500/openapi.json
 
 ## 7. Docker 部署
 
@@ -237,12 +237,12 @@ docker stop yl-monitor
 
 ```bash
 # 检查健康状态
-curl http://localhost:5500/api/health
+curl http://0.0.0.0:5500/api/health
 
 # 检查系统状态
-curl http://localhost:5500/api/summary
+curl http://0.0.0.0:5500/api/summary
 
 # 查看 API 文档
-curl http://localhost:5500/docs
+curl http://0.0.0.0:5500/docs
 ```
 

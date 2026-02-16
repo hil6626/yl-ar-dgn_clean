@@ -235,7 +235,7 @@ sudo systemctl restart nginx
 
 ```bash
 # 健康检查
-curl http://localhost:8000/api/health
+curl http://0.0.0.0:8000/api/health
 
 # 查看状态
 ./scripts/deploy.sh status
@@ -349,7 +349,7 @@ curl http://localhost:8000/api/health
 ### 文档资源
 
 - **部署指南**: `docs/deployment-guide.md`
-- **API文档**: `http://localhost:8000/docs`
+- **API文档**: `http://0.0.0.0:8000/docs`
 - **用户手册**: `docs/user-manual.md`
 
 ### 问题排查
@@ -362,7 +362,7 @@ curl http://localhost:8000/api/health
 ./scripts/deploy.sh logs
 
 # 健康检查
-curl http://localhost:8000/api/health
+curl http://0.0.0.0:8000/api/health
 
 # 重启服务
 ./scripts/deploy.sh restart

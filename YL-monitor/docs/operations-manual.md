@@ -190,7 +190,7 @@ DISK_USAGE=$(df / | tail -1 | awk '{print $5}' | cut -d'%' -f1)
 
 # 收集应用指标
 # 从应用API获取
-APP_METRICS=$(curl -s http://localhost:8000/metrics)
+APP_METRICS=$(curl -s http://0.0.0.0:8000/metrics)
 
 # 保存到文件
 echo "$DATE,$TIMESTAMP,$CPU_USAGE,$MEM_USAGE,$DISK_USAGE" >> /var/log/yl-monitor/metrics.csv
@@ -201,13 +201,13 @@ echo "$DATE,$TIMESTAMP,$CPU_USAGE,$MEM_USAGE,$DISK_USAGE" >> /var/log/yl-monitor
 **查看用户列表**:
 ```bash
 # 通过API查看
-curl http://localhost:8000/api/v1/users \
+curl http://0.0.0.0:8000/api/v1/users \
   -H "Authorization: Bearer $TOKEN"
 ```
 
 **添加用户**:
 ```bash
-curl -X POST http://localhost:8000/api/v1/users \
+curl -X POST http://0.0.0.0:8000/api/v1/users \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -220,7 +220,7 @@ curl -X POST http://localhost:8000/api/v1/users \
 
 **禁用用户**:
 ```bash
-curl -X PATCH http://localhost:8000/api/v1/users/user_id \
+curl -X PATCH http://0.0.0.0:8000/api/v1/users/user_id \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"is_active": false}'
@@ -235,22 +235,22 @@ curl -X PATCH http://localhost:8000/api/v1/users/user_id \
 **健康检查端点**:
 ```bash
 # 系统健康
-curl http://localhost:8000/health
+curl http://0.0.0.0:8000/health
 
 # 详细健康信息
-curl http://localhost:8000/health/detailed
+curl http://0.0.0.0:8000/health/detailed
 
 # 依赖服务状态
-curl http://localhost:8000/health/dependencies
+curl http://0.0.0.0:8000/health/dependencies
 ```
 
 **指标端点**:
 ```bash
 # Prometheus格式指标
-curl http://localhost:8000/metrics
+curl http://0.0.0.0:8000/metrics
 
 # 自定义指标
-curl http://localhost:8000/metrics/custom
+curl http://0.0.0.0:8000/metrics/custom
 ```
 
 ### 3.2 告警规则配置
@@ -312,7 +312,7 @@ groups:
 **邮件通知**:
 ```bash
 # 配置邮件告警
-curl -X POST http://localhost:8000/api/v1/alert-channels \
+curl -X POST http://0.0.0.0:8000/api/v1/alert-channels \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -331,7 +331,7 @@ curl -X POST http://localhost:8000/api/v1/alert-channels \
 **Webhook通知**:
 ```bash
 # 配置Webhook告警
-curl -X POST http://localhost:8000/api/v1/alert-channels \
+curl -X POST http://0.0.0.0:8000/api/v1/alert-channels \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -350,7 +350,7 @@ curl -X POST http://localhost:8000/api/v1/alert-channels \
 **短信通知**:
 ```bash
 # 配置短信告警
-curl -X POST http://localhost:8000/api/v1/alert-channels \
+curl -X POST http://0.0.0.0:8000/api/v1/alert-channels \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -464,7 +464,7 @@ grep "slow query" /var/log/yl-monitor/app.log
 # 通过应用API获取
 
 # 4. 清理缓存
-curl -X POST http://localhost:8000/api/v1/admin/cache/clear \
+curl -X POST http://0.0.0.0:8000/api/v1/admin/cache/clear \
   -H "Authorization: Bearer $TOKEN"
 
 # 5. 重启服务
@@ -593,11 +593,11 @@ DELETE FROM metrics WHERE timestamp < NOW() - INTERVAL '30 days';
 # 修改环境变量 CACHE_BACKEND=redis
 
 # 3. 清理缓存
-curl -X POST http://localhost:8000/api/v1/admin/cache/clear \
+curl -X POST http://0.0.0.0:8000/api/v1/admin/cache/clear \
   -H "Authorization: Bearer $TOKEN"
 
 # 4. 预热缓存
-curl -X POST http://localhost:8000/api/v1/admin/cache/warmup \
+curl -X POST http://0.0.0.0:8000/api/v1/admin/cache/warmup \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -664,11 +664,11 @@ docker scan yl-monitor:latest
 **用户权限管理**:
 ```bash
 # 查看用户权限
-curl http://localhost:8000/api/v1/users/permissions \
+curl http://0.0.0.0:8000/api/v1/users/permissions \
   -H "Authorization: Bearer $TOKEN"
 
 # 修改用户角色
-curl -X PATCH http://localhost:8000/api/v1/users/user_id \
+curl -X PATCH http://0.0.0.0:8000/api/v1/users/user_id \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"role": "viewer"}'
@@ -677,7 +677,7 @@ curl -X PATCH http://localhost:8000/api/v1/users/user_id \
 **API密钥管理**:
 ```bash
 # 生成新API密钥
-curl -X POST http://localhost:8000/api/v1/api-keys \
+curl -X POST http://0.0.0.0:8000/api/v1/api-keys \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -687,7 +687,7 @@ curl -X POST http://localhost:8000/api/v1/api-keys \
   }'
 
 # 撤销API密钥
-curl -X DELETE http://localhost:8000/api/v1/api-keys/key_id \
+curl -X DELETE http://0.0.0.0:8000/api/v1/api-keys/key_id \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -815,7 +815,7 @@ chmod 644 /opt/yl-monitor/data/yl_monitor.db
 sudo systemctl start yl-monitor
 
 # 8. 验证恢复
-curl http://localhost:8000/health
+curl http://0.0.0.0:8000/health
 
 echo "恢复完成"
 ```
@@ -887,8 +887,8 @@ cd /opt/yl-monitor && python -m alembic upgrade head
 sudo systemctl start yl-monitor
 
 # 7. 验证升级
-curl http://localhost:8000/health
-curl http://localhost:8000/api/v1/meta | grep version
+curl http://0.0.0.0:8000/health
+curl http://0.0.0.0:8000/api/v1/meta | grep version
 
 echo "升级完成"
 ```

@@ -340,7 +340,7 @@ class ARSystemLauncher:
         # 检查监控服务是否启动成功
         try:
             import requests
-            response = requests.get(f"http://localhost:{self.monitor_port}/health", timeout=5)
+            response = requests.get(f"http://0.0.0.0:{self.monitor_port}/health", timeout=5)
             if response.status_code == 200:
                 self.log("✅ 监控服务健康检查通过", "GREEN")
             else:
@@ -384,10 +384,10 @@ class ARSystemLauncher:
 
         # 打开浏览器
         self.log("5. 打开浏览器...")
-        self._open_browser(f"http://localhost:{self.monitor_port}")
+        self._open_browser(f"http://0.0.0.0:{self.monitor_port}")
 
         self.log("🎉 完整系统启动成功！", "GREEN")
-        self.log(f"📊 监控页面: http://localhost:{self.monitor_port}", "CYAN")
+        self.log(f"📊 监控页面: http://0.0.0.0:{self.monitor_port}", "CYAN")
         self.log("🖥️  GUI界面已启动", "CYAN")
         self.log("📈 自动化监控已启动", "CYAN")
         self.log("🌐 浏览器已自动打开", "CYAN")

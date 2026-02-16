@@ -115,7 +115,7 @@ def check_page(url, name):
                 if css.startswith('http'):
                     css_url = css
                 elif css.startswith('/'):
-                    css_url = f"http://localhost:5500{css}"
+                    css_url = f"http://0.0.0.0:5500{css}"
                 else:
                     css_url = f"{base_url}/{css}"
                     
@@ -133,7 +133,7 @@ def check_page(url, name):
                 if js.startswith('http'):
                     js_url = js
                 elif js.startswith('/'):
-                    js_url = f"http://localhost:5500{js}"
+                    js_url = f"http://0.0.0.0:5500{js}"
                 else:
                     js_url = f"{base_url}/{js}"
                     
@@ -189,7 +189,7 @@ def check_page(url, name):
 
 
 def main():
-    base = 'http://localhost:5500'
+    base = 'http://0.0.0.0:5500'
     
     pages = [
         ('/', '首页'),

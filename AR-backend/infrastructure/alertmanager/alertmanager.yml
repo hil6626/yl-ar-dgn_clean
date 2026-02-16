@@ -11,7 +11,7 @@ global:
     basic_auth:
       username: alertmanager
       password_file: /etc/alertmanager/auth_password
-  smtp_smarthost: '${SMTP_HOST:-localhost:25}'
+  smtp_smarthost: '${SMTP_HOST:-0.0.0.0:25}'
   smtp_from: 'alertmanager@ar-backend.local'
   smtp_auth_username: '${SMTP_USER:-}'
   smtp_auth_password_file: '${SMTP_PASSWORD_FILE:-}'

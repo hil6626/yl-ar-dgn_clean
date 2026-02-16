@@ -59,8 +59,8 @@ fi
 
 # 启动服务
 echo -e "${GREEN}[*] 启动监控服务...${NC}"
-echo -e "${GREEN}[*] 访问地址: http://localhost:$PORT${NC}"
-echo -e "${GREEN}[*] 健康检查: http://localhost:$PORT/health${NC}"
+echo -e "${GREEN}[*] 访问地址: http://0.0.0.0:$PORT${NC}"
+echo -e "${GREEN}[*] 健康检查: http://0.0.0.0:$PORT/health${NC}"
 echo -e "${GREEN}[*] 按 Ctrl+C 停止服务${NC}"
 echo ""
 

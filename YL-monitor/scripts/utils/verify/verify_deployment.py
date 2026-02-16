@@ -376,9 +376,9 @@ print("""
 
 后续建议：
 1. 运行应用: uvicorn app.main:app --reload --host 0.0.0.0 --port 5500
-2. 访问仪表板: http://localhost:5500/dashboard
-3. 查看 API 文档: http://localhost:5500/api-doc
-4. 测试 WebSocket: ws://localhost:5500/ws/scripts
+2. 访问仪表板: http://0.0.0.0:5500/dashboard
+3. 查看 API 文档: http://0.0.0.0:5500/api-doc
+4. 测试 WebSocket: ws://0.0.0.0:5500/ws/scripts
 
 主要功能模块：
   - 📊 仪表板: CPU、内存、磁盘监控

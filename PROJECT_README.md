@@ -50,8 +50,8 @@ cd YL-monitor && python start_server.py
 
 ### 3. 访问服务
 
-- AR后端服务: http://localhost:8000
-- 监控面板: http://localhost:5000
+- AR后端服务: http://0.0.0.0:8000
+- 监控面板: http://0.0.0.0:5000
 
 ## 文档索引
 

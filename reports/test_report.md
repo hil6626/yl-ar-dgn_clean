@@ -51,9 +51,9 @@ PyQt5>=5.15.0
 ### 2.3 服务端点
 | 服务 | 地址 | 用途 |
 |------|------|------|
-| AR-backend监控 | http://localhost:5501 | 后端状态监控 |
-| User-GUI监控 | http://localhost:5502 | 前端状态监控 |
-| YL-monitor | http://localhost:5500 | 统一监控平台 |
+| AR-backend监控 | http://0.0.0.0:5501 | 后端状态监控 |
+| User-GUI监控 | http://0.0.0.0:5502 | 前端状态监控 |
+| YL-monitor | http://0.0.0.0:5500 | 统一监控平台 |
 
 ---
 

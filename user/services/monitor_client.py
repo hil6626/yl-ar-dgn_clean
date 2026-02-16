@@ -25,7 +25,7 @@ class MonitorClient:
         self,
         node_id: str = 'user-gui',
         node_name: str = 'User GUI Application',
-        monitor_host: str = 'localhost',
+        monitor_host: str = '0.0.0.0',
         monitor_port: int = 5500,
         heartbeat_interval: int = 30,
         enabled: bool = True
@@ -298,7 +298,7 @@ class MonitorClient:
             
             logger.info(
                 f"本地HTTP服务已启动: "
-                f"http://localhost:{self._local_port}"
+                f"http://0.0.0.0:{self._local_port}"
             )
             
         except ImportError:

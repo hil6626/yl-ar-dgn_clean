@@ -84,7 +84,7 @@ tests/postman/
 
 | 变量名 | 说明 | 默认值 | 用途 |
 |--------|------|--------|------|
-| `base_url` | 服务基础 URL | `http://localhost:5500` | API 请求地址 |
+| `base_url` | 服务基础 URL | `http://0.0.0.0:5500` | API 请求地址 |
 | `api_version` | API 版本 | `v1` | 版本控制 |
 | `timeout` | 请求超时 | `30000` | 毫秒 |
 | `auth_token` | 认证令牌 | `` | 身份验证 |
@@ -239,7 +239,7 @@ ls -la tests/postman/yl-monitor-collection.json
 **解决方案**:
 ```bash
 # 检查服务是否运行
-curl http://localhost:5500/api/v1/dashboard/health
+curl http://0.0.0.0:5500/api/v1/dashboard/health
 
 # 检查端口配置
 # 确认环境变量 base_url 正确设置
@@ -318,7 +318,7 @@ bash scripts/tools/verify_mcp_and_postman.sh
 
 2. **测试单个端点**:
    ```bash
-   curl -v http://localhost:5500/api/v1/dashboard/health
+   curl -v http://0.0.0.0:5500/api/v1/dashboard/health
    ```
 
 3. **验证 JSON 格式**:

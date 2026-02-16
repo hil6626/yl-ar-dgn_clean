@@ -119,7 +119,7 @@ class TestIntelligentAlertService:
             "actual_value": 85.0,
             "message": "CPU使用率超过阈值",
             "timestamp": datetime.utcnow().isoformat(),
-            "labels": {"host": "localhost"}
+            "labels": {"host": "0.0.0.0"}
         }
     
     @pytest.fixture

@@ -22,7 +22,7 @@ scrape_configs:
   # Prometheus自我监控
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['0.0.0.0:9090']
   
   # 节点监控
   - job_name: 'node'
@@ -33,13 +33,13 @@ scrape_configs:
   # PostgreSQL监控
   - job_name: 'postgres'
     static_configs:
-      - targets: ['localhost:9187']
+      - targets: ['0.0.0.0:9187']
     metrics_path: /metrics
   
   # Redis监控
   - job_name: 'redis'
     static_configs:
-      - targets: ['localhost:9121']
+      - targets: ['0.0.0.0:9121']
     metrics_path: /metrics
   
   # AR-backend API监控
@@ -53,6 +53,6 @@ scrape_configs:
   # Docker监控
   - job_name: 'docker'
     static_configs:
-      - targets: ['localhost:9323']
+      - targets: ['0.0.0.0:9323']
     metrics_path: /metrics
 

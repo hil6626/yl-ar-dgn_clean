@@ -312,7 +312,7 @@ class TestBigDataStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i % 30),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             }
             metrics.append(metric)
         
@@ -354,7 +354,7 @@ class TestBigDataStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i % 30),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行查询

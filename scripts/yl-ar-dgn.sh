@@ -17,6 +17,10 @@
 #   validate   - 验证项目完整性
 #   logs       - 查看组件日志
 #   cleanup    - 清理临时文件
+#   backup     - 备份项目数据
+#   docker-build - 构建Docker镜像
+#   docker-start - 启动Docker容器
+#   docker-stop  - 停止Docker容器
 #   help       - 显示帮助信息
 
 set -euo pipefail
@@ -78,6 +82,15 @@ YL-AR-DGN 项目管理脚本
 
   cleanup                清理临时文件和缓存
 
+  backup [name]          备份项目数据
+                         名称: 可选，默认为当前日期
+
+  docker-build           构建Docker镜像
+
+  docker-start           启动Docker容器
+
+  docker-stop            停止Docker容器
+
   health                 执行健康检查
 
   version                显示版本信息
@@ -89,6 +102,8 @@ YL-AR-DGN 项目管理脚本
   $0 start yl-monitor    # 启动YL-monitor
   $0 status              # 查看所有组件状态
   $0 logs ar-backend     # 查看AR-backend日志
+  $0 backup 20240216     # 备份项目数据
+  $0 docker-build        # 构建Docker镜像
 
 EOF
 }
@@ -120,15 +135,15 @@ get_component_status() {
     case $component in
         "yl-monitor")
             port=5500
-            url="http://localhost:${port}/api/health"
+            url="http://0.0.0.0:${port}/api/health"
             ;;
         "ar-backend")
             port=5501
-            url="http://localhost:${port}/health"
+            url="http://0.0.0.0:${port}/health"
             ;;
         "user-gui")
             port=5502
-            url="http://localhost:${port}/health"
+            url="http://0.0.0.0:${port}/health"
             ;;
         *)
             echo "unknown"
@@ -355,7 +370,7 @@ health_check() {
     local all_healthy=true
 
     # 检查YL-monitor
-    if curl -sf http://localhost:5500/api/health &> /dev/null; then
+    if curl -sf http://0.0.0.0:5500/api/health &> /dev/null; then
         echo -e "✓ YL-monitor: ${GREEN}健康${NC}"
     else
         echo -e "✗ YL-monitor: ${RED}异常${NC}"
@@ -363,7 +378,7 @@ health_check() {
     fi
 
     # 检查AR-backend
-    if curl -sf http://localhost:5501/health &> /dev/null; then
+    if curl -sf http://0.0.0.0:5501/health &> /dev/null; then
         echo -e "✓ AR-backend: ${GREEN}健康${NC}"
     else
         echo -e "✗ AR-backend: ${RED}异常${NC}"
@@ -371,7 +386,7 @@ health_check() {
     fi
 
     # 检查User GUI
-    if curl -sf http://localhost:5502/health &> /dev/null; then
+    if curl -sf http://0.0.0.0:5502/health &> /dev/null; then
         echo -e "✓ User GUI: ${GREEN}健康${NC}"
     else
         echo -e "✗ User GUI: ${RED}异常${NC}"
@@ -453,10 +468,87 @@ cleanup() {
     log_success "清理完成"
 }
 
+# 备份项目数据
+backup_project() {
+    local backup_name="${1:-$(date +%Y%m%d_%H%M%S)}"
+    local backup_dir="${PROJECT_ROOT}/backups/${backup_name}"
+    
+    log_info "备份项目数据到: $backup_dir"
+    
+    # 创建备份目录
+    mkdir -p "$backup_dir"
+    
+    # 备份配置文件
+    if [ -d "${PROJECT_ROOT}/config" ]; then
+        cp -r "${PROJECT_ROOT}/config" "${backup_dir}/"
+    fi
+    
+    # 备份规则文件
+    if [ -d "${PROJECT_ROOT}/rules" ]; then
+        cp -r "${PROJECT_ROOT}/rules" "${backup_dir}/"
+    fi
+    
+    # 备份数据目录
+    if [ -d "${PROJECT_ROOT}/data" ]; then
+        cp -r "${PROJECT_ROOT}/data" "${backup_dir}/"
+    fi
+    
+    # 创建备份信息文件
+    cat > "${backup_dir}/backup_info.txt" << EOF
+备份时间: $(date '+%Y-%m-%d %H:%M:%S')
+备份名称: $backup_name
+项目版本: 2.3.0
+EOF
+    
+    log_success "备份完成: $backup_dir"
+}
+
+# Docker构建
+docker_build() {
+    log_info "构建Docker镜像..."
+    cd "${PROJECT_ROOT}"
+    
+    if [ -f "docker-compose.yml" ]; then
+        docker-compose build
+        log_success "Docker镜像构建完成"
+    else
+        log_error "docker-compose.yml 不存在"
+        exit 1
+    fi
+}
+
+# Docker启动
+docker_start() {
+    log_info "启动Docker容器..."
+    cd "${PROJECT_ROOT}"
+    
+    if [ -f "docker-compose.yml" ]; then
+        docker-compose up -d
+        log_success "Docker容器启动完成"
+    else
+        log_error "docker-compose.yml 不存在"
+        exit 1
+    fi
+}
+
+# Docker停止
+docker_stop() {
+    log_info "停止Docker容器..."
+    cd "${PROJECT_ROOT}"
+    
+    if [ -f "docker-compose.yml" ]; then
+        docker-compose down
+        log_success "Docker容器已停止"
+    else
+        log_error "docker-compose.yml 不存在"
+        exit 1
+    fi
+}
+
 # 打开监控面板
 open_monitor() {
     log_info "打开监控面板..."
-    local monitor_url="http://localhost:5500/monitor/monitor.html"
+    local monitor_url="http://0.0.0.0:5500/monitor/monitor.html"
     
     # 检查YL-monitor是否运行
     if [ "$(get_component_status yl-monitor)" != "running" ]; then
@@ -532,6 +624,18 @@ main() {
             ;;
         "cleanup")
             cleanup
+            ;;
+        "backup")
+            backup_project "$option"
+            ;;
+        "docker-build")
+            docker_build
+            ;;
+        "docker-start")
+            docker_start
+            ;;
+        "docker-stop")
+            docker_stop
             ;;
         "health")
             health_check

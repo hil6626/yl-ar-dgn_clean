@@ -39,7 +39,7 @@ python3 scripts/validation/validate_frontend_architecture.py
   - 默认会把日志写到 `scripts/logs/scripts_integrity.log`（脚本会自动创建目录）。
 - `validate_backend_services.py` / `validate_frontend_architecture.py`：
   - 默认输出到 stdout。
-  - 会尝试访问本地 `http://localhost:5000` 的部分 API；如果服务未启动会给出 warning（通常不会直接中断整个脚本）。
+  - 会尝试访问本地 `http://0.0.0.0:5000` 的部分 API；如果服务未启动会给出 warning（通常不会直接中断整个脚本）。
 
 ## 适配建议（很重要）
 

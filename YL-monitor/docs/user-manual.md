@@ -60,13 +60,13 @@ YL-Monitor 是一个企业级监控告警平台，提供：
 ### 2.1 访问系统
 
 **默认访问地址**:
-- Web界面: `http://localhost:8000`
-- API文档: `http://localhost:8000/api/docs`
-- 健康检查: `http://localhost:8000/health`
+- Web界面: `http://0.0.0.0:8000`
+- API文档: `http://0.0.0.0:8000/api/docs`
+- 健康检查: `http://0.0.0.0:8000/health`
 
 ### 2.2 首次登录
 
-1. 打开浏览器访问 `http://localhost:8000`
+1. 打开浏览器访问 `http://0.0.0.0:8000`
 2. 使用默认账号登录：
    - 用户名: `admin`
    - 密码: `admin123` (首次登录后请立即修改)
@@ -440,7 +440,7 @@ sudo ./scripts/deploy.sh rollback
 ### Q7: 如何查看API文档？
 
 **A**:
-1. 访问 `http://localhost:8000/api/docs`
+1. 访问 `http://0.0.0.0:8000/api/docs`
 2. 或使用 Swagger UI 查看
 3. 详细的API规范见 `docs/api-standard.md`
 

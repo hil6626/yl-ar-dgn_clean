@@ -288,7 +288,7 @@ graph LR
 **Q: Postman 无法连接到服务？**
 ```bash
 # 检查服务状态
-curl http://localhost:5500/api/health
+curl http://0.0.0.0:5500/api/health
 
 # 检查端口占用
 lsof -i :5500

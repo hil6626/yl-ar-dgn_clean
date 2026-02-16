@@ -20,7 +20,7 @@ class CacheConfig:
         self.default_timeout = int(os.getenv('CACHE_DEFAULT_TIMEOUT', '300'))
         
         # Redis配置
-        self.redis_host = os.getenv('CACHE_REDIS_HOST', 'localhost')
+        self.redis_host = os.getenv('CACHE_REDIS_HOST', '0.0.0.0')
         self.redis_port = int(os.getenv('CACHE_REDIS_PORT', '6379'))
         self.redis_db = int(os.getenv('CACHE_REDIS_DB', '0'))
         self.redis_password = os.getenv('CACHE_REDIS_PASSWORD', '')

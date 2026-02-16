@@ -190,8 +190,8 @@ main() {
     log_step "3" "YL-Monitor 服务状态检查"
     
     log_test "检查服务健康状态"
-    if curl -s http://localhost:5500/api/health > /dev/null 2>&1; then
-        HEALTH_DATA=$(curl -s http://localhost:5500/api/health)
+    if curl -s http://0.0.0.0:5500/api/health > /dev/null 2>&1; then
+        HEALTH_DATA=$(curl -s http://0.0.0.0:5500/api/health)
         VERSION=$(echo "$HEALTH_DATA" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('version', 'unknown'))" 2>/dev/null)
         log_pass "YL-Monitor 服务运行中 (版本: $VERSION)"
         

@@ -74,9 +74,9 @@ yl-ar-dgn_clean/
 
 ```bash
 # 验证服务状态
-curl http://localhost:5500/api/health  # YL-monitor
-curl http://localhost:5501/health      # AR-backend
-curl http://localhost:5502/status      # User GUI
+curl http://0.0.0.0:5500/api/health  # YL-monitor
+curl http://0.0.0.0:5501/health      # AR-backend
+curl http://0.0.0.0:5502/status      # User GUI
 
 # 查看项目状态（脚本整合后）
 ./scripts/yl-ar-dgn.sh status

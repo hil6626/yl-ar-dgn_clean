@@ -1,180 +1,134 @@
-# Documentation Center
-# 文档中心
+# YL-AR-DGN 项目文档中心
 
-**版本:** 2.0.0  
-**最后更新:** 2026-02-04
-
-YL-AR-DGN 项目的文档中心，汇集所有项目文档。
+**版本:** 1.0.0  
+**最后更新:** 2026-02-16  
+**状态:** 🟢 文档结构已优化
 
 ---
 
-## 📁 文档目录
+## 📚 文档导航
 
+### 🚀 快速开始
+| 文档 | 说明 |
+|------|------|
+| [项目总览](../README.md) | 根目录README，项目完整说明 |
+| [快速开始指南](guides/quickstart.md) | 5分钟上手教程 |
+| [部署索引](../部署/0.部署索引.md) | 部署文档总入口 |
+| [TODO_DEPLOY](../部署/TODO_DEPLOY.md) | 任务跟踪清单 |
+
+### 🏗️ 架构文档
+| 文档 | 说明 |
+|------|------|
+| [系统架构](architecture/system-architecture.md) | 系统架构图详细说明 |
+| [数据流说明](architecture/data-flow.md) | 数据流向和处理流程 |
+| [API设计](architecture/api-design.md) | API接口设计规范 |
+
+### 📖 使用指南
+| 文档 | 说明 |
+|------|------|
+| [故障排查](guides/troubleshooting.md) | 常见问题排查方法 |
+| [常见问题](guides/faq.md) | FAQ汇总 |
+
+### 🛠️ 开发文档
+| 文档 | 说明 |
+|------|------|
+| [编码规范](development/coding-standards.md) | 代码编写规范 |
+| [测试指南](development/testing-guide.md) | 测试方法和工具 |
+| [贡献指南](development/contribution.md) | 如何贡献代码 |
+
+### 📋 任务文档
+| 文档 | 说明 |
+|------|------|
+| [任务索引](tasks/README.md) | 所有任务文档索引 |
+
+---
+
+## 🔧 组件文档
+
+| 组件 | 文档 | 版本 | 状态 |
+|------|------|------|------|
+| **AR-backend** | [README](../AR-backend/README.md) | 3.2.0 | 🟢 运行中 |
+| **YL-monitor** | [README](../YL-monitor/README.md) | 1.0.8 | 🟢 运行中 |
+| **User GUI** | [README](../user/README.md) | 2.2.0 | 🟢 运行中 |
+| **Scripts** | [README](../scripts/README.md) | 2.3.0 | 🟢 可用 |
+| **Rules** | [README](../rules/README.md) | 1.2.0 | 🟡 部分完成 |
+
+---
+
+## 📊 部署文档
+
+| 文档 | 说明 |
+|------|------|
+| [部署索引](../部署/0.部署索引.md) | 文档总入口，包含执行路线图 |
+| [TODO_DEPLOY](../部署/TODO_DEPLOY.md) | 任务跟踪清单 (29个任务) |
+| [完成报告](../部署/完成报告-阶段1到阶段3.md) | 阶段1-3合并完成报告 |
+| [项目部署大纲](../部署/1.项目部署大纲.md) | 项目整体部署规划 |
+| [整体方案](../部署/2.整体方案.md) | 系统整体架构方案 |
+| [监控整合方案](../部署/3.监控整合方案.md) | 监控整合详细方案 |
+| [User-GUI优化方案](../部署/4.User-GUI优化方案.md) | GUI优化详细方案 |
+| [规则架构部署](../部署/5.规则架构部署.md) | 规则架构详细方案 |
+| [脚本整合方案](../部署/6.脚本整合方案.md) | 脚本整合详细方案 |
+| [联调测试方案](../部署/7.联调测试方案.md) | 端到端测试方案 |
+
+---
+
+## 🎯 快速链接
+
+### 常用命令
+```bash
+# 查看所有服务状态
+./scripts/yl-ar-dgn.sh status
+
+# 验证项目完整性
+./scripts/yl-ar-dgn.sh validate
+
+# 启动 User GUI
+cd user && python3 main.py
 ```
-docs/
-├── README.md                    # 本文档
-├── PROJECT_STRUCTURE.md         # 项目结构
-├── DEPLOYMENT_SUMMARY.md        # 部署总结
-├── TODO.md                      # 项目待办
-│
-├── archive/                     # 归档文档
-│   ├── README.md               # 归档索引
-│   └── *.md                    # 归档文档(12个)
-│
-├── project/                     # 模块文档
-│   ├── README.md               # 模块文档说明
-│   ├── optimization-analysis.md # 优化分析
-│   └── rules-docs/             # 规则文档
-│       └── frontend-interaction-spec.md
-│
-├── tasks/                      # 任务文档
-│   ├── README.md               # 任务文档中心
-│   ├── TASK_EXECUTION_SUMMARY.md # 任务执行总览
-│   ├── IMPLEMENTATION_SUMMARY.md # 实施总结
-│   ├── TODO.md                 # 任务进度
-│   ├── *-task.md               # 任务文档(8个)
-│   ├── task-*-deploy-*.md      # 部署跟踪(4个)
-│   └── *-execution-report.md   # 执行报告(8个)
-│
-├── cleanup-archive/             # 清理归档
-└── workflows/                   # 工作流文档
+
+### 服务地址
+| 服务 | 地址 | 端口 |
+|------|------|------|
+| YL-monitor | http://0.0.0.0:5500 | 5500 |
+| AR-backend | http://0.0.0.0:5501 | 5501 |
+| User GUI | http://0.0.0.0:5502 | 5502 |
+
+---
+
+## 📈 项目状态
+
+| 阶段 | 状态 | 进度 |
+|------|------|------|
+| 阶段1: 监控整合 | ✅ 已完成 | 100% |
+| 阶段2: User GUI优化 | ✅ 已完成 | 100% |
+| 阶段3: 规则架构部署 | 🟡 部分完成 | 60% |
+| 阶段4: 脚本整合 | ⬜ 待开始 | 0% |
+| 阶段5: 联调测试 | ⬜ 待开始 | 0% |
+
+**总体进度:** 40% (12/30任务完成)
+
+---
+
+## 🆘 获取帮助
+
+### 常见问题排查
+```bash
+# 查看服务日志
+tail -f YL-monitor/logs/app.log
+tail -f AR-backend/logs/monitor.log
+tail -f user/logs/user_gui.log
+
+# 检查进程状态
+ps aux | grep -E "yl-monitor|ar-backend|user-gui"
+
+# 检查端口占用
+netstat -tlnp | grep -E "5500|5501|5502"
 ```
 
----
-
-## 📚 文档统计
-
-| 目录 | 文档数 | 状态 |
-|------|--------|------|
-| **根目录** | 4 | ✅ 有效 |
-| **archive/** | 12 | 📦 已归档 |
-| **project/** | 2 | ✅ 有效 |
-| **tasks/** | 24 | ✅ 有效 |
-| **cleanup-archive/** | - | 📦 已归档 |
-| **合计** | **42+** | |
+### 文档反馈
+如发现文档问题，请更新对应文档或联系项目维护者。
 
 ---
 
-## 🚀 快速导航
-
-### 开始使用
-
-| 主题 | 文档 |
-|------|------|
-| 项目介绍 | [README.md](../README.md) |
-| 项目结构 | [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) |
-| 快速开始 | [README.md](../README.md#快速开始) |
-
-### 开发文档
-
-| 主题 | 文档 |
-|------|------|
-| 前端规范 | [project/rules-docs/frontend-interaction-spec.md](project/rules-docs/frontend-interaction-spec.md) |
-| 后端文档 | [AR-backend/README.md](../AR-backend/README.md) |
-| 监控文档 | [YL-monitor/README.md](../YL-monitor/README.md) |
-| 脚本文档 | [scripts/README.md](../scripts/README.md) |
-
-### 任务管理
-
-| 主题 | 文档 |
-|------|------|
-| 任务列表 | [tasks/README.md](tasks/README.md) |
-| 执行进度 | [tasks/TASK_EXECUTION_SUMMARY.md](tasks/TASK_EXECUTION_SUMMARY.md) |
-| 实施总结 | [tasks/IMPLEMENTATION_SUMMARY.md](tasks/IMPLEMENTATION_SUMMARY.md) |
-
-### 部署运维
-
-| 主题 | 文档 |
-|------|------|
-| 部署总结 | [DEPLOYMENT_SUMMARY.md](DEPLOYMENT_SUMMARY.md) |
-| 基础设施 | [infrastructure/README.md](../infrastructure/README.md) |
-| 安全模块 | [AR-backend/services/security/README.md](../AR-backend/services/security/README.md) |
-
----
-
-## 📋 任务完成状态
-
-### 总览
-
-| 状态 | 数量 | 说明 |
-|------|------|------|
-| ✅ 已完成 | 12 | 所有任务已完成 |
-| 🔄 进行中 | 0 | 无进行中任务 |
-| 📋 规划中 | 0 | 无规划中任务 |
-
-### 按优先级
-
-| 优先级 | 总数 | 已完成 | 完成率 |
-|--------|------|--------|--------|
-| 高 | 3 | 3 | 100% |
-| 中 | 4 | 4 | 100% |
-| 低 | 4 | 4 | 100% |
-
----
-
-## 🛠️ 工具与脚本
-
-### 文档工具
-
-| 脚本 | 用途 |
-|------|------|
-| `scripts/docs_generator.py` | 文档生成器 |
-| `scripts/refactor_rules.py` | 规则重构 |
-| `scripts/build_gui_components.py` | GUI组件构建 |
-
-### 清理工具
-
-| 脚本 | 用途 |
-|------|------|
-| `scripts/cleanup_project.sh` | 项目清理 |
-
-### 验证工具
-
-| 脚本 | 用途 |
-|------|------|
-| `scripts/verify_infrastructure.sh` | 基础设施验证 |
-| `AR-backend/verify_deployment.py` | 部署验证 |
-
----
-
-## 📊 项目状态
-
-### 核心模块
-
-| 模块 | 状态 | 说明 |
-|------|------|------|
-| AR-backend | ✅ 完成 | FastAPI后端服务 |
-| YL-monitor | ✅ 完成 | Flask监控前端 |
-| Infrastructure | ✅ 完成 | Prometheus/Grafana |
-| CI/CD | ✅ 完成 | GitHub Actions |
-| Security | ✅ 完成 | JWT/RBAC/Audit |
-
-### 质量指标
-
-| 指标 | 目标 | 状态 |
-|------|------|------|
-| 测试覆盖率 | >80% | ✅ |
-| 文档完整度 | 100% | ✅ |
-| 任务完成率 | 100% | ✅ |
-
----
-
-## 🔗 外部链接
-
-- [GitHub Repository](https://github.com)
-- [CI/CD Pipeline](../.github/workflows/)
-- [Docker Hub](https://hub.docker.com)
-
----
-
-## 📝 版本历史
-
-| 版本 | 日期 | 变更 |
-|------|------|------|
-| 2.0.0 | 2026-02-04 | 整理归档所有文档 |
-| 1.0.0 | 2026-02-01 | 初始文档结构 |
-
----
-
-**版本:** 2.0.0  
-**最后更新:** 2026-02-04
+**维护者:** YL-AR-DGN 项目团队  
+**最后更新:** 2026-02-16

@@ -57,7 +57,7 @@ class TestStoredMetric:
             name="cpu_percent",
             value=45.5,
             unit="%",
-            labels={"host": "localhost"}
+            labels={"host": "0.0.0.0"}
         )
         
         # 执行
@@ -69,7 +69,7 @@ class TestStoredMetric:
         assert result["name"] == "cpu_percent"
         assert result["value"] == 45.5
         assert result["unit"] == "%"
-        assert result["labels"] == {"host": "localhost"}
+        assert result["labels"] == {"host": "0.0.0.0"}
     
     def test_stored_metric_from_dict(self):
         """
@@ -119,7 +119,7 @@ class TestMetricsStorage:
             "name": "cpu_percent",
             "value": 45.5,
             "unit": "%",
-            "labels": {"host": "localhost", "core": "0"}
+            "labels": {"host": "0.0.0.0", "core": "0"}
         }
     
     # ==================== 数据存储测试 ====================
@@ -180,7 +180,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(i * 10),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             }
             for i in range(10)
         ]
@@ -242,7 +242,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             }
             await storage.store_metric(metric)
         
@@ -271,7 +271,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # Memory指标
@@ -282,7 +282,7 @@ class TestMetricsStorage:
                 "name": "memory_percent",
                 "value": float(60 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行 - 只查询CPU
@@ -312,7 +312,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行 - 查询最近2小时
@@ -376,7 +376,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行 - 限制返回10条
@@ -406,7 +406,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(40 + i * 5),  # 40, 45, 50, 55, 60
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -441,7 +441,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": val,
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -474,7 +474,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": val,
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -507,7 +507,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": val,
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -539,7 +539,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -573,7 +573,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": 50.0,
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
             # 昨天的数据
             await storage.store_metric({
@@ -582,7 +582,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": 60.0,
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -629,7 +629,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -660,7 +660,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -698,7 +698,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行
@@ -738,7 +738,7 @@ class TestMetricsStorage:
                 "name": "cpu_percent",
                 "value": float(50 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # Memory指标
@@ -749,7 +749,7 @@ class TestMetricsStorage:
                 "name": "memory_percent",
                 "value": float(60 + i),
                 "unit": "%",
-                "labels": {"host": "localhost"}
+                "labels": {"host": "0.0.0.0"}
             })
         
         # 执行 - 只导出CPU
@@ -809,7 +809,7 @@ class TestMetricsStorage:
             "name": "cpu_percent",
             "value": 45.5,
             "unit": "%",
-            "labels": {"host": "localhost"}
+            "labels": {"host": "0.0.0.0"}
         }
         
         # 执行

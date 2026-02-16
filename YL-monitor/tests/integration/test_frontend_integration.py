@@ -58,7 +58,7 @@ class TestDashboardPage:
     @pytest.mark.asyncio
     async def test_page_loads(self, page):
         """测试页面加载"""
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         
         # 等待页面加载
         await page.wait_for_load_state("networkidle")
@@ -70,7 +70,7 @@ class TestDashboardPage:
     @pytest.mark.asyncio
     async def test_overview_cards_render(self, page):
         """测试概览卡片渲染"""
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         
         # 等待卡片加载
         try:
@@ -86,7 +86,7 @@ class TestDashboardPage:
     @pytest.mark.asyncio
     async def test_navigation_links(self, page):
         """测试导航链接"""
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         
         # 查找导航链接
         nav_links = await page.query_selector_all("nav a, .nav-link, .sidebar a")
@@ -103,7 +103,7 @@ class TestDashboardPage:
     @pytest.mark.asyncio
     async def test_resource_gauges(self, page):
         """测试资源仪表盘"""
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         
         # 等待资源仪表盘加载
         try:
@@ -121,7 +121,7 @@ class TestAPIDocPage:
     @pytest.mark.asyncio
     async def test_page_loads(self, page):
         """测试页面加载"""
-        await page.goto("http://localhost:8000/api-doc")
+        await page.goto("http://0.0.0.0:8000/api-doc")
         
         await page.wait_for_load_state("networkidle")
         
@@ -131,7 +131,7 @@ class TestAPIDocPage:
     @pytest.mark.asyncio
     async def test_validation_matrix_renders(self, page):
         """测试验证矩阵渲染"""
-        await page.goto("http://localhost:8000/api-doc")
+        await page.goto("http://0.0.0.0:8000/api-doc")
         
         # 等待矩阵加载
         try:
@@ -149,7 +149,7 @@ class TestAPIDocPage:
     @pytest.mark.asyncio
     async def test_bubble_indicators(self, page):
         """测试冒泡指示器"""
-        await page.goto("http://localhost:8000/api-doc")
+        await page.goto("http://0.0.0.0:8000/api-doc")
         
         # 查找状态指示器
         indicators = await page.query_selector_all(
@@ -167,7 +167,7 @@ class TestDAGPage:
     @pytest.mark.asyncio
     async def test_page_loads(self, page):
         """测试页面加载"""
-        await page.goto("http://localhost:8000/dag")
+        await page.goto("http://0.0.0.0:8000/dag")
         
         await page.wait_for_load_state("networkidle")
         
@@ -177,7 +177,7 @@ class TestDAGPage:
     @pytest.mark.asyncio
     async def test_dag_visualization_renders(self, page):
         """测试DAG可视化渲染"""
-        await page.goto("http://localhost:8000/dag")
+        await page.goto("http://0.0.0.0:8000/dag")
         
         # 等待DAG画布加载
         try:
@@ -195,7 +195,7 @@ class TestDAGPage:
     @pytest.mark.asyncio
     async def test_node_interactions(self, page):
         """测试节点交互"""
-        await page.goto("http://localhost:8000/dag")
+        await page.goto("http://0.0.0.0:8000/dag")
         
         # 查找节点
         nodes = await page.query_selector_all(".node, [class*='node']")
@@ -216,7 +216,7 @@ class TestScriptsPage:
     @pytest.mark.asyncio
     async def test_page_loads(self, page):
         """测试页面加载"""
-        await page.goto("http://localhost:8000/scripts")
+        await page.goto("http://0.0.0.0:8000/scripts")
         
         await page.wait_for_load_state("networkidle")
         
@@ -226,7 +226,7 @@ class TestScriptsPage:
     @pytest.mark.asyncio
     async def test_script_cards_render(self, page):
         """测试脚本卡片渲染"""
-        await page.goto("http://localhost:8000/scripts")
+        await page.goto("http://0.0.0.0:8000/scripts")
         
         # 等待卡片加载
         try:
@@ -243,7 +243,7 @@ class TestScriptsPage:
     @pytest.mark.asyncio
     async def test_execute_button(self, page):
         """测试执行按钮"""
-        await page.goto("http://localhost:8000/scripts")
+        await page.goto("http://0.0.0.0:8000/scripts")
         
         # 查找执行按钮
         buttons = await page.query_selector_all(
@@ -272,7 +272,7 @@ class TestResponsiveDesign:
         )
         page = await context.new_page()
         
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         await page.wait_for_load_state("networkidle")
         
         # 检查页面是否正常加载
@@ -290,7 +290,7 @@ class TestResponsiveDesign:
         )
         page = await context.new_page()
         
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         await page.wait_for_load_state("networkidle")
         
         title = await page.title()
@@ -305,7 +305,7 @@ class TestThemeSwitching:
     @pytest.mark.asyncio
     async def test_theme_toggle(self, page):
         """测试主题切换"""
-        await page.goto("http://localhost:8000/dashboard")
+        await page.goto("http://0.0.0.0:8000/dashboard")
         
         # 查找主题切换按钮
         theme_buttons = await page.query_selector_all(

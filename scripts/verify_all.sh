@@ -92,7 +92,7 @@ verify_phase1() {
         "test -f AR-backend/start_monitor.sh"
     
     run_test "1.1 监控服务可启动" \
-        "cd AR-backend && timeout 5 bash start_monitor.sh --daemon 2>/dev/null || true; sleep 2; curl -s http://localhost:5501/health > /dev/null" \
+        "cd AR-backend && timeout 5 bash start_monitor.sh --daemon 2>/dev/null || true; sleep 2; curl -s http://0.0.0.0:5501/health > /dev/null" \
         15
     
     # 1.2 User-GUI状态上报
@@ -257,7 +257,7 @@ verify_phase5() {
     
     # 5.1 监控联调
     run_test "5.1 AR-backend健康检查" \
-        "curl -s http://localhost:5501/health 2>/dev/null | grep -q 'healthy' || echo '{\"status\":\"healthy\"}' | grep -q 'healthy'" \
+        "curl -s http://0.0.0.0:5501/health 2>/dev/null | grep -q 'healthy' || echo '{\"status\":\"healthy\"}' | grep -q 'healthy'" \
         10
     
     # 5.2 GUI功能
@@ -284,7 +284,7 @@ verify_phase5() {
     
     # 5.7 性能（检查响应时间）
     run_test "5.7 服务响应时间" \
-        "start_time=\$(date +%s%N); curl -s http://localhost:5501/health 2>/dev/null || true; end_time=\$(date +%s%N); echo 'OK'" \
+        "start_time=\$(date +%s%N); curl -s http://0.0.0.0:5501/health 2>/dev/null || true; end_time=\$(date +%s%N); echo 'OK'" \
         10
     
     # 5.8 测试报告

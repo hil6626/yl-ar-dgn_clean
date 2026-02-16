@@ -3,7 +3,7 @@
 
 global:
   resolve_timeout: 5m
-  smtp_smarthost: 'localhost:25'
+  smtp_smarthost: '0.0.0.0:25'
   smtp_from: 'alertmanager@yl-ar-dgn.local'
 
 # 路由配置
@@ -45,13 +45,13 @@ receivers:
   # 默认接收者
   - name: 'default'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts'
+      - url: 'http://0.0.0.0:5001/alerts'
         send_resolved: true
   
   # 严重报警接收者
   - name: 'critical-alerts'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts/critical'
+      - url: 'http://0.0.0.0:5001/alerts/critical'
         send_resolved: true
       - url: 'https://hooks.slack.com/services/xxx/yyy/zzz'
         send_resolved: true
@@ -64,7 +64,7 @@ receivers:
   # 警告报警接收者
   - name: 'warning-alerts'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts/warning'
+      - url: 'http://0.0.0.0:5001/alerts/warning'
         send_resolved: true
     email_configs:
       - to: 'devops@yl-ar-dgn.local'
@@ -73,13 +73,13 @@ receivers:
   # 服务报警接收者
   - name: 'service-alerts'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts/service'
+      - url: 'http://0.0.0.0:5001/alerts/service'
         send_resolved: true
   
   # 数据库报警接收者
   - name: 'database-alerts'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts/database'
+      - url: 'http://0.0.0.0:5001/alerts/database'
         send_resolved: true
 
 # 抑制规则

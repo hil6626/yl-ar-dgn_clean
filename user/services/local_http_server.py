@@ -114,7 +114,7 @@ class LocalHTTPServer:
             self.thread.start()
             self.running = True
             
-            logger.info(f"本地HTTP服务启动: http://localhost:{self.port}")
+            logger.info(f"本地HTTP服务启动: http://0.0.0.0:{self.port}")
             return True
             
         except Exception as e:

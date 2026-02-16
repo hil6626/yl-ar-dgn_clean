@@ -125,7 +125,7 @@ fi
 
 # 检查 YL-Monitor 服务状态
 echo -e "${YELLOW}[7/8] 检查 YL-Monitor 服务状态...${NC}"
-if curl -s http://localhost:5500/api/health > /dev/null 2>&1; then
+if curl -s http://0.0.0.0:5500/api/health > /dev/null 2>&1; then
     echo -e "${GREEN}✓ YL-Monitor 服务运行中 (端口 5500)${NC}"
     
     # 测试 api_request

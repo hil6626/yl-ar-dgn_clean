@@ -77,19 +77,19 @@ while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
     HEALTHY=true
     
     # Check AR-backend
-    if ! curl -sf http://localhost:8000/health > /dev/null 2>&1; then
+    if ! curl -sf http://0.0.0.0:8000/health > /dev/null 2>&1; then
         log_warn "AR-backend 健康检查失败"
         HEALTHY=false
     fi
     
     # Check Prometheus
-    if ! curl -sf http://localhost:9090/api/v1/query?query=up > /dev/null 2>&1; then
+    if ! curl -sf http://0.0.0.0:9090/api/v1/query?query=up > /dev/null 2>&1; then
         log_warn "Prometheus 健康检查失败"
         HEALTHY=false
     fi
     
     # Check Grafana
-    if ! curl -sf http://localhost:3000/api/health > /dev/null 2>&1; then
+    if ! curl -sf http://0.0.0.0:3000/api/health > /dev/null 2>&1; then
         log_warn "Grafana 健康检查失败"
         HEALTHY=false
     fi
@@ -115,13 +115,13 @@ log_info "运行冒烟测试..."
 SMOKE_TEST_PASSED=true
 
 # Test API endpoint
-if ! curl -sf http://localhost:8000/api/users > /dev/null 2>&1; then
+if ! curl -sf http://0.0.0.0:8000/api/users > /dev/null 2>&1; then
     log_warn "API冒烟测试失败"
     SMOKE_TEST_PASSED=false
 fi
 
 # Test monitoring endpoint
-if ! curl -sf http://localhost:9090/api/v1/alerts > /dev/null 2>&1; then
+if ! curl -sf http://0.0.0.0:9090/api/v1/alerts > /dev/null 2>&1; then
     log_warn "监控冒烟测试失败"
     SMOKE_TEST_PASSED=false
 fi

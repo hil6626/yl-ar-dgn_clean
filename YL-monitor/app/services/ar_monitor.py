@@ -14,6 +14,7 @@ from dataclasses import dataclass, field
 
 from app.models.ar import ARNode, ARScene, ARStatus, ARNodeStatus, ARNodesResponse, ARStatusResponse
 from app.services.event_bus import event_bus, EventType
+from app.services.user_gui_monitor import user_gui_monitor, get_user_gui_status
 
 import logging
 logger = logging.getLogger('ARMonitor')
@@ -127,7 +128,7 @@ class ARMonitor:
                 node_id='ar-backend',
                 node_name='AR Backend Service',
                 node_type='ar-backend',
-                host='localhost',
+                host='0.0.0.0',
                 port=5501,
                 health_endpoint='/health',
                 status_endpoint='/status'
@@ -136,7 +137,7 @@ class ARMonitor:
                 node_id='user-gui',
                 node_name='User GUI Application',
                 node_type='user-gui',
-                host='localhost',
+                host='0.0.0.0',
                 port=5502,
                 health_endpoint='/health',
                 status_endpoint='/status'
@@ -225,6 +226,12 @@ class ARMonitor:
 
     async def _check_node(self, node: NodeInfo):
         """检查单个节点"""
+        # 对于 user-gui 类型节点，使用进程监控
+        if node.node_type == 'user-gui':
+            await self._check_user_gui_node(node)
+            return
+            
+        # 对于 ar-backend 类型节点，使用 HTTP 健康检查
         try:
             url = f"{node.base_url}{node.health_endpoint}"
 
@@ -268,6 +275,44 @@ class ARMonitor:
                 node.status = 'offline'
                 logger.error(f"节点 {node.node_id} 标记为离线")
 
+                # 触发告警
+                await self._trigger_alert(node, 'node_offline')
+    
+    async def _check_user_gui_node(self, node: NodeInfo):
+        """检查 User GUI 节点（使用进程监控）"""
+        try:
+            # 使用进程监控检查 User GUI 状态
+            is_running = user_gui_monitor.check_process_running()
+            
+            if is_running:
+                # 获取详细状态
+                status_info = get_user_gui_status()
+                
+                node.status = 'online'
+                node.last_check = datetime.utcnow()
+                node.consecutive_fails = 0
+                
+                # 更新元数据
+                if status_info.get('process'):
+                    node.metadata['pid'] = status_info['process'].get('pid')
+                    node.metadata['memory_mb'] = status_info['process'].get('memory_mb')
+                    node.metadata['cpu_percent'] = status_info['process'].get('cpu_percent')
+                
+                logger.debug(f"User GUI 节点 {node.node_id} 进程监控正常")
+            else:
+                node.consecutive_fails += 1
+                logger.warning(f"User GUI 节点 {node.node_id} 进程未运行")
+                
+        except Exception as e:
+            node.consecutive_fails += 1
+            logger.error(f"User GUI 节点 {node.node_id} 进程监控异常: {e}")
+        
+        # 检查是否达到失败阈值
+        if node.consecutive_fails >= node.fail_threshold:
+            if node.status != 'offline':
+                node.status = 'offline'
+                logger.error(f"User GUI 节点 {node.node_id} 标记为离线")
+                
                 # 触发告警
                 await self._trigger_alert(node, 'node_offline')
 
@@ -314,7 +359,7 @@ class ARMonitor:
             node_id=node_id,
             node_name=data.get('node_name', node_id),
             node_type=node_type,
-            host='localhost',
+            host='0.0.0.0',
             port=port_map.get(node_type, 5500),
             health_endpoint='/health',
             status_endpoint='/status'

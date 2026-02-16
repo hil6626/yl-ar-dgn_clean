@@ -8,7 +8,7 @@
     'use strict';
     
     // 只在开发模式启用
-    const isDevMode = window.location.hostname === 'localhost' || 
+    const isDevMode = window.location.hostname === '0.0.0.0' || 
                       window.location.hostname === '127.0.0.1' ||
                       localStorage.getItem('css-dev-mode') === 'true';
     

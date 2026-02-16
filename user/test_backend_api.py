@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 class BackendAPITester:
     """后端接口测试器"""
     
-    def __init__(self, base_url: str = "http://localhost:5502"):
+    def __init__(self, base_url: str = "http://0.0.0.0:5502"):
         self.base_url = base_url
         self.test_results = []
         self.session = requests.Session()
@@ -369,7 +369,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description='GUI→后端接口联调验证')
-    parser.add_argument('--url', '-u', default='http://localhost:5502',
+    parser.add_argument('--url', '-u', default='http://0.0.0.0:5502',
                        help='后端服务地址')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='详细输出')

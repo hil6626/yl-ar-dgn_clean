@@ -107,14 +107,14 @@ verify_services() {
     fi
 
     # 检查Prometheus
-    if curl -f http://localhost:9090/-/healthy >/dev/null 2>&1; then
+    if curl -f http://0.0.0.0:9090/-/healthy >/dev/null 2>&1; then
         log_info "Prometheus健康检查通过"
     else
         log_warn "Prometheus健康检查失败"
     fi
 
     # 检查Grafana
-    if curl -f http://localhost:3000/api/health >/dev/null 2>&1; then
+    if curl -f http://0.0.0.0:3000/api/health >/dev/null 2>&1; then
         log_info "Grafana健康检查通过"
     else
         log_warn "Grafana健康检查失败"
@@ -142,9 +142,9 @@ main() {
 
     log_info "基础设施恢复完成！"
     log_info "访问地址:"
-    log_info "  Grafana: http://localhost:3000 (admin/admin)"
-    log_info "  Prometheus: http://localhost:9090"
-    log_info "  Alertmanager: http://localhost:9093"
+    log_info "  Grafana: http://0.0.0.0:3000 (admin/admin)"
+    log_info "  Prometheus: http://0.0.0.0:9090"
+    log_info "  Alertmanager: http://0.0.0.0:9093"
 }
 
 # 参数处理

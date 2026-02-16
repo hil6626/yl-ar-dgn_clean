@@ -339,7 +339,7 @@ class TestRecoveryStrategies:
     async def test_connection_error_recovery(self, service):
         """测试连接错误恢复"""
         result = await service._handle_connection_error(
-            context={"host": "localhost", "port": 8080},
+            context={"host": "0.0.0.0", "port": 8080},
         )
         
         assert result.success is True

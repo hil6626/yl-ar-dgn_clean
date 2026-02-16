@@ -297,7 +297,7 @@ class TestAPIErrorCodeLinkage:
     @pytest.fixture
     def api_client(self):
         """【夹具】创建API客户端"""
-        return APIClient(base_url="http://localhost:8000")
+        return APIClient(base_url="http://0.0.0.0:8000")
     
     def test_error_code_mapping(self, api_client):
         """

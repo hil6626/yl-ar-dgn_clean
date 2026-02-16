@@ -50,7 +50,7 @@ class StatusReporter:
     def _load_config(self, config_path: Optional[str]) -> Dict:
         """加载配置"""
         default_config = {
-            'monitor_url': 'http://localhost:5500',
+            'monitor_url': 'http://0.0.0.0:5500',
             'node_id': 'user-gui',
             'node_name': 'User GUI',
             'report_interval': 30,  # 秒

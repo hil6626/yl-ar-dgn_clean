@@ -57,7 +57,7 @@ verify_phase1() {
     run_test "1.1 monitor_server.py存在" "test -f AR-backend/monitor_server.py"
     run_test "1.1 monitor_config.yaml存在" "test -f AR-backend/monitor_config.yaml"
     run_test "1.1 start_monitor.sh存在" "test -f AR-backend/start_monitor.sh"
-    run_test "1.1 监控服务可启动" "cd AR-backend && timeout 5 bash start_monitor.sh --daemon 2>/dev/null || true; sleep 2; curl -s http://localhost:5501/health > /dev/null" 15
+    run_test "1.1 监控服务可启动" "cd AR-backend && timeout 5 bash start_monitor.sh --daemon 2>/dev/null || true; sleep 2; curl -s http://0.0.0.0:5501/health > /dev/null" 15
     run_test "1.2 monitor_client.py存在" "test -f user/services/monitor_client.py"
     run_test "1.3 nodes.yaml存在" "test -f YL-monitor/config/nodes.yaml"
     run_test "1.4 监控面板文件存在" "test -f YL-monitor/templates/ar_dashboard.html || test -f YL-monitor/static/ar_dashboard.html || test -f YL-monitor/static/ar.html"
@@ -115,13 +115,13 @@ verify_phase4() {
 # 阶段5验证
 verify_phase5() {
     log_section "阶段5: 联调测试验证"
-    run_test "5.1 AR-backend健康" "curl -s http://localhost:5501/health 2>/dev/null | grep -q 'healthy' || echo '{\"status\":\"healthy\"}' | grep -q 'healthy'" 10
+    run_test "5.1 AR-backend健康" "curl -s http://0.0.0.0:5501/health 2>/dev/null | grep -q 'healthy' || echo '{\"status\":\"healthy\"}' | grep -q 'healthy'" 10
     run_test "5.2 GUI模块导入" "cd user && python3 -c 'import sys; sys.path.insert(0,\".\"); print(\"OK\")' 2>/dev/null || echo 'OK'" 10
     run_test "5.3 错误处理机制" "test -f scripts/lib/error_handler.sh && grep -q 'handle_error' scripts/lib/error_handler.sh 2>/dev/null"
     run_test "5.4 统一入口命令" "scripts/yl-ar-dgn.sh help > /dev/null 2>&1 || true"
     run_test "5.5 规则引擎加载" "cd rules && node -e \"const {RulesEngine}=require('./index.js'); new RulesEngine(); console.log('OK')\" 2>/dev/null || echo 'OK'" 10
     run_test "5.6 配置文件完整" "test -f YL-monitor/config/nodes.yaml && test -f AR-backend/monitor_config.yaml"
-    run_test "5.7 服务响应" "curl -s http://localhost:5501/health 2>/dev/null || echo 'OK'" 10
+    run_test "5.7 服务响应" "curl -s http://0.0.0.0:5501/health 2>/dev/null || echo 'OK'" 10
     run_test "5.8 TODO.md更新" "grep -q '阶段5.*已完成' TODO.md 2>/dev/null"
 }
 

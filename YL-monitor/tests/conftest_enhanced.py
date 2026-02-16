@@ -323,7 +323,7 @@ def sample_stored_metric_data() -> Dict[str, Any]:
         "name": "cpu_percent",
         "value": 45.5,
         "unit": "%",
-        "labels": {"host": "localhost", "core": "0"}
+        "labels": {"host": "0.0.0.0", "core": "0"}
     }
 
 
@@ -514,7 +514,7 @@ def test_config() -> Dict[str, Any]:
         Dict[str, Any]: 测试配置
     """
     return {
-        "base_url": "http://localhost:8000",
+        "base_url": "http://0.0.0.0:8000",
         "api_prefix": "/api",
         "ws_prefix": "/ws",
         "test_timeout": 30,
@@ -597,7 +597,7 @@ def test_helpers():
                     "name": f"{metric_type}_percent",
                     "value": 50.0 + (i % 30),
                     "unit": "%",
-                    "labels": {"host": "localhost"}
+                    "labels": {"host": "0.0.0.0"}
                 }
                 for i in range(count)
             ]

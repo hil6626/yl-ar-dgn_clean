@@ -1,27 +1,53 @@
 {
   "name": "L5 执行层",
-  "description": "按部署成熟度分阶段的可执行清单（以“可验证 Gate”为验收口径）",
-  "version": "1.0.0",
-  "lastUpdated": "2026-02-04",
+  "description": "按部署成熟度分阶段的可执行清单（以可验证 Gate 为验收口径）",
+  "version": "1.2.0",
+  "lastUpdated": "2026-02-16",
   "executionPlans": {
     "local-manual": {
       "gates": ["entrypoints_exist", "basic_health_check"],
       "phases": [
         {
           "name": "bootstrap",
+          "status": "completed",
+          "completedDate": "2026-02-16",
           "steps": [
-            "确认入口：user/gui/gui.py 可启动 GUI；YL-monitor/index/index.html 可打开；scripts/verify_start.sh 可运行",
+            "确认入口：user/main.py 可启动 GUI；YL-monitor (5500) 运行中；AR-backend (5501) 运行中",
             "确认 logs/ 目录存在并可写",
-            "运行基础脚本：scripts/monitor/health_check.py、scripts/monitor/resource_monitor.py（如可用）"
+            "运行基础脚本：统一监控面板验证通过"
           ]
         }
       ]
     },
     "local-automated": {
-      "gates": ["scripts_mapping_consistent", "log_dirs_ready"],
+      "gates": ["scripts_mapping_consistent", "log_dirs_ready", "monitoring_integration", "gui_optimization"],
       "phases": [
         {
+          "name": "phase1-monitoring-integration",
+          "status": "completed",
+          "completedDate": "2026-02-16",
+          "steps": [
+            "AR-backend监控服务 (端口5501)：/health、/status、/metrics端点运行中",
+            "User-GUI状态上报 (端口5502)：状态上报服务运行中",
+            "YL-monitor统一监控 (端口5500)：统一监控面板部署完成",
+            "告警规则配置：统一监控API支持UI层/API层/DAG层监控"
+          ]
+        },
+        {
+          "name": "phase2-gui-optimization",
+          "status": "completed",
+          "completedDate": "2026-02-16",
+          "steps": [
+            "user/main.py入口：支持路径自动发现和监控集成",
+            "user/core/path_manager.py：动态Python路径设置",
+            "user/services/ar_backend_client.py：HTTP服务客户端",
+            "user/config/settings.py：配置管理器",
+            "功能验证：所有README文档已同步更新"
+          ]
+        },
+        {
           "name": "contract-alignment",
+          "status": "in_progress",
           "steps": [
             "对齐脚本契约：路由/服务引用的脚本文件必须存在且可执行",
             "统一脚本输出：支持 --json（或明确的输出约定）",
@@ -74,6 +100,7 @@
   },
   "automation": {
     "scripts": [
+      "scripts/yl-ar-dgn.sh",
       "scripts/verify_start.sh",
       "scripts/check_dependencies.py",
       "scripts/check_scripts_integrity.py",
@@ -84,6 +111,33 @@
       "scripts/security/security_scan.py"
     ]
   },
+  "completedPhases": [
+    {
+      "id": "phase1",
+      "name": "监控整合",
+      "status": "completed",
+      "completionDate": "2026-02-16",
+      "deliverables": [
+        "AR-backend监控服务 (5501)",
+        "User-GUI状态上报 (5502)",
+        "YL-monitor统一监控面板 (5500)",
+        "统一监控API架构"
+      ]
+    },
+    {
+      "id": "phase2",
+      "name": "User GUI优化",
+      "status": "completed",
+      "completionDate": "2026-02-16",
+      "deliverables": [
+        "user/main.py优化入口",
+        "user/core/path_manager.py路径管理",
+        "user/services/ar_backend_client.py服务客户端",
+        "user/config/settings.py配置管理",
+        "所有README文档同步更新"
+      ]
+    }
+  ],
   "rules": [
     {
       "id": "completed-to-validated",

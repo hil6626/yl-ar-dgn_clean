@@ -21,7 +21,7 @@ scrape_configs:
   # Prometheus 自身监控
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['0.0.0.0:9090']
     metrics_path: /metrics
 
   # 监控服务自身

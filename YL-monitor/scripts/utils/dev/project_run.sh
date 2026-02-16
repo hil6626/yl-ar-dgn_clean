@@ -180,14 +180,14 @@ read -p "请输入选项 [1-5]: " choice
 case $choice in
     1)
         print_header "启动开发模式"
-        print_info "应用将在 http://localhost:${YL_MONITOR_PORT} 运行"
+        print_info "应用将在 http://0.0.0.0:${YL_MONITOR_PORT} 运行"
         print_info "按 Ctrl+C 停止应用"
         sleep 2
         uvicorn app.main:app --reload --host "${YL_MONITOR_HOST}" --port "${YL_MONITOR_PORT}"
         ;;
     2)
         print_header "启动生产模式"
-        print_info "应用将在 http://localhost:${YL_MONITOR_PORT} 运行"
+        print_info "应用将在 http://0.0.0.0:${YL_MONITOR_PORT} 运行"
         print_info "按 Ctrl+C 停止应用"
         sleep 2
         uvicorn app.main:app --host "${YL_MONITOR_HOST}" --port "${YL_MONITOR_PORT}" --workers 4
@@ -208,7 +208,7 @@ case $choice in
         if kill -0 $APP_PID 2>/dev/null; then
             print_success "应用已启动，PID: $APP_PID"
             print_info "日志文件: yl-monitor.log"
-            print_info "访问地址: http://localhost:${YL_MONITOR_PORT}"
+            print_info "访问地址: http://0.0.0.0:${YL_MONITOR_PORT}"
             print_info "停止应用: kill $APP_PID"
         else
             print_error "应用启动失败，请查看日志"
@@ -242,7 +242,7 @@ case $choice in
         print_success "Docker 容器已启动"
         print_info "查看日志: docker-compose logs -f"
         print_info "停止容器: docker-compose down"
-        print_info "访问地址: http://localhost:${YL_MONITOR_PORT}"
+        print_info "访问地址: http://0.0.0.0:${YL_MONITOR_PORT}"
         ;;
     5)
         print_header "运行验证脚本"

@@ -25,7 +25,7 @@ EXPOSE 5501
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:5501/health || exit 1
+    CMD curl -f http://0.0.0.0:5501/health || exit 1
 
 # 启动命令
 CMD ["python3", "monitor_server.py"]

@@ -54,7 +54,7 @@ class TestCacheConfig:
             default_ttl=600,
             max_size=500,
             strategy=CacheStrategy.LRU,
-            redis_host="localhost",
+            redis_host="0.0.0.0",
             redis_port=6379,
         )
         

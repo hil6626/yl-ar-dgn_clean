@@ -32,7 +32,7 @@ module.exports = defineConfig({
   /* 共享配置 */
   use: {
     /* 基础URL */
-    baseURL: 'http://localhost:5500',
+    baseURL: 'http://0.0.0.0:5500',
     
     /* 截图配置 */
     screenshot: 'only-on-failure',
@@ -72,7 +72,7 @@ module.exports = defineConfig({
   /* 本地开发服务器配置 */
   webServer: {
     command: 'cd ../.. && python -m app.main',
-    url: 'http://localhost:5500',
+    url: 'http://0.0.0.0:5500',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

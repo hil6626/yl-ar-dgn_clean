@@ -93,7 +93,7 @@ print_info "等待服务启动（最多 10 秒）..."
 MAX_WAIT=10
 WAIT_COUNT=0
 while [ $WAIT_COUNT -lt $MAX_WAIT ]; do
-    if curl -s http://localhost:$PORT/api/health >/dev/null 2>&1; then
+    if curl -s http://0.0.0.0:$PORT/api/health >/dev/null 2>&1; then
         print_success "服务已就绪！"
         break
     fi
@@ -125,11 +125,11 @@ tail -n 20 "$PROJECT_DIR/logs/startup.log"
 print_header "运行验证测试"
 
 print_info "1. 测试健康检查接口..."
-curl -s http://localhost:$PORT/api/health | python3 -m json.tool 2>/dev/null || curl -s http://localhost:$PORT/api/health
+curl -s http://0.0.0.0:$PORT/api/health | python3 -m json.tool 2>/dev/null || curl -s http://0.0.0.0:$PORT/api/health
 echo ""
 
 print_info "2. 测试主页面..."
-HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:$PORT/)
+HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://0.0.0.0:$PORT/)
 if [ "$HTTP_STATUS" = "200" ]; then
     print_success "主页面返回 200 OK"
 else
@@ -137,7 +137,7 @@ else
 fi
 
 print_info "3. 测试静态资源..."
-CSS_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:$PORT/static/css/style.css)
+CSS_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://0.0.0.0:$PORT/static/css/style.css)
 if [ "$CSS_STATUS" = "200" ]; then
     print_success "静态资源返回 200 OK"
 else
@@ -145,31 +145,31 @@ else
 fi
 
 print_info "4. 测试 API 概览..."
-curl -s http://localhost:$PORT/api/summary | python3 -m json.tool 2>/dev/null | head -20 || curl -s http://localhost:$PORT/api/summary | head -20
+curl -s http://0.0.0.0:$PORT/api/summary | python3 -m json.tool 2>/dev/null | head -20 || curl -s http://0.0.0.0:$PORT/api/summary | head -20
 echo ""
 
 # 打开浏览器
 print_header "打开浏览器"
-print_info "正在打开浏览器访问 http://localhost:$PORT/"
+print_info "正在打开浏览器访问 http://0.0.0.0:$PORT/"
 
 # 尝试多种方式打开浏览器
 if command -v xdg-open &> /dev/null; then
-    xdg-open "http://localhost:$PORT/" &
+    xdg-open "http://0.0.0.0:$PORT/" &
     print_success "已使用 xdg-open 打开浏览器"
 elif command -v google-chrome &> /dev/null; then
-    google-chrome "http://localhost:$PORT/" &
+    google-chrome "http://0.0.0.0:$PORT/" &
     print_success "已使用 Chrome 打开浏览器"
 elif command -v firefox &> /dev/null; then
-    firefox "http://localhost:$PORT/" &
+    firefox "http://0.0.0.0:$PORT/" &
     print_success "已使用 Firefox 打开浏览器"
 else
-    print_info "请手动打开浏览器访问: http://localhost:$PORT/"
+    print_info "请手动打开浏览器访问: http://0.0.0.0:$PORT/"
 fi
 
 print_header "启动完成"
 print_success "YL-Monitor 已成功启动并验证！"
-print_info "访问地址: http://localhost:$PORT/"
-print_info "API 文档: http://localhost:$PORT/api-doc"
+print_info "访问地址: http://0.0.0.0:$PORT/"
+print_info "API 文档: http://0.0.0.0:$PORT/api-doc"
 print_info "服务 PID: $APP_PID"
 print_info "停止服务: kill $APP_PID"
 

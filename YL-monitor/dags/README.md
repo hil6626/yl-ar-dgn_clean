@@ -287,7 +287,7 @@ GET /api/dag/status?dag_id=dag_001&run_id=run_xxx
 ### WebSocket 实时推送
 
 ```javascript
-const ws = new WebSocket("ws://localhost:5500/ws/dag?dag_id=dag_001&run_id=run_xxx");
+const ws = new WebSocket("ws://0.0.0.0:5500/ws/dag?dag_id=dag_001&run_id=run_xxx");
 
 ws.onmessage = (event) => {
   const msg = JSON.parse(event.data);

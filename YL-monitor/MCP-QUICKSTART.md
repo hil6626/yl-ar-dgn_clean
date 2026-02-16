@@ -145,7 +145,7 @@ node .vscode/mcp-server.js $(pwd)
 
 ```bash
 # 检查服务状态
-curl http://localhost:5500/api/health
+curl http://0.0.0.0:5500/api/health
 
 # 检查端口配置
 cat .vscode/mcp.json | grep YL_MONITOR_PORT

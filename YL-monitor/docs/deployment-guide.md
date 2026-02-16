@@ -228,10 +228,10 @@ cat /proc/cpuinfo | grep "model name"
 3. **验证服务**
    ```bash
    # 健康检查
-   curl http://localhost:8000/health
+   curl http://0.0.0.0:8000/health
    
    # 查看API文档
-   curl http://localhost:8000/api/docs
+   curl http://0.0.0.0:8000/api/docs
    ```
 
 ### 3.3 方式三：手动部署
@@ -379,12 +379,12 @@ DATABASE_URL=sqlite:///data/yl_monitor.db
 
 **PostgreSQL (推荐生产环境)**:
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/yl_monitor
+DATABASE_URL=postgresql://user:password@0.0.0.0:5432/yl_monitor
 ```
 
 **MySQL**:
 ```env
-DATABASE_URL=mysql://user:password@localhost:3306/yl_monitor
+DATABASE_URL=mysql://user:password@0.0.0.0:3306/yl_monitor
 ```
 
 ### 4.3 缓存配置
@@ -398,7 +398,7 @@ CACHE_TTL=300
 **Redis缓存 (推荐)**:
 ```env
 CACHE_BACKEND=redis
-REDIS_URL=redis://localhost:6379/0
+REDIS_URL=redis://0.0.0.0:6379/0
 REDIS_PASSWORD=your-redis-password
 ```
 
@@ -421,7 +421,7 @@ FROM_EMAIL=noreply@yl-monitor.com
 
 ```bash
 # 检查服务健康状态
-curl http://localhost:8000/health
+curl http://0.0.0.0:8000/health
 
 # 预期响应
 {
@@ -435,10 +435,10 @@ curl http://localhost:8000/health
 
 ```bash
 # 测试API接口
-curl http://localhost:8000/api/v1/meta
+curl http://0.0.0.0:8000/api/v1/meta
 
 # 测试认证
-curl -X POST http://localhost:8000/api/v1/auth/login \
+curl -X POST http://0.0.0.0:8000/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}'
 ```

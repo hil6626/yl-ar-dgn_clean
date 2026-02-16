@@ -79,7 +79,7 @@ class BaseVerifier:
 class APIVerifier(BaseVerifier):
     """API接口验证器"""
     
-    def __init__(self, host: str = 'localhost', port: int = 5500, **kwargs):
+    def __init__(self, host: str = '0.0.0.0', port: int = 5500, **kwargs):
         super().__init__(**kwargs)
         self.base_url = f"http://{host}:{port}"
         self.endpoints = {
@@ -187,7 +187,7 @@ class APIVerifier(BaseVerifier):
 class PageVerifier(BaseVerifier):
     """页面验证器"""
     
-    def __init__(self, host: str = 'localhost', port: int = 5500, **kwargs):
+    def __init__(self, host: str = '0.0.0.0', port: int = 5500, **kwargs):
         super().__init__(**kwargs)
         self.base_url = f"http://{host}:{port}"
         self.pages = [
@@ -544,7 +544,7 @@ class ReferenceVerifier(BaseVerifier):
 class AlertCenterVerifier(BaseVerifier):
     """告警中心验证器"""
     
-    def __init__(self, host: str = 'localhost', port: int = 5500, **kwargs):
+    def __init__(self, host: str = '0.0.0.0', port: int = 5500, **kwargs):
         super().__init__(**kwargs)
         self.base_url = f"http://{host}:{port}"
     
@@ -629,7 +629,7 @@ class AlertCenterVerifier(BaseVerifier):
 class ProjectVerifier:
     """统一项目验证器"""
     
-    def __init__(self, host: str = 'localhost', port: int = 5500, verbose: bool = False):
+    def __init__(self, host: str = '0.0.0.0', port: int = 5500, verbose: bool = False):
         self.host = host
         self.port = port
         self.verbose = verbose
@@ -788,8 +788,8 @@ def main():
     # 连接配置
     parser.add_argument(
         '--host', '-H',
-        default='localhost',
-        help='目标主机 (默认: localhost)'
+        default='0.0.0.0',
+        help='目标主机 (默认:0.0.0.0)'
     )
     parser.add_argument(
         '--port', '-p',

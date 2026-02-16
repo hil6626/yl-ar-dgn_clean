@@ -134,7 +134,7 @@ main() {
         print_info "建议操作："
         print_info "1. 清除浏览器缓存 (Ctrl+Shift+R 或 Cmd+Shift+R)"
         print_info "2. 重新启动后端服务"
-        print_info "3. 访问 http://localhost:8000/dashboard 测试"
+        print_info "3. 访问 http://0.0.0.0:8000/dashboard 测试"
         exit 0
     else
         print_error "发现 $errors 个问题，请检查上述错误项"

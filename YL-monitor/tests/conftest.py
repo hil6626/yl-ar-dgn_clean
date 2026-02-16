@@ -369,7 +369,7 @@ def test_config() -> Dict[str, Any]:
         Dict[str, Any]: 测试配置
     """
     return {
-        "base_url": "http://localhost:8000",
+        "base_url": "http://0.0.0.0:8000",
         "api_prefix": "/api",
         "ws_prefix": "/ws",
         "test_timeout": 30,

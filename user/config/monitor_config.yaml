@@ -2,7 +2,7 @@
 
 monitor:
   # YL-monitor 地址
-  url: "http://localhost:5500"
+  url: "http://0.0.0.0:5500"
   
   # 节点标识
   node_id: "user-gui"

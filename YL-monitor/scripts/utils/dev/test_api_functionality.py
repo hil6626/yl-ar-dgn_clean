@@ -42,7 +42,7 @@ async def run_tests():
     port = os.getenv("YL_MONITOR_PORT", "5500")
 
     # 创建测试客户端
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://0.0.0.0") as client:
         
         # ============================================================================
         # 测试 1: 健康检查
@@ -277,7 +277,7 @@ async def run_tests():
 
 建议的后续步骤：
   1. 启动应用服务器
-  2. 在浏览器中访问 http://localhost:{port}
+  2. 在浏览器中访问 http://0.0.0.0:{port}
   3. 测试 WebSocket 实时连接
   4. 验证各页面功能
   5. 测试脚本执行功能

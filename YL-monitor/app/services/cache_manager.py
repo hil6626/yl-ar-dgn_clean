@@ -47,10 +47,10 @@ class CacheConfig:
     default_ttl: int = 300  # 默认5分钟
     max_size: int = 1000    # 最大缓存条目数
     strategy: CacheStrategy = CacheStrategy.TTL
-    redis_host: str = "localhost"
+    redis_host: str = "0.0.0.0"
     redis_port: int = 6379
     redis_db: int = 0
-    memcached_servers: List[str] = field(default_factory=lambda: ["localhost:11211"])
+    memcached_servers: List[str] = field(default_factory=lambda: ["0.0.0.0:11211"])
 
 
 @dataclass

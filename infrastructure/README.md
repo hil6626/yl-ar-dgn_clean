@@ -272,7 +272,7 @@ route:
 receivers:
   - name: 'critical-alerts'
     webhook_configs:
-      - url: 'http://localhost:5001/alerts/critical'
+      - url: 'http://0.0.0.0:5001/alerts/critical'
       - url: 'https://hooks.slack.com/services/xxx/yyy/zzz'
 ```
 
@@ -334,16 +334,16 @@ docker-compose up -d
 docker-compose ps
 
 # 检查健康状态
-curl http://localhost:9090/api/v1/query?query=up
+curl http://0.0.0.0:9090/api/v1/query?query=up
 ```
 
 ### 访问地址
 
 | 服务 | 地址 | 凭据 |
 |------|------|------|
-| Grafana | http://localhost:3000 | admin/admin |
-| Prometheus | http://localhost:9090 | 无需认证 |
-| Alertmanager | http://localhost:9093 | 无需认证 |
+| Grafana | http://0.0.0.0:3000 | admin/admin |
+| Prometheus | http://0.0.0.0:9090 | 无需认证 |
+| Alertmanager | http://0.0.0.0:9093 | 无需认证 |
 
 ---
 
@@ -380,23 +380,23 @@ docker-compose exec -T postgres pg_isready -U admin
 docker-compose exec -T redis redis-cli ping
 
 # Prometheus
-curl http://localhost:9090/api/v1/query?query=up
+curl http://0.0.0.0:9090/api/v1/query?query=up
 
 # Grafana
-curl http://localhost:3000/api/health
+curl http://0.0.0.0:3000/api/health
 ```
 
 ### 4. 监控数据验证
 
 ```bash
 # 检查Prometheus目标
-curl http://localhost:9090/api/v1/targets
+curl http://0.0.0.0:9090/api/v1/targets
 
 # 检查告警规则
-curl http://localhost:9090/api/v1/rules
+curl http://0.0.0.0:9090/api/v1/rules
 
 # 检查Grafana数据源
-curl -u admin:admin http://localhost:3000/api/datasources
+curl -u admin:admin http://0.0.0.0:3000/api/datasources
 ```
 
 ---
@@ -456,11 +456,11 @@ docker network inspect yl-ar-dgn_backend_network
 **解决方案:**
 ```bash
 # 检查Prometheus目标状态
-curl http://localhost:9090/api/v1/targets
+curl http://0.0.0.0:9090/api/v1/targets
 
 # 检查exporter状态
-curl http://localhost:9100/metrics
-curl http://localhost:9187/metrics
+curl http://0.0.0.0:9100/metrics
+curl http://0.0.0.0:9187/metrics
 ```
 
 ### 回滚步骤

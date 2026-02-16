@@ -11,9 +11,9 @@ import unittest
 from datetime import datetime
 
 # 配置
-YL_MONITOR_URL = "http://localhost:5500"
-AR_BACKEND_URL = "http://localhost:5501"
-USER_GUI_URL = "http://localhost:5502"
+YL_MONITOR_URL = "http://0.0.0.0:5500"
+AR_BACKEND_URL = "http://0.0.0.0:5501"
+USER_GUI_URL = "http://0.0.0.0:5502"
 
 class TestMonitoringIntegration(unittest.TestCase):
     """监控整合集成测试"""

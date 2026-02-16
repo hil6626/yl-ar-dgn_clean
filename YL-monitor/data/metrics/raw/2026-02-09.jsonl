@@ -1,4 +1,4 @@
-{"timestamp": "2026-02-09T00:02:27.649120", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "localhost"}}
-{"timestamp": "2026-02-09T00:10:16.050911", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "localhost"}}
-{"timestamp": "2026-02-09T00:19:52.647356", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "localhost"}}
-{"timestamp": "2026-02-09T00:20:14.757503", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "localhost"}}
+{"timestamp": "2026-02-09T00:02:27.649120", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "0.0.0.0"}}
+{"timestamp": "2026-02-09T00:10:16.050911", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "0.0.0.0"}}
+{"timestamp": "2026-02-09T00:19:52.647356", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "0.0.0.0"}}
+{"timestamp": "2026-02-09T00:20:14.757503", "metric_type": "cpu", "name": "cpu_percent", "value": 45.5, "unit": "%", "labels": {"host": "0.0.0.0"}}

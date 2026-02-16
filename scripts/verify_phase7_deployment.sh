@@ -134,7 +134,7 @@ if pgrep -f "monitor_server.py" > /dev/null; then
     echo -e "${GREEN}✓${NC} AR-backend监控服务运行中"
     
     # 测试健康检查端点
-    response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5501/health 2>/dev/null)
+    response=$(curl -s -o /dev/null -w "%{http_code}" http://0.0.0.0:5501/health 2>/dev/null)
     if [ "$response" = "200" ]; then
         echo -e "${GREEN}✓${NC} 健康检查端点 /health 响应正常 (200)"
     else
@@ -147,7 +147,7 @@ else
 fi
 
 # 检查YL-monitor服务
-if pgrep -f "uvicorn app.main:app" > /dev/null || curl -s http://localhost:5500/api/v1/dashboard/overview > /dev/null 2>&1; then
+if pgrep -f "uvicorn app.main:app" > /dev/null || curl -s http://0.0.0.0:5500/api/v1/dashboard/overview > /dev/null 2>&1; then
     echo -e "${GREEN}✓${NC} YL-monitor服务运行中"
 else
     echo -e "${YELLOW}⚠${NC} YL-monitor服务未运行或无法访问"

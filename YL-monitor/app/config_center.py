@@ -27,7 +27,7 @@ class ConfigSection:
 @dataclass
 class DatabaseConfig(ConfigSection):
     """数据库配置"""
-    host: str = "localhost"
+    host: str = "0.0.0.0"
     port: int = 5432
     username: str = ""
     password: str = ""

@@ -441,7 +441,7 @@
         "exec": [
           "// 设置默认 base_url",
           "if (!pm.environment.get('base_url')) {",
-          "    pm.environment.set('base_url', 'http://localhost:5500');",
+          "    pm.environment.set('base_url', 'http://0.0.0.0:5500');",
           "}"
         ]
       }
@@ -450,7 +450,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:5500",
+      "value": "http://0.0.0.0:5500",
       "type": "string",
       "description": "YL-Monitor 服务基础 URL"
     },

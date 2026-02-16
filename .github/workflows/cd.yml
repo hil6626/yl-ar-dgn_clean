@@ -53,8 +53,8 @@ jobs:
       - name: Run smoke tests
         run: |
           echo "运行冒烟测试..."
-          curl -f http://localhost:8000/health || exit 1
-          curl -f http://localhost:3000/api/health || exit 1
+          curl -f http://0.0.0.0:8000/health || exit 1
+          curl -f http://0.0.0.0:3000/api/health || exit 1
 
       - name: Notify deployment
         uses: slackapi/slack-github-action@v2.0.0

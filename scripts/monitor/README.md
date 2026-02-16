@@ -14,7 +14,7 @@ python3 scripts/monitor/health_check.py --once --json
 python3 scripts/monitor/monitor.py --interval 5
 
 # 3) API 健康检查（报告）
-python3 scripts/monitor/api_health_check.py --url http://localhost:5000 --report
+python3 scripts/monitor/api_health_check.py --url http://0.0.0.0:5000 --report
 
 # 4) 资源监控（JSON 输出）
 python3 scripts/monitor/resource_monitor.py --json

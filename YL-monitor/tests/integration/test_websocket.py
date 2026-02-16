@@ -38,7 +38,7 @@ class TestWebSocketIntegration:
     @pytest.fixture
     def ws_url(self, test_config):
         """WebSocket基础URL"""
-        return "ws://localhost:8000/ws"
+        return "ws://0.0.0.0:8000/ws"
     
     # ==================== 连接测试 ====================
     

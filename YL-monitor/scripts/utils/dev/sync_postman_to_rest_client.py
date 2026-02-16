@@ -26,7 +26,7 @@ class PostmanToRestClientConverter:
         self.collection_path = Path(collection_path)
         self.output_path = Path(output_path)
         self.environment_path = Path(environment_path) if environment_path else None
-        self.base_url = "http://localhost:5500"
+        self.base_url = "http://0.0.0.0:5500"
         self.environment_vars = {}
         self.request_counter = 0
         

@@ -181,7 +181,7 @@ class TestWebSocketPerformance:
             
             # 尝试连接WebSocket
             async with websockets.connect(
-                "ws://localhost:8000/ws/dashboard/realtime",
+                "ws://0.0.0.0:8000/ws/dashboard/realtime",
                 timeout=5
             ) as ws:
                 # 等待第一条消息

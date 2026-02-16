@@ -102,13 +102,13 @@ health:
 	@echo "运行健康检查..."
 	@echo ""
 	@echo "AR-backend:"
-	curl -sf http://localhost:8000/health && echo " ✅ 健康" || echo " ❌ 不健康"
+	curl -sf http://0.0.0.0:8000/health && echo " ✅ 健康" || echo " ❌ 不健康"
 	@echo ""
 	@echo "Prometheus:"
-	curl -sf http://localhost:9090/api/v1/query?query=up && echo " ✅ 健康" || echo " ❌ 不健康"
+	curl -sf http://0.0.0.0:9090/api/v1/query?query=up && echo " ✅ 健康" || echo " ❌ 不健康"
 	@echo ""
 	@echo "Grafana:"
-	curl -sf http://localhost:3000/api/health && echo " ✅ 健康" || echo " ❌ 不健康"
+	curl -sf http://0.0.0.0:3000/api/health && echo " ✅ 健康" || echo " ❌ 不健康"
 
 # Cleanup commands
 clean:
@@ -139,13 +139,13 @@ db-restore:
 # Monitoring commands
 monitor-dashboard:
 	@echo "打开Grafana仪表板..."
-	@echo "访问 http://localhost:3000"
+	@echo "访问 http://0.0.0.0:3000"
 	@echo "用户名: admin"
 	@echo "密码: admin"
 
 monitor-prometheus:
 	@echo "打开Prometheus..."
-	@echo "访问 http://localhost:9090"
+	@echo "访问 http://0.0.0.0:9090"
 
 # Security commands
 security-scan:
@@ -185,10 +185,10 @@ info:
 	@echo "版本: 1.0.0"
 	@echo ""
 	@echo "服务端口:"
-	@echo "  - AR-backend: http://localhost:8000"
-	@echo "  - Prometheus: http://localhost:9090"
-	@echo "  - Grafana: http://localhost:3000"
-	@echo "  - Alertmanager: http://localhost:9093"
+	@echo "  - AR-backend: http://0.0.0.0:8000"
+	@echo "  - Prometheus: http://0.0.0.0:9090"
+	@echo "  - Grafana: http://0.0.0.0:3000"
+	@echo "  - Alertmanager: http://0.0.0.0:9093"
 
 # Docker commands
 docker-login:

@@ -312,6 +312,26 @@ def register_routers():
         logger.info("✓ V1 API 路由已注册")
     except Exception as e:
         logger.warning(f"⚠ V1 API 路由注册失败（非关键）: {e}")
+    
+    # 统一监控路由（UI/API/DAG分层监控）
+    try:
+        from app.routes.monitor import router as monitor_router
+        app.include_router(monitor_router, prefix="/api/v1")
+        logger.info("✓ 统一监控路由已注册 (/api/v1/monitor/ui, /api/v1/monitor/api, /api/v1/monitor/dag)")
+    except Exception as e:
+        logger.warning(f"⚠ 统一监控路由注册失败（非关键）: {e}")
+    
+    # 五层监控路由（L1-L5监控架构）
+    try:
+        from app.api.v1.monitor import infrastructure, system_resources, application, business, user_experience
+        app.include_router(infrastructure.router, prefix="/api/v1/monitor")
+        app.include_router(system_resources.router, prefix="/api/v1/monitor")
+        app.include_router(application.router, prefix="/api/v1/monitor")
+        app.include_router(business.router, prefix="/api/v1/monitor")
+        app.include_router(user_experience.router, prefix="/api/v1/monitor")
+        logger.info("✓ 五层监控路由已注册 (/api/v1/monitor/infrastructure, /api/v1/monitor/system-resources, /api/v1/monitor/application, /api/v1/monitor/business, /api/v1/monitor/user-experience)")
+    except Exception as e:
+        logger.warning(f"⚠ 五层监控路由注册失败（非关键）: {e}")
 
 
 # 注册 WebSocket 路由
